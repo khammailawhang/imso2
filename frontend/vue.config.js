@@ -10,15 +10,15 @@ module.exports = {
     //       filename: 'index.html',
     //     },
     // },
-    // devServer: {
-    //     proxy: {
-    //         '/api': {
-    //             target: 'http://165.22.250.168:8080',
-    //             ws: true,
-    //             changeOrigin: true
-    //         }
-    //     }
-    // },
+    devServer: {
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8080',
+                ws: true,
+                changeOrigin: true
+            }
+        }
+    },
 
     pluginOptions: {
         i18n: {
