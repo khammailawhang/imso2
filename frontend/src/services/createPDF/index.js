@@ -1,7 +1,7 @@
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from './fonts/vfs_fonts';
-// import console from 'console';
-
+import console from 'console';
+import axios from "axios";
 import getTitle from './inspectionContents/titleContent';
 import getCar from './inspectionContents/carContent.js';
 import getInspection from './inspectionContents/inspectionContent';
@@ -69,8 +69,8 @@ async function uploadToSpaces(blob) {
     const formData = new FormData()
         // Add pdf data to array of formData
     formData.append('file', pdfFile)
-    axios.post('/photoims', formData, {
-            baseURL: 'https://photoims.sgp1.digitaloceanspaces.com/pdf'
+    axios.post('/pdf', formData, {
+            baseURL: 'https://photoims.sgp1.digitaloceanspaces.com'
         })
         .then(res => {
             console.log(res)
@@ -111,10 +111,10 @@ export default {
             }
         }
         const pdfDocGenerator = await pdfMake.createPdf(docDefinition)
-            // pdfDocGenerator.download('pdfReport.pdf')
+        pdfDocGenerator.download('pdfReport.pdf')
 
-        await pdfDocGenerator.open(data)
-            // Get PDF as blob for upload to server files store
+        // await pdfDocGenerator.open(data)
+        // Get PDF as blob for upload to server files store
         await pdfDocGenerator.getBlob(blob => {
             // console.log(blob)
             uploadToSpaces(blob)
