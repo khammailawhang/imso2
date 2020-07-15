@@ -14,7 +14,7 @@ export default {
                     },
                     [{
                         image: data.photo,
-                        fit: [200, 250],
+                        fit: [160, 230],
                         alignment: 'center'
                     }]
                 ],

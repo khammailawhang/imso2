@@ -69,15 +69,15 @@ async function uploadToSpaces(blob) {
     const formData = new FormData()
         // Add pdf data to array of formData
     formData.append('file', pdfFile)
-        // axios.post('/photoims', formData, {
-        //         baseURL: 'https://photoims.sgp1.digitaloceanspaces.com'
-        //     })
-        // .then(res => {
-        //     console.log(res)
-        // })
-        // .catch(err => {
-        //     console.log(err)
-        // })
+    axios.post('/photoims', formData, {
+            baseURL: 'https://photoims.sgp1.digitaloceanspaces.com/pdf'
+        })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }
 
 // function getFilename(value) {
