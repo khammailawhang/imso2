@@ -72,7 +72,7 @@
                     >Not pay</span>
                   </template>
                     <template v-slot:item.platc_no="{ item }">
-                                    <v-btn small width="60px" depressed  :color="getColorplatc_no(item.platc_no)">
+                                    <v-btn width="60px" depressed  :color="getColorplatc_no(item.platc_no)">
                                         <v-text>{{ item.platc_no }}</v-text>
                                     </v-btn>
                                 </template>
