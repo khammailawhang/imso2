@@ -231,7 +231,7 @@ export default {
 
   methods: {
     getColorplatc_no(platc_no) {
-      if (platc_no > 9000) return "#3d5afe ";
+      if (platc_no > 9000) return "#F9A825 ";
       // else if (platc_no > 9999) return '#F9A825'
       else return "#F9A825";
     },
