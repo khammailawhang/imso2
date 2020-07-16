@@ -2,7 +2,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from './fonts/vfs_fonts';
 
 import console from 'console';
-
+import axios from "axios";
 import getTitle from './inspectionContents/titleContent';
 // import getCar from './inspectionContents/carContent.js';
 import getInspection from './inspectionContents/inspectionContent';
@@ -105,7 +105,7 @@ export default {
         pdfDocGenerator.open()
             // Get PDF as blob for upload to server files store
         await pdfDocGenerator.getBlob(blob => {
-            // console.log(blob)
+            console.log(blob)
             uploadToSpaces(blob)
         })
     }

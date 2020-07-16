@@ -116,7 +116,7 @@ export default {
         await pdfDocGenerator.open(data)
             // Get PDF as blob for upload to server files store
         await pdfDocGenerator.getBlob(blob => {
-            // console.log(blob)
+            console.log(blob)
             uploadToSpaces(blob)
         })
     }
