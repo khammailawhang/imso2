@@ -8,13 +8,23 @@ router.get("/", async function(req, res, next) {
         colors: row
     });
 });
+// router.post("/create", async function(req, res) {
+//     let rows = await db("tb_color").insert({
+//         name: req.body.name
+//     });
+//     return res.send({ ok: true });
+// });
 router.post("/create", async function(req, res) {
-    let rows = await db("tb_color").insert({
-        name: req.body.name
-    });
-    return res.send({ ok: true });
+    let result = await db("tb_color").where("name", "=", req.body.name);
+    if (result == 0) {
+        let rows = await db("tb_color").insert({
+            name: req.body.name,
+        });
+        return res.send({ msg: "Success", colors: rows, ok: true });
+    } else {
+        return res.send({ msg: "Error", status: false });
+    }
 });
-
 router.get("/color_id/:color_id", async function(req, res) {
     let row = await db("tb_color").where("color_id", "=", req.params.color_id);
     if (row.length === 0) {
@@ -27,34 +37,34 @@ router.get("/color_id/:color_id", async function(req, res) {
 });
 
 // Filter
-router.get("/filter", async function (req, res) {
-  let rows;
-  let start = req.query.start_date;
-  let end = req.query.end_date;
-  if (start && end) {
-    rows = await db("tb_color").whereBetween("created_at", [start, end]);
-  } else {
-    rows = await db("tb_color");
-  }
-  res.send({
-    status: true,
-    colors: rows,
-  });
+router.get("/filter", async function(req, res) {
+    let rows;
+    let start = req.query.start_date;
+    let end = req.query.end_date;
+    if (start && end) {
+        rows = await db("tb_color").whereBetween("created_at", [start, end]);
+    } else {
+        rows = await db("tb_color");
+    }
+    res.send({
+        status: true,
+        colors: rows,
+    });
 });
 
-router.get("/a", async function (req, res) {
-  let rows;
-  let from = req.query.fromdate;
-  let to = req.query.todate;
-  if (from && to) {
-    rows = await db("tb_color").whereBetween("created_at", [from, to]);
-  } else {
-    rows = await db("tb_color");
-  }
-  res.send({
-    status: true,
-    colors: rows,
-  });
+router.get("/a", async function(req, res) {
+    let rows;
+    let from = req.query.fromdate;
+    let to = req.query.todate;
+    if (from && to) {
+        rows = await db("tb_color").whereBetween("created_at", [from, to]);
+    } else {
+        rows = await db("tb_color");
+    }
+    res.send({
+        status: true,
+        colors: rows,
+    });
 });
 
 router.put("/update", async function(req, res) {

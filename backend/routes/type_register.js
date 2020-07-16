@@ -11,14 +11,24 @@ router.get('/', async function(req, res, next) {
     })
     // ສ້າງລະຫັດ
 
-router.post('/create', async function(req, res) {
-    let rows = await db('tb_type_register')
-        .insert({
-            name: req.body.name
-        })
-    return res.send({ ok: true })
-})
-
+// router.post('/create', async function(req, res) {
+//     let rows = await db('tb_type_register')
+//         .insert({
+//             name: req.body.name
+//         })
+//     return res.send({ ok: true })
+// })
+router.post("/create", async function(req, res) {
+    let result = await db("tb_type_register").where("name", "=", req.body.name);
+    if (result == 0) {
+        let rows = await db("tb_type_register").insert({
+            name: req.body.name,
+        });
+        // return res.send({ msg: "Success", type: rows, ok: true });
+    } else {
+        return res.send({ msg: "Error", status: false });
+    }
+});
 // ສ້າງລະຫັດ
 router.get('/tr_id/:tr_id', async function(req, res) {
     let row = await db('tb_type_register')

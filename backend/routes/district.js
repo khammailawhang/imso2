@@ -70,15 +70,6 @@ router.get('/all', async function(req, res) {
 
 })
 
-router.post('/select', async function(req, res) {
-    let rows = await db('tb_selecttest')
-        .insert({
-            village_id: req.body.village_id,
-            district_id: req.body.district_id,
-            province_id: req.body.province_id
-        })
-    return res.send({ status: true })
-})
 
 router.get('/', async function(req, res, next) {
     let row = await db('tb_district')
@@ -90,16 +81,38 @@ router.get('/', async function(req, res, next) {
         districts: row
     })
 })
+
 router.post('/create', async function(req, res) {
     let rows = await db('tb_district')
-        .insert({
+        .innerJoin('tb_province', 'tb_district.province_id', 'tb_province.province_id')
+        .where("name", "=", req.body.name)
+
+    if (result == 0) {
+        let rows = await db("tb_district").insert({
             name: req.body.name,
             province_id: req.body.province_id,
             status: req.body.status
-        })
-    return res.send({ ok: true })
-})
+        });
+        return res.send({ msg: "Success", districts: rows, ok: true });
+    } else {
+        return res.send({ msg: "Error", status: false });
+    }
 
+});
+
+// router.post("/create", async function(req, res) {
+//     let result = await db("tb_province").where("name", "=", req.body.name);
+//     if (result == 0) {
+//         let rows = await db("tb_province").insert({
+//             name: req.body.name,
+//             province_id: req.body.province_id,
+//             status: req.body.status
+//         });
+//         return res.send({ msg: "Success", districts: rows, ok: true });
+//     } else {
+//         return res.send({ msg: "Error", status: false });
+//     }
+// });
 router.get('/district_id/:district_id', async function(req, res) {
     let row = await db('tb_district')
         .innerJoin('tb_province', 'tb_district.province_id', 'tb_province.province_id')

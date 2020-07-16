@@ -18,24 +18,38 @@ router.get('/type', async function(req, res) {
 })
 
 router.get('/', async function(req, res, next) {
-    let row = await db('tb_type')
-        .innerJoin('tb_model', 'tb_type.model_id', 'tb_model.model_id')
-        .select('tb_type.type_id as type_id', 'tb_type.name as TName', 'tb_type.price as PName', 'tb_type.created_at as created_at', 'tb_model.model_id as model_id', 'tb_model.name as MName')
-        .orderBy('created_at', 'desc')
-    res.send({
-        status: true,
-        types: row
+        let row = await db('tb_type')
+            .innerJoin('tb_model', 'tb_type.model_id', 'tb_model.model_id')
+            .select('tb_type.type_id as type_id', 'tb_type.name as TName', 'tb_type.price as PName', 'tb_type.created_at as created_at', 'tb_model.model_id as model_id', 'tb_model.name as MName')
+            .orderBy('created_at', 'desc')
+        res.send({
+            status: true,
+            types: row
+        })
     })
-})
-router.post('/create', async function(req, res) {
-    let rows = await db('tb_type')
-        .insert({
+    // router.post('/create', async function(req, res) {
+    //     let rows = await db('tb_type')
+    //         .insert({
+    //             model_id: req.body.model_id,
+    //             name: req.body.name,
+    //             price: req.body.price
+    //         })
+    //     res.send({ msg: true })
+    // })
+
+router.post("/create", async function(req, res) {
+    let result = await db("tb_type").where("name", "=", req.body.name);
+    if (result == 0) {
+        let rows = await db("tb_type").insert({
             model_id: req.body.model_id,
             name: req.body.name,
             price: req.body.price
-        })
-    res.send({ msg: true })
-})
+        });
+        return res.send({ msg: "Success", types: rows, ok: true });
+    } else {
+        return res.send({ msg: "Error", status: false });
+    }
+});
 
 router.get('/type_id/:type_id', async function(req, res) {
     let row = await db('tb_type')

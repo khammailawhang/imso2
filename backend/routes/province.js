@@ -9,13 +9,18 @@ router.get("/", async function(req, res, next) {
         provinces: row
     });
 });
-router.post("/create", async function(req, res) {
-    let rows = await db("tb_province").insert({
-        name: req.body.name
-    });
-    return res.send({ ok: true });
-});
 
+router.post("/create", async function(req, res) {
+    let result = await db("tb_province").where("name", "=", req.body.name);
+    if (result == 0) {
+        let rows = await db("tb_province").insert({
+            name: req.body.name,
+        });
+        return res.send({ msg: "Success", provinces: rows, ok: true });
+    } else {
+        return res.send({ msg: "Error", status: false });
+    }
+});
 // router.post("/create", async function(req, res) {
 //   let rows = await db("tb_province").insert({
 //     name: req.body.name,

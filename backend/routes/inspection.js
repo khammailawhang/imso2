@@ -3,6 +3,7 @@ var router = express.Router();
 var db = require("../lib/db.js");
 
 var conn = require("../lib/dbconn");
+
 //Expired date
 router.get("/expired/branch_id/:branch_id", async function(req, res) {
     let row = await db("tb_inspection")
@@ -1238,6 +1239,7 @@ router.get("/expired_date/branch_id/:branch_id", async function(req, res) {
         .where("tb_inspection.branch_id", "=", req.params.branch_id)
         .orderBy("tb_inspection.created_at", "desc");
     res.send({
+
         status: true,
         inspections: row,
     });
