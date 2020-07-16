@@ -101,8 +101,8 @@ export default {
             }
         }
         const pdfDocGenerator = await pdfMake.createPdf(docDefinition)
-        pdfDocGenerator.download('pdfReport.pdf')
-            // pdfDocGenerator.open()
+            // pdfDocGenerator.download('pdfReport.pdf')
+        pdfDocGenerator.open()
             // Get PDF as blob for upload to server files store
         await pdfDocGenerator.getBlob(blob => {
             // console.log(blob)
