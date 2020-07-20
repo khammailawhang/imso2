@@ -44,14 +44,14 @@
                         <v-card-text>
                             <v-data-table :headers="headers" :items="registers">
                                 <template v-slot:item.platc_no="{ item }">
-                                    <v-btn depressed width="60px" :color="getColorplatc_no(item.platc_no)">
+                                    <v-btn depressed  width="60px" :color="getColorplatc_no(item.platc_no)">
                                         <b>{{item.platc_no}}</b>
                                     </v-btn>
                                 </template>
                                 <template v-slot:item.dowload="{ index, item }">
                                     <v-tooltip left color="#00E676">
                                         <template v-slot:activator="{ on }">
-                                            <v-btn depressed color="#00E676" dark v-on="on" @click="editItem(item.register_id)">{{ $t("Inspection.Next") }}</v-btn>
+                                            <v-btn depressed  color="#00E676" dark v-on="on" @click="editItem(item.register_id)">{{ $t("Inspection.Next") }}</v-btn>
                                         </template>
                                         <span>{{ $t("Inspection.inspectionstart") }}</span>
                                     </v-tooltip>

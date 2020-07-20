@@ -27,6 +27,19 @@
                                 </template>
                                 <span>{{ $t("Inspection.Back") }}</span>
                             </v-tooltip>
+
+                            <template>
+                                <!-- <form method="post" @click="indexpdf()" enctype="multipart/form-data" action="/upload">
+                                    <v-btn class="success" @click="uploadPDFtoSpaces"> </v-btn> 
+                                    <input type="file" name="upload">
+                                    <input type="submit" class="button">
+                                </form> -->
+                                <!-- <v-btn class="success" @click="uploadPDFtoSpaces">Spaces</v-btn> -->
+                                <!-- <v-btn small :to="`/${$i18n.locale}/InspectionStart`" fab depressed color="#3D5AFE" dark v-on="on">
+                                        <v-icon small>mdi-undo-variant</v-icon>
+                                    </v-btn> -->
+                            </template>
+
                         </v-card-title>
                         <v-card-subtitle>
                             <v-row>
@@ -204,6 +217,7 @@ import jsPDF from 'jspdf';
 import VanillaQR from "vanillaqr";
 import createPDF from "../services/createPDF/index";
 import createPDF2 from "../services/createPDF2/index";
+// import indexpdf from "../../../backend/routes/indexpdf";
 Vue.use(format);
 Vue.use(VueAxios, axios);
 
@@ -353,6 +367,7 @@ export default {
         // let res = await axios.get("/api/inspection/inspection_id/" + this.$route.query.inspection_id);
         this.createPDF();
         this.createPDF2();
+        // this.indexpdf();
         // this.status();
 
         this.inspection_id = res.data.inspections.inspection_id || "";
@@ -437,6 +452,7 @@ export default {
     },
 
     methods: {
+
         generatePDFwithQRcode() {
             var qr = new VanillaQR({ // create QRcode
                 url: this.qrUrl + this.inspection_id + "/no_id/" + this.engine_no + "/Date/" + this.created_at
@@ -532,6 +548,7 @@ export default {
             createPDF2.createPDF2(inspection_data);
             // this.$router.push('file:///D:/Vuefrontend/imso/frontend/src/views/InspectionPrint.html?inspection_id=' + inspection_id )
         },
+   
         detailItem(inspection_id) {
             this.$router.push('Detail?inspection_id=' + inspection_id)
         },

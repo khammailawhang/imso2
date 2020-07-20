@@ -16,7 +16,7 @@ import Maska from "maska";
 
 Vue.use(Vuetify)
 Vue.use(Maska)
-// Vue.use(ShardsVue);
+    // Vue.use(ShardsVue);
 
 
 // Install BootstrapVue
@@ -31,6 +31,7 @@ export default new Vuetify({
                 iconfont: 'md',
                 secondary: colors.red.headers, // #FFCDD2
                 accent: colors.indigo.base, // #3F51B5
+
             },
         },
     },

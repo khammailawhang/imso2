@@ -9,7 +9,7 @@ export default {
                         width: 'auto',
                         stack: [
                             { text: '- ຖ້າລະບົບໃດໜຶ່ງບໍ່ຜ່ານ ແມ່ນເອົາໄປສ້ອມແປງຄືນແລ້ວເອົາມາກວດໃໝ່.\n- If some system failed, it must be to repaired then inspect that system again', fontSize: 7.5, lineHeight: 1 },
-                            { qr: 'https://photoims.sgp1.digitaloceanspaces.com' + func.getTime(), fit: '100', alignment: 'center', margin: [0, 10] }
+                            { qr: 'https://photoims.sgp1.digitaloceanspaces.com/pdf/a8c8a4c9-35f5-47a1-af72-3e36c275bdfe.pdf', fit: '100', alignment: 'center', margin: [0, 10] }
                         ]
                     },
                     [{

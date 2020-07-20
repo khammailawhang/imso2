@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 var db = require("../lib/db");
+
 router.get("/", async function(req, res, next) {
     let row = await db("tb_model").orderBy("created_at", "desc");
     res.send({

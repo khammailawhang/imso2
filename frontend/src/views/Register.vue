@@ -80,7 +80,7 @@
                                 <template v-slot:item.platc_no="{ item }">
                                     <v-tooltip left color="#3d5afe">
                                         <template v-slot:activator="{ on }">
-                                            <v-btn @click="detailItem(item.register_id)" depressed :color="getColorplatc_no(item.platc_no)" v-on="on">{{ item.TRName }} {{ item.platc_no }}</v-btn>
+                                            <v-btn @click="detailItem(item.register_id)"  depressed :color="getColorplatc_no(item.platc_no)" v-on="on">{{ item.TRName }} {{ item.platc_no }}</v-btn>
                                         </template>
                                         <span>{{$t("Type.description")}}</span>
                                     </v-tooltip>
