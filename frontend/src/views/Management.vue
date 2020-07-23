@@ -70,13 +70,13 @@
                         </v-card-text>
                     </v-card>
                 </v-col>
-                <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" class="pt-6 pb-6">
+                <!-- <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" class="pt-6 pb-6">
                     <v-card flat color="white">
                         <v-card-text>
                             <FeePerYear />
                         </v-card-text>
                     </v-card>
-                </v-col>
+                </v-col> -->
 
             </v-row>
 
@@ -89,14 +89,14 @@
 import Vue from "vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
-import FeePerYear from "@/views/FeePerYear";
+// import FeePerYear from "@/views/FeePerYear";
 import ModelPopular from "@/views/ModelPopular";
 import TypePopular from "@/views/TypePopular";
 Vue.use(VueAxios, axios);
 export default {
     components: {
 
-        FeePerYear,
+        // FeePerYear,
         ModelPopular,
         TypePopular
     },

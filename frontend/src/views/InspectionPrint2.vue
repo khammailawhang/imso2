@@ -715,6 +715,7 @@ export default {
     shaft_four_lose_weight: "",
     qrcode: "",
     status: "",
+    printed:"printed",
     registers: [],
     standards: [],
     username: "",
@@ -947,6 +948,10 @@ export default {
     },
     print() {
       this.$htmlToPaper("print");
+      this.axios.put("/api/inspection/printed",{
+        inspection_id: this.$route.query.inspection_id,
+        printed : this.printed
+      })
     },
     getAllData() {
       axios.get("/api/inspection").then(response => {

@@ -1487,6 +1487,7 @@ export default {
 
     qrcode: "",
     status: "",
+    printed:"printed",
     registers: [],
     standards: [],
     username: "",
@@ -1720,6 +1721,10 @@ export default {
 
     printSection() {
       this.$htmlToPaper("printSection");
+       this.axios.put("/api/inspection/printed",{
+        inspection_id: this.$route.query.inspection_id,
+        printed : this.printed
+      })
     },
     print() {
       this.$htmlToPaper("printMe");

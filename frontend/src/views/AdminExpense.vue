@@ -13,7 +13,7 @@
                     <v-btn
                       depressed
                       color="#3D5AFE"
-                      class="white--text"
+                      class="white--text text-capitalize"
                       width="80px"
                       @click="fetchRecords()"
                     >{{$t('Report.Search')}}</v-btn>
@@ -23,7 +23,7 @@
                       dark
                       v-on="on"
                       width="80px"
-                      class="white--text"
+                      class="white--text text-capitalize"
                     >
                       <download-csv
                         :data="fees"
@@ -175,37 +175,37 @@ export default {
     headers() {
       return [
         {
-          text: "ຊື່ົເຈົ້າຂອງລົດ",
+          text: "ເຈົ້າຂອງລົດ",
           align: "left",
-          value: "owner_name",
+          value: "ເຈົ້າຂອງລົດ",
           width: "0px"
         },
         {
           text: "ເພດ",
-          value: "gender",
+          value: "ເພດ",
           width: "0px"
         },
         {
           text: "ແຂວງ",
-          value: "PName",
+          value: "ແຂວງ",
           width: "0px",
           filter: this.provinceFilter
         },
         {
-          text: "ລະຫັດ",
-          value: "TRName",
+          text: "ປະເພດທະບຽນ",
+          value: "ປະເພດທະບຽນ",
           width: "0px",
           filter: this.typeplatcnoFilter
         },
         {
           text: "ເລກທະບຽນ",
-          value: "platc_no",
+          value: "ເລກທະບຽນ",
           width: "0px",
           filter: this.platcnoFilter
         },
         {
           text: "ຍີ່ຫໍ້",
-          value: "MName",
+          value: "ຍີ່ຫໍ້",
           width: "0px"
         },
         {
@@ -215,17 +215,17 @@ export default {
         },
         {
           text: "ສີ",
-          value: "CName",
+          value: "ສີ",
           width: "0px"
         },
         {
           text: "ລາຄາ",
-          value: "PiName",
+          value: "ລາຄາ",
           width: "0px"
         },
         {
           text: "ວັນທີ",
-          value: "created_at",
+          value: "ວັນທີ",
           width: "0px"
         }
       ];
@@ -299,7 +299,7 @@ export default {
       else return "red";
     },
     initialize() {
-      this.axios.get("/api/report/admin").then(response => {
+      this.axios.get("/api/report/admin/filter").then(response => {
         this.fees = response.data.fees;
       });
     },

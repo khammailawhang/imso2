@@ -59,7 +59,7 @@
                             <!-- ລາຍງານຂໍ້ມູນກວດກາເກັບຄ່າທໍານຽມ -->
                             <v-tab-item>
                                 <v-card flat tile>
-                                    <v-card-text>
+                                    <v-card-text >
                                         <FeeReports />
                                     </v-card-text>
                                 </v-card>
@@ -128,6 +128,8 @@ export default {
         } else if (this.$store.getters.getUser.report === "1") {
             this.initialize();
             this.report = this.$store.getters.getUser.report;
+            this.report_inspection = this.$store.getters.getUser.report_inspection;
+            this.report_fee = this.$store.getters.getUser.report_fee;
             this.branch_id = this.$store.getters.getUser.branch_id;
             this.secretMessage = await AuthService.getSecretContent();
         } else {

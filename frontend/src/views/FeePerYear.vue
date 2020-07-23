@@ -1,19 +1,16 @@
 <template>
   <div>
-    <v-content>
+    <v-content> 
       <v-container>
         <v-row>
-          <v-col cols="12" align="left" class="indigo--text">
-            <h3 class="grey--text">{{$t("Fee.Feeperyear")}}</h3>
+          <v-col cols="12" align="left" class="indigo--text"> 
+            <h2>{{$t('Fee.Feeperday')}}</h2>
           </v-col>
           <v-col cols="12">
             <v-hover v-slot:default="{ hover }" open-delay="200">
               <v-card :elevation="hover ? 0 : 0">
                 <v-card-text>
                   <line-chart v-if="loaded" :chartdata="chartdata" :options="options" />
-                  <span v-for="item in peryears" :key="item.fee_id">
-                    <p>{{$t("Fee.peryear")}} : ກີບ {{item.price | formatNumber}}</p>
-                  </span>
                 </v-card-text>
               </v-card>
             </v-hover>
@@ -28,31 +25,26 @@ import Vue from "vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 import numeral from "numeral";
-import JsonCSV from "vue-json-csv";
-Vue.use(VueAxios, axios,JsonCSV);
-import LineChart from "@/components/FeePerYear.vue";
-Vue.filter("formatNumber", function(value) {
-  return numeral(value).format("0,0.00");
-});
+Vue.use(VueAxios, axios);
+import LineChart from "@/components/FeePerDay.vue";
 export default {
   components: { LineChart },
   data: () => ({
     loaded: false,
     chartdata: null,
-    options: null,
-    peryears: []
+    options: null
   }),
   async mounted() {
     this.loaded = false;
     axios.get("/api/feechart/branch_id/" + this.$route.query.branch_id).then(res => {
       this.loaded = true;
       (this.chartdata = {
-        labels: res.data.map(item => item.created_at),
+        labels: res.data.map(item => item.dates),
         datasets: [
           {
-            label: "Income per year",
-            backgroundColor: "#3D5AFE",
-            borderColor:"#3D5AFE",
+            label: "Income per day",
+            backgroundColor: "#3d5afe",
+            borderColor:"#3d5afe",
             data: res.data.map(item => item.price)
           }
         ]
@@ -64,7 +56,7 @@ export default {
                 var value = Number(
                   data.datasets[0].data[tooltipItem.index]
                 ).toFixed(2);
-                return "Total: LAK " + value;
+                return " LAK " + value;
               }
             }
           },
@@ -78,8 +70,8 @@ export default {
                 display: true,
                 type: "time",
                 time: {
-                  tooltipFormat: "YYYY",
-                  unit: "year"
+                  tooltipFormat: "DD/MM/YYYY",
+                  unit: "month"
                 }
               }
             ],
@@ -89,7 +81,8 @@ export default {
                   callback: function(value) {
                     return numeral(value).format("0a");
                   }
-                }
+                },
+                stacked: true
               }
             ]
           },
@@ -97,16 +90,6 @@ export default {
           maintainAspectRatio: false
         });
     });
-  },
-  created() {
-    this.getPeryear();
-  },
-  methods: {
-    async getPeryear() {
-      await this.axios.get("/api/feechart/feeperyear_total/branch_id/" + this.$route.query.branch_id).then(res => {
-        this.peryears = res.data.peryears;
-      });
-    }
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-content>
+    <v-content> 
       <v-container>
         <v-row>
           <v-col cols="12" align="left" class="indigo--text"> 
@@ -51,21 +51,11 @@ export default {
           {
             label: "Income per month",
             backgroundColor: [randomColor()],
-            data: res.data.map(item => item.fee_id)
+            data: res.data.map(item => item.inspection_id)
           }
         ]
       }),
         (this.options = {
-          tooltips: {
-            callbacks: {
-              label: function(tooltipItem, data) {
-                var value = Number(
-                  data.datasets[0].data[tooltipItem.index]
-                ).toFixed(2);
-                return value;
-              }
-            }
-          },
           scales: {
             ticks: {
               suggestedMin: 50,

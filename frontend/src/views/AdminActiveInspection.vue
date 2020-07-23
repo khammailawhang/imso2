@@ -10,8 +10,8 @@
                   <h5>{{$t("Report.InspectionActive")}}</h5>
                   <v-spacer />
                   <v-btn-toggle dense rounded>
-                    <v-btn depressed color="#3d5AFE" class="white--text" width="80px" @click="fetchRecords()">{{$t('Report.Search')}}</v-btn>
-                    <v-btn depressed color="#3d5AFE" dark v-on="on" width="80px" class="white--text">
+                    <v-btn depressed color="#3d5AFE" class="white--text text-capitalize" width="80px" @click="fetchRecords()">{{$t('Report.Search')}}</v-btn>
+                    <v-btn depressed color="#3d5AFE" dark v-on="on" width="80px" class="white--text text-capitalize">
                       <download-csv :data="inspections" name="All_Inspection_Active.csv">{{$t("Report.Download")}}</download-csv>
                     </v-btn>
                   </v-btn-toggle>
@@ -109,8 +109,8 @@
                 </v-card-subtitle>
                 <v-card-text>
                   <v-data-table class="elevation-0" :headers="headers" :items="inspections" :search="search">
-                    <template v-slot:item.created_at="{ item }">
-                      <v-text>{{ item.created_at | formatDate }}</v-text>
+                    <template v-slot:item.ວັນທີ="{ item }">
+                      <v-text>{{ item.ວັນທີ | formatDate }}</v-text>
                     </template>
                   </v-data-table>
                 </v-card-text>
@@ -149,58 +149,47 @@ export default {
     headers() {
       return [
         {
-          text: "ຊື່ົເຈົ້າຂອງລົດ",
+          text: "ເຈົ້າຂອງລົດ",
           align: "left",
-          value: "owner_name",
-          width: "0px"
+          value: "ເຈົ້າຂອງລົດ"
         },
         {
           text: "ເພດ",
-          value: "gender",
-          width: "0px"
+          value: "ເພດ"
         },
         {
             text: "ແຂວງ",
-            value: "PName",
-            width: "0px",
+            value: "ແຂວງ",
             filter: this.provinceFilter
         },
         {
-          text: "ລະຫັດ",
-          value: "TRName",
-          width: "0px",
+            text: "ສາຂາ",
+            value: "ສາຂາ"
+        },
+        {
+          text: "ປະເພດທະບຽນ",
+          value: "ປະເພດທະບຽນ",
           filter: this.typeplatcnoFilter
         },
         {
           text: "ເລກທະບຽນ",
-          value: "platc_no",
-          width: "0px",
-          filter: this.platcnoFilter
+          value:"ເລກທະບຽນ"
         },
         {
           text: "ຍີ່ຫໍ້",
-          value: "MName",
-          width: "0px"
+          value: "ຍີ່ຫໍ້"
         },
         {
           text: "ປະເພດ",
-          value: "TName",
-          width: "0px"
+          value: "ປະເພດ"
         },
         {
           text: "ສີ",
-          value: "CName",
-          width: "0px"
-        },
-        {
-          text: "ລາຄາ",
-          value: "PiName",
-          width: "0px"
+          value: "ສີ"
         },
         {
           text: "ວັນທີ",
-          value: "created_at",
-          width: "0px"
+          value: "ວັນທີ"
         }
       ];
     },
@@ -274,7 +263,7 @@ export default {
     },
     initialize() {
       this.axios
-        .get("/api/report/admin/inspection/all/active")
+        .get("/api/report/admin/inspection/active")
         .then(response => {
           this.inspections = response.data.inspections;
         });

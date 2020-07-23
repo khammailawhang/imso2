@@ -10,13 +10,6 @@
                 <v-row>
                   <v-col cols="12" xl="12" lg="12" md="12" sm="12" hidden>
                     <v-text-field
-                      label="ລະຫັດອ້າງອີງ"
-                      readonly
-                      hidden-xl-only
-                      v-model="inspection_id"
-                      required
-                    ></v-text-field>
-                    <v-text-field
                       label="ລະຫັດຜູ້ເຂົ້າໃຊ້ລະບົບ"
                       readonly
                       hidden-xl-only
@@ -34,6 +27,7 @@
                   <v-col cols="12" xl="6" lg="6" md="6" sm="6">
                     <v-text-field
                       outlined
+                      dense
                       disabled
                       :label="$t('Register.OwnerName')"
                       v-model="owner_name"
@@ -41,6 +35,7 @@
                     ></v-text-field>
                     <v-text-field
                       outlined
+                      dense
                       disabled
                       :label="$t('TR.Name')"
                       v-model="TRName"
@@ -48,6 +43,7 @@
                     ></v-text-field>
                     <v-text-field
                       outlined
+                      dense
                       disabled
                       :label="$t('Register.Platcno')"
                       v-model="platc_no"
@@ -55,6 +51,7 @@
                     ></v-text-field>
                     <v-text-field
                       outlined
+                      dense
                       disabled
                       :label="$t('Province.Name')"
                       v-model="PName"
@@ -64,6 +61,7 @@
                   <v-col cols="12" xl="6" lg="6" md="6" sm="6" dense>
                     <v-text-field
                       outlined
+                      dense
                       disabled
                       :label="$t('Model.Name')"
                       v-model="MName"
@@ -72,6 +70,7 @@
                     <v-text-field
                       outlined
                       disabled
+                      dense
                       :label="$t('Type.Name')"
                       v-model="TName"
                       required
@@ -79,14 +78,16 @@
                     <v-text-field
                       outlined
                       disabled
+                      dense
                       :label="$t('Color.Name')"
                       v-model="CName"
                       required
                     ></v-text-field>
                     <v-text-field
                       outlined
+                      dense
                       disabled
-                      :label="$t('Register.Price')"
+                      :label="$t('Fee.Price')"
                       v-model="price"
                       required
                     ></v-text-field>
@@ -99,7 +100,6 @@
                       depressed
                       class="white--text"
                       @click="save()"
-                      v-if="fee_create === '1'"
                     >{{ $t("Fee.Save") }}</v-btn>
                   </v-col>
                   <v-col cols="12" xl="6" lg="6" md="6" sm="6" dense>
@@ -144,12 +144,12 @@ Vue.use(VueAxios, axios);
 export default {
   data() {
     return {
-      inspection_id: "",
       price: "",
       owner_name: "",
       platc_no: "",
       register_id: "",
       status: "PaySuccess",
+      inspected: "NotInspect",
       registers: [],
       username: "",
       users_id: "",
@@ -162,17 +162,17 @@ export default {
       this.$router.push("login");
     } else if (this.$store.getters.getUser.fee_create === "1") {
       let res = await axios.get(
-        "/api/inspection/inspection_id/" + this.$route.query.inspection_id
+        "/api/register/pay/register_id/" + this.$route.query.register_id
       );
-      this.inspection_id = res.data.inspections.inspection_id || "";
-      this.owner_name = res.data.inspections.owner_name || "";
-      this.platc_no = res.data.inspections.platc_no || "";
-      this.MName = res.data.inspections.MName || "";
-      this.TRName = res.data.inspections.TRName || "";
-      this.CName = res.data.inspections.CName || "";
-      this.TName = res.data.inspections.TName || "";
-      this.PName = res.data.inspections.PName || "";
-      this.price = res.data.inspections.PiName || "";
+      this.register_id = res.data.registers.register_id || "";
+      this.owner_name = res.data.registers.owner_name || "";
+      this.platc_no = res.data.registers.platc_no || "";
+      this.MName = res.data.registers.MName || "";
+      this.TRName = res.data.registers.TRName || "";
+      this.CName = res.data.registers.CName || "";
+      this.TName = res.data.registers.TName || "";
+      this.PName = res.data.registers.PName || "";
+      this.price = res.data.registers.price || "";
 
       // this.getRegister();
 
@@ -191,9 +191,10 @@ export default {
         let res = await this.axios.post("/api/fee/create", {
           users_id: this.users_id || "",
           branch_id: this.branch_id || "",
-          inspection_id: this.inspection_id || "",
+          register_id: this.register_id || "",
           price: this.price || "",
-          status: this.status || ""
+          status: this.status || "",
+          inspected: this.inspected || ""
         });
         if (res) {
           this.msg = res.data.msg;

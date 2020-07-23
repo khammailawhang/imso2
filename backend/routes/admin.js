@@ -68,46 +68,31 @@ router.get("/fee", async function (req, res) {
 
 
 router.get("/admin/model", async function (req, res) {
-  let rows = await db("tb_fee")
-    .innerJoin("tb_branch", "tb_fee.branch_id", "tb_branch.branch_id")
-    .innerJoin(
-      "tb_inspection",
-      "tb_fee.inspection_id",
-      "tb_inspection.inspection_id"
-    )
-    .innerJoin(
-      "tb_register",
-      "tb_inspection.register_id",
-      "tb_register.register_id"
-    )
+  let rows = await db("tb_inspection")
+    .innerJoin("tb_branch", "tb_inspection.branch_id", "tb_branch.branch_id")
+    .innerJoin("tb_fee", "tb_inspection.fee_id", "tb_fee.fee_id")
+    .innerJoin("tb_register", "tb_fee.register_id", "tb_register.register_id")
     .innerJoin("tb_model", "tb_register.model_id", "tb_model.model_id")
-    .count("fee_id as fee_id")
+    .count("inspection_id as inspection_id")
     .groupBy("name")
     .orderBy("name", "desc")
     .select(
       "tb_fee.created_at as created_at",
       "tb_fee.price as price",
+
       "tb_model.model_id as model_id",
       "tb_model.name as name"
-    );
+    )
   res.send(JSON.stringify(rows));
 });
 
 router.get("/admin/type", async function (req, res) {
-  let rows = await db("tb_fee")
-    .innerJoin("tb_branch", "tb_fee.branch_id", "tb_branch.branch_id")
-    .innerJoin(
-      "tb_inspection",
-      "tb_fee.inspection_id",
-      "tb_inspection.inspection_id"
-    )
-    .innerJoin(
-      "tb_register",
-      "tb_inspection.register_id",
-      "tb_register.register_id"
-    )
+  let rows = await db("tb_inspection")
+    .innerJoin("tb_branch", "tb_inspection.branch_id", "tb_branch.branch_id")
+    .innerJoin("tb_fee", "tb_inspection.fee_id", "tb_fee.fee_id")
+    .innerJoin("tb_register", "tb_fee.register_id", "tb_register.register_id")
     .innerJoin("tb_type", "tb_register.type_id", "tb_type.type_id")
-    .count("fee_id as fee_id")
+    .count("inspection_id as inspection_id")
     .groupBy("TName")
     .orderBy("TName", "desc")
     .select(
@@ -115,7 +100,7 @@ router.get("/admin/type", async function (req, res) {
       "tb_fee.price as price",
       "tb_type.type_id as type_id",
       "tb_type.name as TName"
-    );
+    )
   res.send(JSON.stringify(rows));
 });
 

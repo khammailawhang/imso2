@@ -945,7 +945,6 @@ export default {
         this.model_id != false &&
         this.type_id != false &&
         this.color_id != false &&
-        this.price != false &&
         this.platc_no != false &&
         this.steering_wheel != false &&
         this.fuel != false &&
@@ -973,7 +972,6 @@ export default {
           model_id: this.model_id,
           type_id: this.type_id,
           color_id: this.color_id,
-          price: this.price,
           platc_no: this.platc_no,
           steering_wheel: this.steering_wheel,
           fuel: this.fuel,

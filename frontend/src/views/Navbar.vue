@@ -29,7 +29,7 @@
           </v-btn>
         </v-tab>
         <v-tab v-if="inspection === '1'">
-          <v-btn link :to="`/${$i18n.locale}/InspectionStart`" text class="white--text">
+          <v-btn link @click="inspectionTo(branch_id)" text class="white--text">
             <v-icon small class="ma-2">mdi-car</v-icon>
             {{ $t("Navbar.Inspection") }}
           </v-btn>
@@ -193,7 +193,7 @@
                     </v-list-item-content>
                   </v-list-item>
 
-                  <v-list-item link :to="`/${$i18n.locale}/AdminPage`">
+                  <v-list-item link v-if="admin === '1'" :to="`/${$i18n.locale}/AdminPage`">
                     <v-list-item-action>
                       <v-icon color="grey">mdi-chevron-right</v-icon>
                     </v-list-item-action>
@@ -292,6 +292,7 @@ export default {
     this.users_id = this.$store.getters.getUser.users_id;
     this.registered = this.$store.getters.getUser.registered;
     this.home = this.$store.getters.getUser.home;
+    this.admin = this.$store.getters.getUser.admin;
     this.branch_name = this.$store.getters.getUser.branch_name;
     this.branch_id = this.$store.getters.getUser.branch_id;
       this.secretMessage = await AuthService.getSecretContent();
@@ -326,6 +327,9 @@ export default {
     },
     feeRequestTo(branch_id) {
       this.$router.push("./Fee?branch_id=" + branch_id);
+    },
+    inspectionTo(branch_id) {
+      this.$router.push("./InspectionStart?branch_id=" + branch_id);
     },
 
     reportTo(branch_id) {

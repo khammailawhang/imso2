@@ -500,12 +500,25 @@
                                 <template v-slot:activator="{ on }">
                                   <v-checkbox
                                     value="1"
-                                    v-model="report_detail"
+                                    v-model="report_inspection"
                                     color="#3d5afe"
                                     v-on="on"
                                   ></v-checkbox>
                                 </template>
-                                <span>{{$t('User.Detail')}}</span>
+                                <span>{{$t('User.Inspection')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="report_fee"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Fee')}}</span>
                               </v-tooltip>
                             </td>
                             <td>
@@ -1276,6 +1289,22 @@
                               </v-tooltip>
                             </td>
                           </tr>
+                          <tr>
+                            <td>16. {{$t('Navbar.AdminManagement')}}</td>
+                            <td colspan="2">
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="admin"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Admin')}}</span>
+                              </v-tooltip>
+                            </td>
+                          </tr>
                         </tbody>
                       </template>
                     </v-simple-table>
@@ -1387,7 +1416,8 @@ export default {
     fee_report: "",
     fee_export: "",
     report: "",
-    report_detail: "",
+    report_inspection: "",
+    report_fee: "",
     report_report: "",
     report_export: "",
     setting: "",
@@ -1466,6 +1496,7 @@ export default {
     user_authorization_upload: "",
     user_authorization_report: "",
     user_authorization_export: "",
+    admin: "",
     status: true,
     msg: "",
     levels: [],
@@ -1527,8 +1558,9 @@ export default {
           fee_export: this.fee_export,
           report: this.report,
           report_report: this.report_report,
-          report_detail: this.report_detail,
-          report_export: this.report_export,
+          report_inspection: this.report_inspection,
+          report_fee: this.report_fee,
+          report_export: this.report_fee,
           setting: this.setting,
           model: this.model,
           model_create: this.model_create,
@@ -1605,6 +1637,7 @@ export default {
           user_authorization_upload: this.user_authorization_upload,
           user_authorization_report: this.user_authorization_report,
           user_authorization_export: this.user_authorization_export,
+          admin: this.admin,
           status: this.status
         };
         const response = await AuthService.signUp(credentials);

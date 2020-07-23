@@ -15,28 +15,28 @@
               height="100px"
               dark
             >
-              <v-tab class="indigo accent-4 ma-2 white--text">
-                ຂໍ້ມູນກວດເຕັກນິກທັງໝົດ
+              <v-tab class="indigo accent-4 ma-2 white--text text-capitalize">
+                {{$t("Report.AllInspection")}}
                 <span
                   v-for="item in inspectionsall"
                   :key="item.inspection_id"
-                >{{item.inspection_id}}</span>
+                >{{item.inspection_id}}.00</span>
               </v-tab>
-              <v-tab class="green accent-3 ma-2 white--text">
-                ຈໍານວນລົດກວດເຕັກນິກທີ່ໃຊ້ງານ
+              <v-tab class="green accent-3 ma-2 white--text text-capitalize">
+                {{$t("Report.InspectionActive")}}
                 <span
                   class="white--text"
                   v-for="item in inspectionstatu"
                   :key="item.inspection_id"
-                >{{item.inspection_id}}</span>
+                >{{item.inspection_id}}.00</span>
               </v-tab>
-              <v-tab class="red ma-2 white--text">
-                ຈໍານວນລົດກວດເຕັກນິກທີໝົດອາຍຸ
+              <v-tab class="red ma-2 white--text text-capitalize">
+                {{$t("Report.InspectionExpired")}}
                 <span
                   class="white--text"
                   v-for="item in inspectionsend"
                   :key="item.inspection_id"
-                >{{item.inspection_id}}</span>
+                >{{item.inspection_id}}.00</span>
               </v-tab>
               <!-- ລາຍງານຂໍ້ມູນກວດກາເຕັນກນິກ -->
               <v-tab-item>
@@ -53,17 +53,19 @@
                                 <v-btn
                                   depressed
                                   color="indigo accent-4"
-                                  class="white--text"
+                                  class="white--text text-capitalize"
                                   width="80px"
                                   @click="fetchRecords()"
+                                  v-if="report_report === '1'"
                                 >{{$t('Report.Search')}}</v-btn>
-                                <v-btn
+                                <v-btn 
                                   depressed
                                   color="indigo accent-4"
                                   dark
                                   v-on="on"
                                   width="80px"
-                                  class="white--text"
+                                  class="white--text text-capitalize"
+                                  v-if="report_export === '1'"
                                 >
                                   <download-csv
                                     :data="inspections"
@@ -179,13 +181,8 @@
                                 :items="inspections"
                                 :search="search"
                               >
-                                <template v-slot:item.created_at="{ item }">
-                                  <v-text>{{ item.created_at | formatDate }}</v-text>
-                                </template>
-                                <template v-slot:item.platc_no="{ item }">
-                                    <v-btn small width="60px" depressed  :color="getColorplatc_no(item.platc_no)">
-                                        <v-text>{{ item.platc_no }}</v-text>
-                                    </v-btn>
+                                <template v-slot:item.ວັນທີ="{ item }">
+                                  <v-text>{{ item.ວັນທີ | formatDate }}</v-text>
                                 </template>
                               </v-data-table>
                             </v-card-text>
@@ -255,58 +252,51 @@ export default {
     headers() {
       return [
         {
-          text: "ຊື່ົເຈົ້າຂອງລົດ",
+          text: "ເຈົ້າຂອງລົດ",
           align: "left",
-          value: "owner_name",
-          width: "0px"
+          value: "ເຈົ້າຂອງລົດ"
         },
         {
           text: "ເພດ",
-          value: "gender",
-          width: "0px"
+          value: "ເພດ"
         },
         {
-          text: "ແຂວງ",
-          value: "PName",
-          width: "0px",
-          filter: this.provinceFilter
+          text: "ເບີໂທລະສັບ",
+          value: "ເບີໂທລະສັບ"
         },
         {
-          text: "ລະຫັດ",
-          value: "TRName",
-          width: "0px",
+            text: "ແຂວງ",
+            value: "ແຂວງ",
+            filter: this.provinceFilter
+        },
+        {
+            text: "ສາຂາ",
+            value: "ສາຂາ"
+        },
+        {
+          text: "ປະເພດທະບຽນ",
+          value: "ປະເພດທະບຽນ",
           filter: this.typeplatcnoFilter
         },
         {
           text: "ເລກທະບຽນ",
-          value: "platc_no",
-          width: "0px",
-          filter: this.platcnoFilter
+          value:"ເລກທະບຽນ"
         },
         {
           text: "ຍີ່ຫໍ້",
-          value: "MName",
-          width: "0px"
+          value: "ຍີ່ຫໍ້"
         },
         {
           text: "ປະເພດ",
-          value: "TName",
-          width: "0px"
+          value: "ປະເພດ"
         },
         {
           text: "ສີ",
-          value: "CName",
-          width: "0px"
-        },
-        {
-          text: "ລາຄາ",
-          value: "PiName",
-          width: "0px"
+          value: "ສີ"
         },
         {
           text: "ວັນທີ",
-          value: "created_at",
-          width: "0px"
+          value: "ວັນທີ"
         }
       ];
     },
@@ -322,7 +312,7 @@ export default {
   async created() {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push("login");
-    } else if (this.$store.getters.getUser.model === "1") {
+    } else if (this.$store.getters.getUser.report === "1") {
       this.initialize();
       // ລາຍງານຈໍານວນລົດ ທັງໝົດ
       await axios
@@ -347,22 +337,9 @@ export default {
           this.inspectionsend = res.data.inspectionsend;
         });
 
-      this.users_id = this.$store.getters.getUser.users_id;
-      this.fee = this.$store.getters.getUser.fee;
-      this.fee_create = this.$store.getters.getUser.fee_create;
-      this.fee_update = this.$store.getters.getUser.fee_update;
-      this.fee_delete = this.$store.getters.getUser.fee_delete;
-      this.fee_detail = this.$store.getters.getUser.fee_detail;
-      this.fee_upload = this.$store.getters.getUser.fee_upload;
-      this.fee_report = this.$store.getters.getUser.fee_report;
-      this.fee_export = this.$store.getters.getUser.fee_export;
-      this.username = this.$store.getters.getUser.username;
-      this.home = this.$store.getters.getUser.home;
-      this.register = this.$store.getters.getUser.register;
-      this.inspection = this.$store.getters.getUser.inspection;
-
       this.report = this.$store.getters.getUser.report;
-      this.setting = this.$store.getters.getUser.setting;
+      this.report_report = this.$store.getters.getUser.report_report;
+      this.report_export = this.$store.getters.getUser.report_export;
       this.branch_name = this.$store.getters.getUser.branch_name;
       this.branch_id = this.$store.getters.getUser.branch_id;
       this.secretMessage = await AuthService.getSecretContent();
@@ -403,7 +380,7 @@ export default {
     },
     initialize() {
       this.axios
-        .get("/api/report/all/branch_id/" + this.$route.query.branch_id)
+        .get("/api/inspection/report/branch_id/" + this.$route.query.branch_id)
         .then(response => {
           this.inspections = response.data.inspections;
         });

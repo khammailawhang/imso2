@@ -475,12 +475,25 @@
                                 <template v-slot:activator="{ on }">
                                   <v-checkbox
                                     value="1"
-                                    v-model="report_detail"
+                                    v-model="report_inspection"
                                     color="#3d5afe"
                                     v-on="on"
                                   ></v-checkbox>
                                 </template>
-                                <span>{{$t('User.Detail')}}</span>
+                                <span>{{$t('User.Inspection')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="report_fee"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Fee')}}</span>
                               </v-tooltip>
                             </td>
                             <td>
@@ -1241,6 +1254,22 @@
                               </v-tooltip>
                             </td>
                           </tr>
+                          <tr>
+                            <td>16. {{$t('Navbar.AdminManagement')}}</td>
+                            <td colspan="2">
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="admin"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Admin')}}</span>
+                              </v-tooltip>
+                            </td>
+                          </tr>
                         </tbody>
                       </template>
                     </v-simple-table>
@@ -1343,7 +1372,8 @@ export default {
     fee_report: "",
     fee_export: "",
     report: "",
-    report_detail: "",
+    report_inspection: "",
+    report_fee: "",
     report_report: "",
     report_export: "",
     setting: "",
@@ -1423,6 +1453,7 @@ export default {
     user_authorization_report: "",
     user_authorization_export: "",
     status: "",
+    admin: "",
     msg: "",
     levels: [],
     branchs: []
@@ -1469,11 +1500,13 @@ export default {
       this.fee_update = res.data.users.fee_update || "";
       this.fee_delete = res.data.users.fee_delete || "";
       this.fee_print = res.data.users.fee_print || "";
-      this.fee_detail = res.data.users.fee_detail || "";
+      this.fee_inspection = res.data.users.fee_inspection || "";
+      this.fee_fee = res.data.users.fee_fee || "";
       this.fee_report = res.data.users.fee_report || "";
       this.fee_export = res.data.users.fee_export || "";
       this.report = res.data.users.report || "";
-      this.report_detail = res.data.users.report_detail || "";
+      this.report_inspection = res.data.users.report_inspection || "";
+      this.report_fee = res.data.users.report_fee || "";
       this.report_report = res.data.users.report_report || "";
       this.report_export = res.data.users.report_export || "";
       this.setting = res.data.users.setting || "";
@@ -1570,6 +1603,7 @@ export default {
         res.data.users.user_authorization_report || "";
       this.user_authorization_export =
         res.data.users.user_authorization_export || "";
+      this.admin = res.data.users.admin || "";
       this.status = res.data.users.status || "";
       this.getBranch();
       this.getLevel();
@@ -1622,7 +1656,8 @@ export default {
           fee_export: this.fee_export,
           report: this.report,
           report_report: this.report_report,
-          report_detail: this.report_detail,
+          report_inspection: this.report_inspection,
+          report_fee: this.report_fee,
           report_export: this.report_export,
           setting: this.setting,
           model: this.model,
@@ -1700,8 +1735,10 @@ export default {
           user_authorization_upload: this.user_authorization_upload,
           user_authorization_report: this.user_authorization_report,
           user_authorization_export: this.user_authorization_export,
+          admin: this.admin,
           status: this.status
         };
+        
         const response = await AuthService.update(credentials);
         this.msg = response.msg;
         if (response) {

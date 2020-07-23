@@ -18,12 +18,17 @@
             <ValidationObserver ref="observer">
               <v-card flat color="white">
                 <v-card-title>
-                  {{ $t("Inspection.Create_Title") }}
+                  <span class="pr-6">{{ $t("Inspection.Create_Title") }}</span>
+                   <v-btn depressed outlined class="grey--text" color="#90A4AE">
+                        <Strong v-text="owner_name"></Strong> -
+                        <Strong v-text="TRName"></Strong> 
+                        <Strong v-text="platc_no"></Strong> 
+                    </v-btn>
                   <v-spacer />
                   <v-tooltip bottom color="#3d5afe">
                     <template v-slot:activator="{ on }">
                       <v-btn
-                        :to="`/${$i18n.locale}/InspectionStart`"
+                         @click="inspectionTo(branch_id)"
                         fab
                         small
                         depressed
@@ -45,7 +50,7 @@
                     :bails="false"
                   >
                     <v-col cols="12" align="center">
-                      <v-card ref="form" flat outlined width="250px" height="160px">
+                      <v-card ref="form" flat outlined width="240px" height="160px">
                         <div
                           class="base-image-input pt-1"
                           :style="{ 'background-image': `url(${imageData})` }"
@@ -971,7 +976,7 @@
                             md="12"
                             sm="12"
                           >
-                            <v-tooltip bottom color="#00E676">
+                            <v-tooltip bottom color="#00E676" v-if="inspection_create === '1'">
                               <template v-slot:activator="{ on }">
                                 <v-btn
                                   large
@@ -981,6 +986,7 @@
                                   color="#00E676"
                                   dark
                                   v-on="on"
+                                  
                                 >
                                   <v-icon large>save</v-icon>
                                 </v-btn>
@@ -1100,6 +1106,7 @@ export default {
     photo: [],
 
     status: "NotPay",
+    inspected: "Inspected",
     message: "",
     prime_moves: ["ແອັດຊັງ", "ກາຊວນ"],
     snackbar: false,
@@ -1141,30 +1148,31 @@ export default {
   },
   async created() {
     let res = await axios.get(
-      "/api/register/register_id/" + this.$route.query.register_id
+      "/api/fee/fee_id/" + this.$route.query.fee_id
     );
-    this.register_id = res.data.registers.register_id || "";
-    this.owner_name = res.data.registers.owner_name || "";
-    this.phone = res.data.registers.phone || "";
-    this.VName = res.data.registers.VName || "";
-    this.DName = res.data.registers.DName || "";
-    this.PName = res.data.registers.PName || "";
-    this.UName = res.data.registers.UName || "";
-    this.TRName = res.data.registers.TRName || "";
-    this.platc_no = res.data.registers.platc_no || "";
-    this.MName = res.data.registers.MName || "";
-    this.TName = res.data.registers.TName || "";
-    this.CName = res.data.registers.CName || "";
-    this.engine_no = res.data.registers.engine_no || "";
-    this.chassis_no = res.data.registers.chassis_no || "";
+    this.fee_id = res.data.fees.fee_id || "";
+    this.owner_name = res.data.fees.owner_name || "";
+    this.phone = res.data.fees.phone || "";
+    this.VName = res.data.fees.VName || "";
+    this.DName = res.data.fees.DName || "";
+    this.PName = res.data.fees.PName || "";
+    this.UName = res.data.fees.UName || "";
+    this.TRName = res.data.fees.TRName || "";
+    this.platc_no = res.data.fees.platc_no || "";
+    this.MName = res.data.fees.MName || "";
+    this.TName = res.data.fees.TName || "";
+    this.CName = res.data.fees.CName || "";
+    this.engine_no = res.data.fees.engine_no || "";
+    this.chassis_no = res.data.fees.chassis_no || "";
 
     this.initialize();
     this.idcarcohc();
     // this.inspectionListTo();
 
-    if (this.$store.getters.getUser.inspection_create) {
+    if (this.$store.getters.getUser.inspection_create === '1') {
       this.users_id = this.$store.getters.getUser.users_id;
       this.username = this.$store.getters.getUser.username;
+      this.inspection_create = this.$store.getters.getUser.inspection_create;
       this.branch_name = this.$store.getters.getUser.branch_name;
       this.branch_id = this.$store.getters.getUser.branch_id;
       this.secretMessage = await AuthService.getSecretContent();
@@ -1181,7 +1189,7 @@ export default {
           this.carcohc != false &&
           this.expired_date != false &&
           this.axios.post("/api/inspection/create", {
-            register_id: this.register_id,
+            fee_id: this.fee_id,
             users_id: this.users_id,
             branch_id: this.branch_id,
             inspection_id: this.inspection_id,
@@ -1236,6 +1244,7 @@ export default {
             photo: this.photo,
             qr: this.qr,
             status: this.status,
+            inspected: this.inspected,
             // created_at: this.created_at,
             expired_date: this.expired_date
           })
@@ -1289,6 +1298,9 @@ export default {
         reader.readAsDataURL(files[0]);
         this.$emit("input", files[0]);
       }
+    },
+    inspectionTo(branch_id) {
+      this.$router.push("./InspectionStart?branch_id=" + branch_id);
     }
 
     // onSelect() {

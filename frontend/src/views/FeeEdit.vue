@@ -5,7 +5,7 @@
         <v-card flat color="white">
           <v-card-title>{{ $t("Fee.Edit_Title") }}</v-card-title>
           <v-card-text>
-            <v-row>
+            <v-row no-gutters>
               <v-col cols="12" xl="12" lg="12" md="12" sm="12" hidden>
                 <v-text-field
                   label="ລະຫັດອ້າງອີງ"
@@ -25,28 +25,32 @@
               <v-col cols="12" xl="6" lg="6" md="6" sm="6">
                     <v-text-field
                       outlined
-                      disabled
+                      dense
+                      disabled class="ma-1"
                       :label="$t('Register.OwnerName')"
                       v-model="owner_name"
                       required
                     ></v-text-field>
                     <v-text-field
                       outlined
-                      disabled
+                      dense
+                      disabled class="ma-1"
                       :label="$t('TR.Name')"
                       v-model="TRName"
                       required
                     ></v-text-field>
                     <v-text-field
                       outlined
-                      disabled
+                      dense
+                      disabled class="ma-1"
                       :label="$t('Register.Platcno')"
                       v-model="platc_no"
                       required
                     ></v-text-field>
                     <v-text-field
                       outlined
-                      disabled
+                      dense
+                      disabled class="ma-1"
                       :label="$t('Province.Name')"
                       v-model="PName"
                       required
@@ -55,28 +59,32 @@
                   <v-col cols="12" xl="6" lg="6" md="6" sm="6" dense>
                     <v-text-field
                       outlined
-                      disabled
+                      dense
+                      disabled class="ma-1"
                       :label="$t('Model.Name')"
                       v-model="MName"
                       required
                     ></v-text-field>
                     <v-text-field
                       outlined
-                      disabled
+                      dense
+                      disabled class="ma-1"
                       :label="$t('Type.Name')"
                       v-model="TName"
                       required
                     ></v-text-field>
                     <v-text-field
                       outlined
-                      disabled
+                      dense
+                      disabled class="ma-1"
                       :label="$t('Color.Name')"
                       v-model="CName"
                       required
                     ></v-text-field>
                     <v-text-field
                       outlined
-                      disabled
+                      dense
+                      disabled class="ma-1"
                       :label="$t('Register.Price')"
                       v-model="price"
                       required
@@ -109,7 +117,7 @@
                   large
                   color="#B0BEC5"
                   depressed
-                  class="white--text"
+                  class="white--text ml-2"
                   @click="back(branch_id)"
                 >{{ $t("Fee.Back") }}</v-btn>
               </v-col>
@@ -145,7 +153,6 @@ export default {
   data() {
     return {
       fee_id: "",
-      inspection_id: "",
       price: "",
       owner_name: "",
       platc_no: "",
@@ -163,7 +170,7 @@ export default {
     } else if (this.$store.getters.getUser.fee_update === "1") {
       let res = await axios.get("/api/fee/fee_id/" + this.$route.query.fee_id);
       this.fee_id = res.data.fees.fee_id || "";
-      this.inspection_id = res.data.fees.inspection_id || "";
+      this.register_id = res.data.fees.register_id || "";
       this.owner_name = res.data.fees.owner_name || "";
       this.platc_no = res.data.fees.platc_no || "";
       this.MName = res.data.fees.MName || "";

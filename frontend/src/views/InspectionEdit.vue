@@ -18,17 +18,12 @@
             <ValidationObserver ref="observer">
               <v-card flat color="white">
                 <v-card-title>
-                  {{$t('Inspection.Edit_Title')}}
-                  <v-spacer />
-                  <v-row>
-                    <v-col>
-                      <v-btn depressed class="white--text" color="#F9A825">
-                        <Strong v-text="TRName"></Strong>/
-                        <Strong v-text="platc_no"></Strong>/
-                        <Strong v-text="PName"></Strong>
-                      </v-btn>
-                    </v-col>
-                  </v-row>
+                  <span class="pr-6">{{ $t("Inspection.Edit_Title") }}</span>
+                   <v-btn depressed outlined class="grey--text" color="#90A4AE">
+                        <Strong v-text="owner_name"></Strong> -
+                        <Strong v-text="TRName"></Strong> 
+                        <Strong v-text="platc_no"></Strong> 
+                    </v-btn>
                   <v-spacer />
                   <v-tooltip bottom color="#3d5afe">
                     <template v-slot:activator="{ on }">
@@ -883,10 +878,10 @@
 
                         <v-col hidden cols="12" xl="2" lg="2" md="4" sm="4">
                           <v-text-field
-                            disabled="register_id"
+                            disabled="fee_id"
                             label="Register ID"
                             value="true"
-                            v-model="register_id"
+                            v-model="fee_id"
                           ></v-text-field>
                         </v-col>
                         <v-row>
@@ -960,7 +955,7 @@
                             class="pt-11"
                           >ລະຫັດໝາຍເຖິງລົດຄັນເຂົ້າກວດເຕັກນິກປະຈຸບັນ</v-col>
                           <v-col align="right" cols="12" xl="12" lg="12" md="12" sm="12">
-                            <v-tooltip left color="#00E676">
+                            <v-tooltip left color="#00E676" v-if="inspection_update ==='1'">
                               <template v-slot:activator="{ on }">
                                 <v-btn
                                   class="mr-12"
@@ -1155,7 +1150,7 @@ export default {
     this.vehicle_weight = res.data.inspections.vehicle_weight || "";
     this.max_loading = res.data.inspections.max_loading || "";
     this.total_weight = res.data.inspections.total_weight || "";
-    this.register_id = res.data.inspections.register_id || "";
+    this.fee_id = res.data.inspections.fee_id || "";
     this.steering_wheel = res.data.inspections.steering_wheel || "";
     //ກວດຄ່າ ຖຶກ ຜຶດ
     this.brk_m = res.data.inspections.brk_m || "";
@@ -1267,9 +1262,10 @@ export default {
     this.initialize();
     this.idcarcohc();
 
-    if (this.$store.getters.getUser.inspection_create) {
+    if (this.$store.getters.getUser.inspection_update === '1') {
       this.users_id = this.$store.getters.getUser.users_id;
       this.username = this.$store.getters.getUser.username;
+      this.inspection_update = this.$store.getters.getUser.inspection_update;
       this.branch_name = this.$store.getters.getUser.branch_name;
       this.branch_id = this.$store.getters.getUser.branch_id;
       this.secretMessage = await AuthService.getSecretContent();
@@ -1288,7 +1284,7 @@ export default {
           this.axios.put("/api/inspection/update", {
             inspection_id: this.$route.query.inspection_id,
 
-            register_id: this.register_id,
+            fee_id: this.fee_id,
             users_id: this.users_id,
             branch_id: this.branch_id,
 
@@ -1414,7 +1410,7 @@ export default {
       let res = await this.axios.put("/api/inspection/update", {
         inspection_id: this.$route.query.inspection_id,
 
-        register_id: this.register_id,
+        fee_id: this.fee_id,
         users_id: this.users_id,
         branch_id: this.branch_id
       });

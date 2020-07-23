@@ -81,7 +81,8 @@ export default {
                   callback: function(value) {
                     return numeral(value).format("0a");
                   }
-                }
+                },
+                stacked: true
               }
             ]
           },

@@ -1,13 +1,13 @@
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from './fonts/vfs_fonts';
-// import console from 'console';
-// import axios from "axios";
+import console from 'console';
+import axios from "axios";
 import getTitle from './inspectionContents/titleContent';
 import getCar from './inspectionContents/carContent.js';
 import getInspection from './inspectionContents/inspectionContent';
 import getFooter from './inspectionContents/footerContent';
 
-// import indexpdfs from '../../../../backend/routes/indexpdf'
+
 // Import test json data;
 // import data from './mocData.json';
 // import data from '../../../../backend/data/inspectiondpdf.json';
@@ -64,13 +64,12 @@ pdfMake.fonts = {
 async function uploadToSpaces(blob) {
 
     // Add file as blob
-    const pdfFile = new File([blob], await createPDF(), { type: 'pdf' })
+    const pdfFile = new File([blob], await getFilename2(), { type: 'pdf' })
         // Create new formData
     const formData = new FormData()
         // Add pdf data to array of formData
     formData.append('file', pdfFile)
-
-    axios.post('/upload', formData, {
+    axios.post('/pdf', formData, {
             baseURL: 'https://photoims.sgp1.digitaloceanspaces.com'
         })
         .then(res => {
@@ -87,7 +86,7 @@ async function uploadToSpaces(blob) {
 //     return (formatted_date)
 // }
 
-async function createPDF(value) {
+async function getFilename2(value) {
     const time = new Date(value)
     const currentTime = await time.toLocaleString()
     const arrTime = await currentTime.split(' ')
@@ -106,7 +105,6 @@ export default {
                 await getInspection.inspectionContent(data),
                 await getFooter.footerContent(data),
 
-
             ],
             defaultStyle: {
                 font: 'Phetsarath'
@@ -118,7 +116,7 @@ export default {
         await pdfDocGenerator.open(data)
             // Get PDF as blob for upload to server files store
         await pdfDocGenerator.getBlob(blob => {
-            // console.log(blob)
+            console.log(blob)
             uploadToSpaces(blob)
         })
     }

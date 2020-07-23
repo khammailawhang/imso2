@@ -5,36 +5,63 @@
         <v-row align="start" justify="center">
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
             <v-card dense flat color="white">
-              <v-card-text>
-                <strong>{{$t("Navbar.Dashboard")}}</strong>
+              <v-card-title>
+                <span class="font-weight-bold">{{$t("Navbar.Dashboard")}}</span>
                 <v-icon small>mdi-chevron-right</v-icon>
                 <span>{{$t("Navbar.AdminManagement")}}</span>
-              </v-card-text>
+                <v-spacer/>
+                <v-btn color="#3d5afe" depressed small dark onclick="location.reload(true)" class="ml-2 text-capitalize"><v-icon small class="mr-1">mdi-refresh</v-icon> Refresh</v-btn>
+              </v-card-title>
             </v-card>
           </v-col>
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" class="pt-6">
             <v-card flat>
               <v-card-title></v-card-title>
               <v-tabs icons-and-text centered center-active height="80px" color="#304FFE">
-                <v-tab>
+                <v-tab class="text-capitalize">
                   <p>{{$t("Report.All")}}</p>
                   <v-icon large>mdi-chart-arc</v-icon>
                 </v-tab>
-                <v-tab>
+                <v-tab class="text-capitalize">
                   <p>{{$t("Report.InExpired")}}</p>
                   <v-icon large>mdi-car</v-icon>
                 </v-tab>
-                <v-tab>
+                <v-tab class="text-capitalize">
                   <p>{{$t("Report.Fee")}}</p>
                   <v-icon large>mdi-currency-usd</v-icon>
                 </v-tab>
                 <v-tab-item>
                   <v-card flat tile color="white">
                     <v-card-text>
-                      <v-row>
+                      <v-row> 
                         <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
                           <AdminManagement />
                         </v-col>
+                        <v-col cols="12" xl="6" lg="6" md="6" sm="12" xs="12" class="pt-6 pl-3">
+                        <v-card flat color="white">
+                          <AdminModelPopular />
+                        </v-card>
+                      </v-col>
+                      <v-col cols="12" xl="6" lg="6" md="6" sm="12" xs="12" class="pt-6 pl-3">
+                        <v-card flat color="white">
+                          <AdminTypePopular />
+                        </v-card>
+                      </v-col>
+                      <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" class="pt-6">
+                        <v-card flat color="white">
+                          <FeePerDay />
+                        </v-card>
+                      </v-col>
+                      <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" class="pt-6">
+                        <v-card flat color="white">
+                          <FeePerMonth />
+                        </v-card>
+                      </v-col>
+                      <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" class="pt-6 pb-6">
+                        <v-card flat color="white">
+                          <FeePerYear />
+                        </v-card>
+                      </v-col>
                         <!-- <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
                         <FeePerDay />
                       </v-col>
@@ -66,31 +93,6 @@
                   </v-card>
                 </v-tab-item>
               </v-tabs>
-            </v-card>
-          </v-col>
-          <v-col cols="12" xl="6" lg="6" md="6" sm="12" xs="12" class="pt-6 pl-3">
-            <v-card flat color="white">
-              <AdminModelPopular />
-            </v-card>
-          </v-col>
-          <v-col cols="12" xl="6" lg="6" md="6" sm="12" xs="12" class="pt-6 pl-3">
-            <v-card flat color="white">
-              <AdminTypePopular />
-            </v-card>
-          </v-col>
-          <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" class="pt-6">
-            <v-card flat color="white">
-              <FeePerDay />
-            </v-card>
-          </v-col>
-          <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" class="pt-6">
-            <v-card flat color="white">
-              <FeePerMonth />
-            </v-card>
-          </v-col>
-          <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" class="pt-6 pb-6">
-            <v-card flat color="white">
-              <FeePerYear />
             </v-card>
           </v-col>
         </v-row>

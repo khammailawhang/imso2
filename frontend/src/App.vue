@@ -16,7 +16,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("");
+      this.$router.push("login");
     }
     this.username = this.$store.getters.getUser.username;
     this.secretMessage = await AuthService.getSecretContent();

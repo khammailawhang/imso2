@@ -1,142 +1,127 @@
 <template>
- <div align="center">
-    <v-container no-gutters>
-        <v-col cols="12" xl="12" lg="12" md="12" sm="12">
-            <div align="center">
-                <v-col cols="12" xl="12" lg="7" md="12" sm="12">
-                    <v-row align="center" justify="center" no-gutters>
-                        <v-card-title>
-                            <v-toolbar-title cols="12" xl="12" lg="12" md="12" sm="12">
-                                <h5 class="indigo--text">
-                                    <v-icon color="indigo">mdi-xing</v-icon>
-                                    {{$t('Fee.Print')}}
-                                </h5>
-                            </v-toolbar-title>
-                        </v-card-title>
-                        <v-spacer />
-
-                        <v-btn class="indigo--text mr-4" small fab dark color="yellow" bottom @click="print">
-                            <v-icon>mdi-printer</v-icon>
-                        </v-btn>
-
-                        <v-card-title>
-                            <v-row>
-                                <v-col cols="12">
-                                    <v-tooltip bottom color="indigo">
-                                        <template v-slot:activator="{ on }">
-                                            <v-btn depressed @click="feeRequestTo(branch_id)" small fab color="indigo" dark v-on="on">
-                                                <v-icon>mdi-undo-variant</v-icon>
-                                            </v-btn>
-                                        </template>
-                                        <span>{{ $t("Inspection.Back") }}</span>
-                                    </v-tooltip>
-                                </v-col>
-                            </v-row>
-                        </v-card-title>
-                    </v-row>
-                </v-col>
-            </div>
-        </v-col>
-        <template>
-            <v-row justify="center" no-gutters id="print">
-                <v-col align="center" justify="center">
-                    <v-col cols="12" xl="10" lg="10" md="10" sm="12">
-                        <v-card ref="form" align="center" width="65%">
-                            <table style="font-family:Vision,Phetsarath OT" width="100%">
-                                <tr>
-                                    <br />
-                                    <h3 align="center" style="font-family:Vision,Phetsarath OT" width="100%">ໃບບິນເກັບຄ່າທໍານຽນກວດເຕັກນິກ</h3>
-                                </tr>
-                            </table>
-                            <table style="font-family:Vision,Phetsarath OT" width="100%">
-                                <tbody colspan="12">
-                                    <tr class="tr">
-                                        <td class="td">
-                                            {{
-                      $t("TR.OwnerName")
-                      }}
-                                        </td>
-                                        <td class="td">
-                                            <Strong class="indigo--text" v-text="owner_name"></Strong>
-                                        </td>
-                                    </tr>
-                                    <tr class="tr">
-                                        <td class="td">
-                                            {{
-                      $t("TR.ID_no")
-                      }}
-                                        </td>
-                                        <td class="td">
-                                            <Strong class="indigo--text" v-text="TRName"> </Strong> <Strong class="indigo--text" v-text="platc_no"> </Strong>
-
-                                        </td>
-                                    </tr>
-                                    <tr class="tr">
-                                        <td class="td">
-                                            {{
-                      $t("TR.Provice")
-                      }}
-                                        </td>
-                                        <td class="td">
-                                            <Strong class="indigo--text" v-text="PName"> </Strong>
-                                        </td>
-                                    </tr>
-                                    <tr class="tr">
-                                        <td class="td">
-                                            {{
-                      $t("TR.mode")
-                      }}
-                                        </td>
-                                        <td class="td">
-                                            <Strong class="indigo--text" v-text="MName"></Strong>
-                                        </td>
-                                    </tr>
-                                    <tr class="tr">
-                                        <td class="td">
-                                            {{
-                      $t("TR.type")
-                      }}
-                                        </td>
-                                        <td class="td">
-                                            <Strong class="indigo--text" v-text="TName"></Strong>
-                                        </td>
-                                    </tr>
-                                    <tr class="tr">
-                                        <td class="td">
-                                            {{
-                      $t("FeeSetting.Price")
-                      }}
-                                        </td>
-                                        <td class="td">
-
-                                            <Strong class="indigo--text ">
-                                                <div v-format="'0,000 ກີບ'">{{PiName}}</div>
-
-                                            </Strong>
-
-                                        </td>
-                                    </tr>
-
-                                    <tr class="tr">
-                                        <td class="td">
-                                            QR
-                                        </td>
-                                        <td class="td">
-                                            <img :content="generatePDFwithQRcode()" :src="QRvalue" contain width="100px" height="100px">
-
-                                            <div>{{created_at | formatDate}}</div>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </v-card>
-                    </v-col>
-                </v-col>
-            </v-row>
-        </template>
-    </v-container>
-    </div>
+  <div>
+    <v-content>
+      <v-container>
+        <v-row align="center" justify="center" no-gutters>
+          <v-col cols="12" xl="12" lg="12" md="12" sm="12">
+            <v-card flat color="white">
+              <v-card-title>
+                {{$t('Fee.Print')}}
+                <v-spacer />
+                <v-btn
+                  class="indigo--text mr-4"
+                  small
+                  depressed
+                  fab
+                  dark
+                  color="yellow"
+                  bottom
+                  @click="print"
+                >
+                  <v-icon color="#3d5afe">mdi-printer</v-icon>
+                </v-btn>
+                <v-tooltip bottom color="#3d5afe">
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      depressed
+                      @click="feeRequestTo(branch_id)"
+                      small
+                      fab
+                      color="#3d5afe"
+                      dark
+                      v-on="on"
+                    >
+                      <v-icon small>mdi-undo-variant</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>{{ $t("Inspection.Back") }}</span>
+                </v-tooltip>
+              </v-card-title>
+              <v-card-text id="print" style="font-family:Phetsarath OT">
+                <table style="font-family:Vision,Phetsarath OT" width="100%">
+                  <tr>
+                    <br />
+                    <h3
+                      align="center"
+                      style="font-family:Vision,Phetsarath OT"
+                      width="100%"
+                    >{{$t("Fee.Title")}}</h3>
+                  </tr>
+                </table>
+                <table style="font-family:Phetsarath OT" width="100%">
+                  <tbody colspan="12">
+                    <tr class="tr">
+                      <td class="td">
+                        {{
+                        $t("TR.OwnerName")
+                        }}
+                      </td>
+                      <td class="td">
+                        <Strong class="indigo--text" v-text="owner_name"></Strong>
+                      </td>
+                    </tr>
+                    <tr class="tr">
+                      <td class="td">
+                        {{
+                        $t("TR.Provice")
+                        }}
+                      </td>
+                      <td class="td">
+                        <Strong class="indigo--text" v-text="PName"></Strong>
+                      </td>
+                    </tr>
+                    <tr class="tr">
+                      <td class="td">
+                        {{
+                        $t("TR.ID_no")
+                        }}
+                      </td>
+                      <td class="td">
+                        <Strong class="indigo--text" v-text="TRName"></Strong>
+                        <Strong class="indigo--text" v-text="platc_no"></Strong>
+                      </td>
+                    </tr>
+                    <tr class="tr">
+                      <td class="td">
+                        {{
+                        $t("TR.mode")
+                        }}
+                      </td>
+                      <td class="td">
+                        <Strong class="indigo--text" v-text="MName"></Strong>
+                      </td>
+                    </tr>
+                    <tr class="tr">
+                      <td class="td">
+                        {{
+                        $t("TR.type")
+                        }}
+                      </td>
+                      <td class="td">
+                        <Strong class="indigo--text" v-text="TName"></Strong>
+                      </td>
+                    </tr>
+                    <tr class="tr">
+                      <td class="td">
+                        {{
+                        $t("FeeSetting.Price")
+                        }}
+                      </td>
+                      <td class="td">
+                        <Strong class="indigo--text">
+                          <div v-format="'0,000 Kip'">{{PiName}}</div>
+                        </Strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-content>
+  </div>
 </template>
 
 <script>
@@ -167,6 +152,7 @@ export default {
         chassis_no: "",
         fees: [],
         created_at: "",
+        printed:"printed",
 
         value: '',
         QRvalue: '',
@@ -224,6 +210,10 @@ export default {
         },
         print() {
             this.$htmlToPaper("print");
+             this.axios.put("/api/fee/printed",{
+            fee_id: this.$route.query.fee_id,
+            printed : this.printed
+      })
         },
         generateFromHTML() {
             const el = this.$refs.print;

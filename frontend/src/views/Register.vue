@@ -20,10 +20,15 @@
                             {{$t('Register.Table_Title')}}
                             <v-spacer />
                             <v-text-field flat dense solo-inverted v-model="search" append-icon="mdi-magnify" :label="$t('Register.Search')" hide-details single-line color="#3d5afe"></v-text-field>
-                            <v-btn-toggle class="ml-3">
-                                <v-tooltip bottom color="#3d5afe" v-if="register_export === '1'">
+                            <v-btn-toggle class="ml-3" borderless dense>
+                                <v-tooltip bottom color="#3d5afe">
                                     <template v-slot:activator="{ on }">
-                                        <v-btn depressed small fab color="#3d5afe" dark v-on="on">
+                                        <v-btn depressed small color="#3d5afe" v-if="register_export === '1'" v-on="on">
+                                            <download-csv :data="registers" name="Register.csv">
+                                                <v-icon small color="white">mdi-download</v-icon>
+                                            </download-csv>
+                                        </v-btn>
+                                        <v-btn depressed disabled small color="#3d5afe" v-else v-on="on">
                                             <download-csv :data="registers" name="Register.csv">
                                                 <v-icon small color="white">mdi-download</v-icon>
                                             </download-csv>
@@ -32,9 +37,12 @@
                                     <span>{{ $t("Register.Export_Excel") }}</span>
                                 </v-tooltip>
 
-                                <v-tooltip bottom color="#00E676" v-if="register_create === '1'">
+                                <v-tooltip bottom color="#00E676">
                                     <template v-slot:activator="{ on }">
-                                        <v-btn depressed :to="`/${$i18n.locale}/RegisterCreate`" small fab color="#00E676" dark v-on="on">
+                                        <v-btn small depressed :to="`/${$i18n.locale}/RegisterCreate`" v-if="register_create === '1'" color="#00E676" dark v-on="on">
+                                            <v-icon small color="white">mdi-plus-thick</v-icon>
+                                        </v-btn>
+                                        <v-btn small depressed  color="#00E676" v-else v-on="on">
                                             <v-icon small color="white">mdi-plus-thick</v-icon>
                                         </v-btn>
                                     </template>
@@ -44,31 +52,43 @@
                         </v-card-title>
                         <v-card-text>
                             <v-data-table  :headers="headers" :items="registers" :search="search">
+                                <template v-slot:item.owner_name="{ item }">
+                                   {{item.gender}} - {{item.owner_name}}
+                                </template>
                                 <template v-slot:item.status="{ item }">
                                     <v-chip :color="getColor(item.status)" v-if="item.status" dark small>{{ item.status }}</v-chip>
                                     <v-chip :color="getColor(item.status)" v-else dark small>Inactive</v-chip>
                                 </template>
                                 <template v-slot:item.action="{ index, item }">
-                                    <v-btn-toggle>
+                                    <v-btn-toggle borderless dense>
                                         <v-tooltip left color="#3d5afe">
                                             <template v-slot:activator="{ on }">
-                                                <v-btn @click="detailItem(item.register_id)" small color="#3d5afe" dark v-on="on">
+                                                <v-btn small @click="detailItem(item.register_id)" color="#3d5afe" dark v-on="on" v-if="register_detail === '1'">
                                                     <v-icon color="white" small>mdi-eye</v-icon>
+                                                </v-btn>
+                                                <v-btn small disabled color="#3d5afe" v-on="on" v-else>
+                                                    <v-icon color="black" small>mdi-eye</v-icon>
                                                 </v-btn>
                                             </template>
                                             <span>{{$t("Type.description")}}</span>
                                         </v-tooltip>
-                                        <v-tooltip left color="amber" v-if="register_update === '1'">
+                                        <v-tooltip left color="amber">
                                             <template v-slot:activator="{ on }">
-                                                <v-btn @click="editItem(item.register_id)" small color="amber" dark v-on="on">
+                                                <v-btn small @click="editItem(item.register_id)" v-if="register_update === '1'" color="amber" dark v-on="on">
+                                                    <v-icon color="white" small>mdi-pencil</v-icon>
+                                                </v-btn>
+                                                <v-btn small disabled @click="editItem(item.register_id)" v-else  color="amber" v-on="on">
                                                     <v-icon color="white" small>mdi-pencil</v-icon>
                                                 </v-btn>
                                             </template>
                                             <span>{{$t("Type.Edit")}}</span>
                                         </v-tooltip>
-                                        <v-tooltip right color="red" v-if="register_delete === '1'">
+                                        <v-tooltip right color="red">
                                             <template v-slot:activator="{ on }">
-                                                <v-btn @click="deleteItem(item.register_id)" small color="red" dark v-on="on">
+                                                <v-btn small @click="deleteItem(item.register_id)" v-if="register_delete === '1'" color="red" dark v-on="on">
+                                                    <v-icon color="white" small>mdi-delete</v-icon>
+                                                </v-btn>
+                                                <v-btn small disabled @click="deleteItem(item.register_id)" v-else color="red"  v-on="on">
                                                     <v-icon color="white" small>mdi-delete</v-icon>
                                                 </v-btn>
                                             </template>
@@ -78,12 +98,15 @@
                                 </template>
 
                                 <template v-slot:item.platc_no="{ item }">
-                                    <v-tooltip left color="#3d5afe">
+                                    <v-tooltip left color="amber">
                                         <template v-slot:activator="{ on }">
-                                            <v-btn @click="detailItem(item.register_id)"  depressed :color="getColorplatc_no(item.platc_no)" v-on="on">{{ item.TRName }} {{ item.platc_no }}</v-btn>
+                                            <v-btn small @click="detailItem(item.register_id)" depressed :color="getColorplatc_no(item.platc_no)" v-on="on">{{ item.TRName }} {{ item.platc_no }}</v-btn>
                                         </template>
                                         <span>{{$t("Type.description")}}</span>
                                     </v-tooltip>
+                                </template>
+                                <template v-slot:item.created_at="{ item }">
+                                    <v-text>{{ item.created_at | formatDate }}</v-text>
                                 </template>
                             </v-data-table>
                         </v-card-text>
@@ -110,30 +133,26 @@ export default {
         search: "",
 
         headers: [{
-                text: "ຊື່ົເຈົ້າຂອງລົດ",
+                text: "ເຈົ້າຂອງລົດ",
                 align: "left",
                 value: "owner_name",
-                width: "110px"
+                width: "140px"
             },
             {
                 text: "ແຂວງ",
                 value: "PName",
-                width: "100px"
             },
             {
-                text: "ເລກທະບຽນ",
+                text: "ທະບຽນລົດ",
                 value: "platc_no",
-                width: "50px"
             },
             {
                 text: "ຍີ່ຫໍ້",
                 value: "MName",
-                width: "60px"
             },
             {
                 text: "ປະເພດ",
                 value: "TName",
-                width: "50px"
             },
             // { text: "ສີລົດ", value: "CName", width: "90px" },
             // { text: "ພວງມາໄລ", value: "steering_wheel", width: "100px" },
@@ -149,9 +168,9 @@ export default {
             // { text: "ນໍ້າໜັກລົດ", value: "vehicle_weight", width: "100px" },
             // { text: "ນໍ້າໜັກບັນທຸກ", value: "max_loading", width: "100px" },
             // { text: "ນໍ້າໜັກລວມ", value: "total_weight", width: "100px" },
-            // { text: "ວັນທີ", value: "created_at", width: "250px" },
+            { text: "ວັນທີ", value: "created_at"},
             {
-                text: "ລາຍລະອຽດ, ແກ້ໄຂ, ລົບ",
+                text: "ຈັດການ",
                 value: "action",
                 width: "200px",
                 align: "right"
@@ -195,6 +214,7 @@ export default {
             this.register_create = this.$store.getters.getUser.register_create;
             this.register_update = this.$store.getters.getUser.register_update;
             this.register_delete = this.$store.getters.getUser.register_delete;
+            this.register_detail = this.$store.getters.getUser.register_detail;
             this.register_upload = this.$store.getters.getUser.register_upload;
             this.register_report = this.$store.getters.getUser.register_report;
             this.register_export = this.$store.getters.getUser.register_export;
@@ -212,7 +232,7 @@ export default {
         },
         getColorplatc_no(platc_no) {
             if (platc_no > 9000) return "#F9A825 ";
-            else return "#F9A825";
+            else return "amber";
         },
         initialize() {
             this.axios.get("/api/register").then(response => {

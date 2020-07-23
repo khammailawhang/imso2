@@ -4,59 +4,57 @@
       <v-container>
         <v-row align="center" justify="center" no-gutters>
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" align="left">
-            <v-card dense flat color="white">
-              <v-card-text>
+            <v-card height="60px" flat color="white">
+              <v-card-text >
                 <strong>{{$t("Navbar.Dashboard")}}</strong>
                 <v-icon small class="ma-2">mdi-chevron-right</v-icon>
                 <strong>{{$t("Navbar.Fee")}}</strong>
-                <v-icon small class="ma-2">mdi-chevron-right</v-icon>
-                <span>{{$t("Fee.Pay_History")}}</span>
               </v-card-text>
             </v-card>
           </v-col>
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" class="pt-4">
             <v-card flat color="white">
               <v-card-title>
-                {{$t('Fee.Pay_History')}}
+                {{$t('Fee.Fee')}}
                 <v-spacer />
-                <v-tooltip bottom color="#3d5afe">
+                <v-tooltip bottom color="#00E676">
                   <template v-slot:activator="{ on }">
                     <v-btn
                       depressed
                       @click="feeRequestTo(branch_id)"
                       small
                       fab
-                      color="#3d5afe"
+                      color="#00E676"
                       dark
                       v-on="on"
                     >
-                      <v-icon small>mdi-undo-variant</v-icon>
+                      <v-icon small>mdi-plus</v-icon>
                     </v-btn>
                   </template>
-                  <span>{{ $t("Inspection.Back") }}</span>
+                  <span>{{ $t("Fee.Create") }}</span>
                 </v-tooltip>
               </v-card-title>
               <v-card-subtitle>
                 <v-row>
                   <v-col cols="12" xl="4" lg="4" md="4" sm="4">
-                    <v-select
+                    <v-autocomplete
                       :items="fees"
                       item-text="PName"
                       :label="$t('Province.Name')"
                       dense
                       color="#3d5afe"
                       v-model="provinceFilterValue"
-                    ></v-select>
+                    ></v-autocomplete>
                   </v-col>
                   <v-col cols="12" xl="4" lg="4" md="4" sm="4">
-                    <v-select
+                    <v-autocomplete
                       :items="fees"
                       item-text="TRName"
                       :label="$t('Inspection.inspectonseach')"
                       dense
                       color="#3d5afe"
                       v-model="typeplactnoFilterValue"
-                    ></v-select>
+                    ></v-autocomplete>
                   </v-col>
                   <v-col cols="12" xl="4" lg="4" md="4" sm="4">
                     <v-text-field
@@ -72,23 +70,53 @@
               <v-card-text>
                 <v-data-table :headers="headers" :items="fees" :search="search">
                   <template v-slot:item.status="{ item }">
-                    <v-chip
-                      :color="getStatus(item.status)"
-                      v-if="item.status ==='PaySuccess'"
-                      dark
-                      label
-                    >{{$t('Fee.Paysuccess')}}</v-chip>
-                    <v-chip :color="getStatus(item.status)" v-else dark label>{{$t('Fee.Notpay')}}</v-chip>
+                    <v-btn-toggle borderless dense>
+                      <v-btn
+                      width="80px"
+                        small
+                        class="white--text"
+                        depressed
+                        :color="getStatus(item.status)"
+                        v-if="item.status ==='PaySuccess'"
+                      >{{$t('Fee.StatusTrue')}}</v-btn>
+                      <v-btn
+                       width="80px"
+                        small
+                        depressed
+                        class="white--text"
+                        :color="getStatus(item.status)"
+                        v-else
+                        dark
+                        label
+                      >{{$t('Fee.Notpay')}}</v-btn>
+
+                      <v-btn
+                        width="50px"
+                        small
+                        depressed
+                        class="white--text"
+                        :color="getprinted(item.printed)"
+                        v-if="item.printed"
+                      >{{$t("Fee.Printed")}}</v-btn>
+                      <v-btn
+                        width="50px"
+                        small
+                        depressed
+                        class="white--text"
+                        :color="getprinted(item.printed)"
+                        v-else
+                      >{{$t("Fee.NotPrinted")}}</v-btn>
+                    </v-btn-toggle>
                   </template>
                   <template v-slot:item.action="{ index, item }">
-                    <v-btn-toggle>
-                      <v-tooltip left color="green accent-3 ">
+                    <v-btn-toggle borderless dense>
+                      <v-tooltip left color="#3d5afe">
                         <template v-slot:activator="{ on }">
                           <v-btn
+                            small
                             depressed
                             @click="PrintItem(item.fee_id)"
-                            small
-                            color="green accent-3"
+                            color="#3d5afe"
                             v-on="on"
                           >
                             <v-icon small color="#fff">mdi-printer</v-icon>
@@ -107,9 +135,9 @@
                       <v-tooltip left color="amber darken-1 ">
                         <template v-slot:activator="{ on }">
                           <v-btn
+                            small
                             depressed
                             @click="editItem(item.fee_id)"
-                            small
                             color="amber darken-1"
                             dark
                             v-on="on"
@@ -122,9 +150,9 @@
                       <v-tooltip left color="red">
                         <template v-slot:activator="{ on }">
                           <v-btn
+                            small
                             depressed
                             @click="deleteItem(item.fee_id)"
-                            small
                             color="red"
                             dark
                             v-on="on"
@@ -136,20 +164,22 @@
                       </v-tooltip>
                     </v-btn-toggle>
                   </template>
-
                   <template v-slot:item.platc_no="{ item }">
                     <v-btn
-                      width="60px"
-                      class="white--text"
+                      width="80px"
+                      class="black--text"
                       depressed
                       small
                       :color="getColorplatc_no(item.platc_no)"
                     >
-                      <v-text>{{ item.platc_no }}</v-text>
+                      {{ item.TRName }} {{ item.platc_no }}
                     </v-btn>
                   </template>
+                  <template v-slot:item.owner_name="{ item }">
+                    {{ item.gender }} - {{ item.owner_name }}
+                  </template>
                   <template v-slot:item.PiName="{item}">
-                    <div v-format="'₭ 0,000'">{{item.PiName}}</div>
+                    <div v-format="'0,000 KIP'">{{item.PiName}}</div>
                   </template>
                   <template v-slot:item.created_at="{ item }">
                     <v-text>{{ item.created_at | formatDate }}</v-text>
@@ -205,16 +235,10 @@ export default {
     headers() {
       return [
         {
-          text: "ລະຫັດ",
-          value: "TRName",
-          width: "0px",
-          filter: this.typeplatcnoFilter
-        },
-        {
-          text: "ເລກທະບຽນ",
-          value: "platc_no",
-          width: "0px",
-          filter: this.platcnoFilter
+          text: "ເຈົ້າຂອງລົດ",
+          align: "left",
+          value: "owner_name",
+          width: "0px"
         },
         {
           text: "ແຂວງ",
@@ -223,9 +247,14 @@ export default {
           filter: this.provinceFilter
         },
         {
-          text: "ຊື່ົເຈົ້າຂອງລົດ",
-          align: "left",
-          value: "owner_name",
+          text: "ເລກທະບຽນ",
+          value: "platc_no",
+          width: "0px",
+          filter: this.platcnoFilter
+        },
+        {
+          text: "ຍີ່ຫໍ້",
+          value: "MName",
           width: "0px"
         },
         {
@@ -244,7 +273,7 @@ export default {
           width: "0px"
         },
         {
-          text: "ພິມ / ລາຍລະອຽດ /  ລົບ",
+          text: "ຈັດການ",
           value: "action",
           width: "200px",
           align: "center"
@@ -263,9 +292,8 @@ export default {
   async created() {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push("login");
-    } else if (this.$store.getters.getUser.model === "1") {
+    } else if (this.$store.getters.getUser.fee === "1") {
       this.initialize();
-      this.users_id = this.$store.getters.getUser.users_id;
       this.fee = this.$store.getters.getUser.fee;
       this.fee_create = this.$store.getters.getUser.fee_create;
       this.fee_update = this.$store.getters.getUser.fee_update;
@@ -274,13 +302,6 @@ export default {
       this.fee_upload = this.$store.getters.getUser.fee_upload;
       this.fee_report = this.$store.getters.getUser.fee_report;
       this.fee_export = this.$store.getters.getUser.fee_export;
-      this.username = this.$store.getters.getUser.username;
-      this.home = this.$store.getters.getUser.home;
-      this.register = this.$store.getters.getUser.register;
-      this.inspection = this.$store.getters.getUser.inspection;
-
-      this.report = this.$store.getters.getUser.report;
-      this.setting = this.$store.getters.getUser.setting;
       this.branch_name = this.$store.getters.getUser.branch_name;
       this.branch_id = this.$store.getters.getUser.branch_id;
       this.secretMessage = await AuthService.getSecretContent();
@@ -313,15 +334,19 @@ export default {
     getColorplatc_no(platc_no) {
       if (platc_no > 9000) return "#F9A825 ";
       // else if (platc_no > 9999) return '#F9A825'
-      else return "#F9A825";
+      else return "amber";
     },
     getStatus(status) {
       if (status == "PaySuccess") return "#00E676";
       else return "red";
+    }, 
+    getprinted(printed) {
+      if (printed === "printed") return "#3D5AFE";
+      else return "#B0BEC5";
     },
     initialize() {
       this.axios
-        .get("/api/fee/branch_id/" + this.$route.query.branch_id)
+        .get("/api/fee/list/branch_id/" + this.$route.query.branch_id)
         .then(response => {
           this.fees = response.data.fees;
         });
@@ -337,11 +362,8 @@ export default {
     },
     async deleteItem(fee_id, index) {
       if (confirm("Ayre you sure delete ?")) {
-        let res = this.axios.delete("/api/fee/delete/" + fee_id).then();
-        if (res) {
-          this.fees.splice(index, 1);
-          this.$router.replace("List");
-        }
+        this.axios.delete("/api/fee/delete/" + fee_id).then();
+        this.fees.splice(index, 1);
       }
     },
     feeRequestTo(branch_id) {

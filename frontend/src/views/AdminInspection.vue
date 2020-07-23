@@ -15,14 +15,14 @@
               height="100px"
               dark
             >
-              <v-tab class="indigo accent-4 ma-2 white--text">
+              <v-tab class="indigo accent-4 ma-2 white--text text-capitalize">
                 All
                 <span
                   v-for="item in inspectionsall"
                   :key="item.inspection_id"
                 >{{item.inspection_id}}.00</span>
               </v-tab>
-              <v-tab class="green accent-3 ma-2 white--text">
+              <v-tab class="green accent-3 ma-2 white--text text-capitalize">
                 Active
                 <span
                   class="white--text"
@@ -30,7 +30,7 @@
                   :key="item.inspection_id"
                 >{{item.inspection_id}}.00</span>
               </v-tab>
-              <v-tab class="red ma-2 white--text">
+              <v-tab class="red ma-2 white--text text-capitalize">
                 Expired
                 <span
                   class="white--text"
@@ -53,7 +53,7 @@
                                 <v-btn
                                   depressed
                                   color="indigo accent-4"
-                                  class="white--text"
+                                  class="white--text text-capitalize"
                                   width="80px"
                                   @click="fetchRecords()"
                                 >{{$t('Report.Search')}}</v-btn>
@@ -63,7 +63,7 @@
                                   dark
                                   v-on="on"
                                   width="80px"
-                                  class="white--text"
+                                  class="white--text text-capitalize"
                                 >
                                   <download-csv
                                     :data="inspections"
@@ -179,8 +179,8 @@
                                 :items="inspections"
                                 :search="search"
                               >
-                                <template v-slot:item.created_at="{ item }">
-                                  <v-text>{{ item.created_at | formatDate }}</v-text>
+                                <template v-slot:item.ວັນທີ="{ item }">
+                                  <v-text>{{ item.ວັນທີ | formatDate }}</v-text>
                                 </template>
                               </v-data-table>
                             </v-card-text>
@@ -250,58 +250,47 @@ export default {
     headers() {
       return [
         {
-          text: "ຊື່ົເຈົ້າຂອງລົດ",
+          text: "ເຈົ້າຂອງລົດ",
           align: "left",
-          value: "owner_name",
-          width: "0px"
+          value: "ເຈົ້າຂອງລົດ"
         },
         {
           text: "ເພດ",
-          value: "gender",
-          width: "0px"
+          value: "ເພດ"
         },
         {
-          text: "ແຂວງ",
-          value: "PName",
-          width: "0px",
-          filter: this.provinceFilter
+            text: "ແຂວງ",
+            value: "ແຂວງ",
+            filter: this.provinceFilter
         },
         {
-          text: "ລະຫັດ",
-          value: "TRName",
-          width: "0px",
+            text: "ສາຂາ",
+            value: "ສາຂາ"
+        },
+        {
+          text: "ປະເພດທະບຽນ",
+          value: "ປະເພດທະບຽນ",
           filter: this.typeplatcnoFilter
         },
         {
           text: "ເລກທະບຽນ",
-          value: "platc_no",
-          width: "0px",
-          filter: this.platcnoFilter
+          value:"ເລກທະບຽນ"
         },
         {
           text: "ຍີ່ຫໍ້",
-          value: "MName",
-          width: "0px"
+          value: "ຍີ່ຫໍ້"
         },
         {
           text: "ປະເພດ",
-          value: "TName",
-          width: "0px"
+          value: "ປະເພດ"
         },
         {
           text: "ສີ",
-          value: "CName",
-          width: "0px"
-        },
-        {
-          text: "ລາຄາ",
-          value: "PiName",
-          width: "0px"
+          value: "ສີ"
         },
         {
           text: "ວັນທີ",
-          value: "created_at",
-          width: "0px"
+          value: "ວັນທີ"
         }
       ];
     },
@@ -398,7 +387,7 @@ export default {
     },
     initialize() {
       this.axios
-        .get("/api/report/admin/all/")
+        .get("/api/report/admin/all_fetch")
         .then(response => {
           this.inspections = response.data.inspections;
         });

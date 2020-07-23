@@ -1,11 +1,12 @@
 <template>
   <div>
-    <v-content>
+    <v-content> 
       <v-container>
         <v-row>
           <v-col cols="12" align="left" class="indigo--text"> 
             <h3 class="grey--text">{{$t('Report.ModelPopular')}}</h3>
           </v-col>
+          
           <v-col cols="12">
             <v-hover v-slot:default="{ hover }" open-delay="200">
               <v-card :elevation="hover ? 0 : 0">
@@ -50,21 +51,11 @@ export default {
           {
             label: "Income per month",
             backgroundColor: [randomColor()],
-            data: res.data.map(item => item.fee_id)
+            data: res.data.map(item => item.inspection_id)
           }
         ]
       }),
         (this.options = {
-          tooltips: {
-            callbacks: {
-              label: function(tooltipItem, data) {
-                var value = Number(
-                  data.datasets[0].data[tooltipItem.index]
-                ).toFixed(2);
-                return value;
-              }
-            }
-          },
           scales: {
             ticks: {
               suggestedMin: 50,
@@ -78,3 +69,4 @@ export default {
   },
 };
 </script>
+
