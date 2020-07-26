@@ -15,7 +15,7 @@ function getTimeqr(value) {
 
 
 
-function dataall(value) {
+function data1(value) {
     const result = axios.get('http://165.22.106.196:8080/api/inspection/inspection_id/', value)
         .then(res => {
             return res.data
@@ -65,7 +65,7 @@ async function uploadToSpaces(blob, filename) {
 }
 
 export {
-    dataall,
+    data1,
     getTime,
     getValue,
     getValue1,
