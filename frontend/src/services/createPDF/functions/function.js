@@ -15,17 +15,17 @@ function getTimeqr(value) {
 
 
 
-function data1(value) {
-    const result = axios.get('http://165.22.106.196:8080/api/inspection/fee_id/', value)
-        .then(res => {
-            return res.data
-        })
-        .catch(err => {
-            return err
-        })
-    console.log(result.value)
-    return result.value
-}
+// function data1(value) {
+//     const result = axios.get('http://165.22.106.196:8080/api/inspection/fee_id/', value)
+//         .then(res => {
+//             return res.data
+//         })
+//         .catch(err => {
+//             return err
+//         })
+//     console.log(result.value)
+//     return result.value
+// }
 
 function getValue(value) {
     return value === 'true' ? 'o' : 'x'
@@ -65,7 +65,7 @@ async function uploadToSpaces(blob, filename) {
 }
 
 export {
-    data1,
+    // data1,
     getTime,
     getValue,
     getValue1,
