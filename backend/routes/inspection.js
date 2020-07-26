@@ -1317,7 +1317,7 @@ router.post("/create", async function(req, res) {
         .where("fee_id", "=", req.body.fee_id);
 
     rows = await db("tb_inspection").insert({
-        register_id: req.body.register_id,
+
         fee_id: req.body.fee_id,
         users_id: req.body.users_id,
         branch_id: req.body.branch_id,
@@ -1562,7 +1562,7 @@ router.get("/inspection_id/:inspection_id", async function(req, res) {
             "tablecardata.idAcceptNo"
         )
         .select(
-
+            "tb_register.register_id as register_id",
             "tb_register.register_id as register_id",
             "tb_register.owner_name as owner_name",
             "tb_register.gender as gender",
