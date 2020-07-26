@@ -765,6 +765,7 @@ export default {
         mirror: "true",
         wiper: "true",
         printed: "",
+        inspected: "",
         qr: "",
         photo: [],
 
