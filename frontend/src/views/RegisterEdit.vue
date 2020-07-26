@@ -4,547 +4,955 @@
       <v-container>
         <ValidationObserver ref="observer">
           <v-row align="center" justify="center" no-gutters>
-              <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-            <v-card dense flat color="white">
-              <v-card-text>
-                <strong>{{$t("Navbar.Dashboard")}}</strong>
-                <v-icon small class="ma-2">mdi-chevron-right</v-icon>
-                <strong>{{$t("Navbar.Register")}}</strong>
-                <v-icon small class="ma-2">mdi-chevron-right</v-icon>
-                <span>{{$t("Edit.Edit_Titlec")}}</span>
-              </v-card-text>
-            </v-card>
-          </v-col>
-            <v-col cols="12" xl="12" lg="12" md="12" sm="12" class="pt-6">
-              <v-card flat color="white">
+            <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
+              <v-card dense flat color="white">
                 <v-card-title>
-                  {{ $t("Edit.Edit_Titlec") }}
+                  <span style="font-size:14px">{{$t("Navbar.Dashboard")}}</span>
+                  <v-icon small class="ma-2">mdi-chevron-right</v-icon>
+                  <span style="font-size:14px">{{$t("Navbar.Register")}}</span>
+                  <v-icon small class="ma-2">mdi-chevron-right</v-icon>
+                  <strong style="font-size:14px">{{$t("Register.Create_Title")}}</strong>
                   <v-spacer />
                   <v-tooltip bottom color="#3d5afe">
                     <template v-slot:activator="{ on }">
                       <v-btn
                         depressed
                         :to="`/${$i18n.locale}/Register`"
-                        fab
                         small
+                        class="text-capitalize"
                         color="#3d5afe"
                         dark
                         v-on="on"
                       >
-                        <v-icon small>mdi-undo-variant</v-icon>
+                        <v-icon small class="mr-2">mdi-keyboard-backspace</v-icon>
+                        {{ $t("Fee.Back") }}
                       </v-btn>
                     </template>
                     <span>{{ $t("Fee.Back") }}</span>
                   </v-tooltip>
                 </v-card-title>
+              </v-card>
+            </v-col>
+            <v-col cols="12" xl="12" lg="12" md="12" sm="12" class="pt-6">
+              <v-card flat color="white">
+                <v-card-title>
+                  <span style="font-size:18px">{{$t('Register.Create_Title2')}}</span>
+                </v-card-title>
                 <v-card-text>
-                  <v-row align="start" justify="left">
+                  <v-row>
                     <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <ValidationProvider
-                            rules="required"
-                            v-slot="{ errors }"
-                            :v-model="tr_id"
-                            :bails="false"
-                          >
-                            <span class="pt-2">{{ $t("Model.Name") }}</span>
-                            <v-autocomplete
-                              color="#00C853"
-                              required
-                              hide-details="auto"
-                              :items="trs"
-                              v-model="tr_id"
-                              item-text="name"
-                              item-value="tr_id"
-                              small
-                              dense
-                            ></v-autocomplete>
-                            <ul style="color:red" class="overline text-left">
-                              <li v-for="(error, tr_id) in errors" :key="tr_id">
-                                <span class="li">{{$t("Register.validate")}}</span>
-                              </li>
-                            </ul>
-                          </ValidationProvider>
-                        </v-col>
-                      </v-row>
+                      <ValidationProvider
+                        rules="required"
+                        v-slot="{ errors }"
+                        :v-model="tr_id"
+                        :bails="false"
+                      >
+                        <v-autocomplete
+                          color="#3d5afe"
+                          required
+                          flat
+                          solo
+                          background-color="#ebedfc"
+                          hide-details="auto"
+                          :items="trs"
+                          v-model="tr_id"
+                          item-text="name"
+                          item-value="tr_id"
+                          small
+                          dense
+                        >
+                          <template slot="label">
+                            <span style="font-size:14px">{{ $t('TR.Name') }}</span>
+                            <span class="red--text pl-2">*</span>
+                          </template>
+                        </v-autocomplete>
+                        <span style="color:red" class="overline text-left">
+                          <span v-for="(error, tr_id) in errors" :key="tr_id">
+                            <p class="li">{{$t("Register.validated")}}</p>
+                          </span>
+                        </span>
+                      </ValidationProvider>
                     </v-col>
                     <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <ValidationProvider
-                            rules="required"
-                            v-slot="{ errors }"
-                            :v-model="platc_no"
-                            :bails="false"
-                          >
-                            <span class="pt-2">{{ $t("Register.Platcno") }}</span>
-                            <v-text-field
-                              solo
-                              flat
-                              background-color="amber"
-                              class="white--text"
-                              :label="$t('Register.Platcno')"
-                              small
-                              dense
-                              :rules="rules"
-                              v-model="platc_no"
-                              counter
-                              maxlength="4"
-                              type
-                            ></v-text-field>
-                            <ul style="color:red" class="overline text-left">
-                              <li v-for="(error, platc_no) in errors" :key="platc_no">
-                                <span class="li">{{$t("Register.validate")}}</span>
-                              </li>
-                            </ul>
-                          </ValidationProvider>
-                        </v-col>
-                      </v-row>
+                      <ValidationProvider
+                        rules="required"
+                        v-slot="{ errors }"
+                        :v-model="platc_no"
+                        :bails="false"
+                      >
+                        <v-text-field
+                          required
+                          solo
+                          flat
+                          background-color="#FFD180"
+                          class="white--text"
+                          color="white"
+                          small
+                          dense
+                          v-model="platc_no"
+                          :rules="rules"
+                          counter
+                          maxlength="4"
+                          type
+                        >
+                          <template slot="label">
+                            <span style="font-size:14px">{{ $t('Register.Platcno') }}</span>
+                            <span class="red--text pl-2">*</span>
+                          </template>
+                        </v-text-field>
+
+                        <span style="color:red" class="overline text-left">
+                          <span v-for="(error, platc_no) in errors" :key="platc_no">
+                            <span class="li">{{$t("Register.validate")}}</span>
+                          </span>
+                        </span>
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
+                      <ValidationProvider
+                        rules="required"
+                        v-slot="{ errors }"
+                        :v-model="model_id"
+                        :bails="false"
+                      >
+                        <v-autocomplete
+                          color="#3d5afe"
+                          :label="$t('Model.Name')"
+                          :items="models"
+                          v-model="model_id"
+                          item-text="name"
+                          item-value="model_id"
+                          required
+                          small
+                          dense
+                          flat
+                          solo
+                          background-color="#ebedfc"
+                        >
+                          <template slot="label">
+                            <span style="font-size:14px">{{ $t('Model.Name') }}</span>
+                            <span class="red--text pl-2">*</span>
+                          </template>
+                        </v-autocomplete>
+
+                        <span style="color:red" class="overline text-left">
+                          <span v-for="(error, model_id) in errors" :key="model_id">
+                            <span style="font-size:14px" class="li">{{$t("Register.validated")}}</span>
+                          </span>
+                        </span>
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
+                      <ValidationProvider
+                        rules="required"
+                        v-slot="{ errors }"
+                        :v-model="type_id"
+                        :bails="false"
+                      >
+                        <v-autocomplete
+                          color="#3d5afe"
+                          :items="types"
+                          v-model="type_id"
+                          item-text="name"
+                          item-value="type_id"
+                          required
+                          small
+                          dense
+                          flat
+                          solo
+                          background-color="#ebedfc"
+                        >
+                          <template slot="label">
+                            <span style="font-size:14px">{{ $t('Type.Name') }}</span>
+                            <span class="red--text pl-2">*</span>
+                          </template>
+                        </v-autocomplete>
+
+                        <span style="color:red" class="overline text-left">
+                          <span v-for="(error, type_id) in errors" :key="type_id">
+                            <span class="li">{{$t("Register.validated")}}</span>
+                          </span>
+                        </span>
+                      </ValidationProvider>
                     </v-col>
 
                     <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Model.Name") }}</span>
-                          <v-autocomplete
-                            :items="models"
-                            v-model="model_id"
-                            item-text="name"
-                            item-value="model_id"
-                            required
-                            small
-                            dense
-                          ></v-autocomplete>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Type.Name") }}</span>
-                          <v-autocomplete
-                            :items="types"
-                            v-model="type_id"
-                            item-text="name"
-                            item-value="type_id"
-                            required
-                            small
-                            dense
-                          ></v-autocomplete>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Color.Name") }}</span>
-                          <v-autocomplete
-                            :items="colors"
-                            v-model="color_id"
-                            item-text="name"
-                            item-value="color_id"
-                            required
-                            small
-                            dense
-                          ></v-autocomplete>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">
-                            {{
-                            $t("Register.steering_wheel")
-                            }}
+                      <ValidationProvider
+                        rules="required"
+                        v-slot="{ errors }"
+                        :v-model="color_id"
+                        :bails="false"
+                      >
+                        <v-autocomplete
+                          color="#3d5afe"
+                          :items="colors"
+                          v-model="color_id"
+                          item-text="name"
+                          item-value="color_id"
+                          required
+                          small
+                          dense
+                          flat
+                          solo
+                          background-color="#ebedfc"
+                        >
+                          <template slot="label">
+                            <span style="font-size:14px">{{ $t('Color.Name') }}</span>
+                            <span class="red--text pl-2">*</span>
+                          </template>
+                        </v-autocomplete>
+
+                        <span style="color:red" class="overline text-left">
+                          <span v-for="(error, color_id) in errors" :key="color_id">
+                            <span class="li">{{$t("Register.validated")}}</span>
                           </span>
-                          <v-autocomplete
-                            :items="steeringwheel"
-                            v-model="steering_wheel"
-                            item-text="name"
-                            required
-                            small
-                            dense
-                          ></v-autocomplete>
-                        </v-col>
-                      </v-row>
+                        </span>
+                      </ValidationProvider>
                     </v-col>
                     <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Register.fuel") }}</span>
-                          <v-autocomplete :items="fuels" v-model="fuel" item-text="fuel" dense></v-autocomplete>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">
-                            {{
-                            $t("Register.cylinder_size_cc")
-                            }}
+                      <ValidationProvider
+                        rules="required"
+                        v-slot="{ errors }"
+                        :v-model="steering_wheel"
+                        :bails="false"
+                      >
+                        <v-autocomplete
+                          color="#3d5afe"
+                          :items="steeringwheel"
+                          v-model="steering_wheel"
+                          item-text="name"
+                          required
+                          small
+                          dense
+                          flat
+                          solo
+                          background-color="#ebedfc"
+                        >
+                          <template slot="label">
+                            <span style="font-size:14px">{{ $t('Register.steering_wheel') }}</span>
+                            <span class="red--text pl-2">*</span>
+                          </template>
+                        </v-autocomplete>
+
+                        <span style="color:red" class="overline text-left">
+                          <span v-for="(error, steering_wheel) in errors" :key="steering_wheel">
+                            <span class="li">{{$t("Register.validate")}}</span>
                           </span>
-                          /
-                          <span>{{ $t("Register.cc") }}</span>
+                        </span>
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
+                      <ValidationProvider
+                        rules="required"
+                        v-slot="{ errors }"
+                        :v-model="fuel"
+                        :bails="false"
+                      >
+                        <v-autocomplete
+                          color="#3d5afe"
+                          :items="fuels"
+                          v-model="fuel"
+                          item-text="name"
+                          required
+                          small
+                          dense
+                          flat
+                          solo
+                          background-color="#ebedfc"
+                        >
+                          <template slot="label">
+                            <span style="font-size:14px">{{ $t('Register.fuel') }}</span>
+                            <span class="red--text pl-2">*</span>
+                          </template>
+                        </v-autocomplete>
+
+                        <span style="color:red" class="overline text-left">
+                          <span v-for="(error, fuel) in errors" :key="fuel">
+                            <span class="li">{{$t("Register.validated")}}</span>
+                          </span>
+                        </span>
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
+                      <ValidationProvider
+                        rules="required"
+                        v-slot="{ errors }"
+                        :v-model="cylinder_size_cc"
+                        :bails="false"
+                      >
+                        <v-btn-toggle>
                           <v-text-field
+                            color="#3d5afe"
                             v-model="cylinder_size_cc"
                             type="number"
                             autocomplete="off"
-                            small
-                            dense
-                          />
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Register.cylinder") }}</span>
-                          <v-text-field
-                            v-model="cylinder"
-                            type="number"
-                            autocomplete="off"
                             required
                             small
                             dense
-                          />
+                            flat
+                            solo
+                            background-color="#ebedfc"
+                          >
+                            <template slot="label">
+                              <span style="font-size:14px">{{ $t('Register.cylinder_size_cc') }}</span>
+                              <span class="red--text pl-2">*</span>
+                            </template>
+                          </v-text-field>
+                          <v-avatar
+                            tile
+                            style="font-size:14px"
+                            color="white"
+                          >{{ $t("Register.cc") }}</v-avatar>
+                        </v-btn-toggle>
+                        <span style="color:red" class="overline text-left">
+                          <span v-for="(error, cylinder_size_cc) in errors" :key="cylinder_size_cc">
+                            <span class="li">{{$t("Register.validate")}}</span>
+                          </span>
+                        </span>
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <ValidationProvider
+                            rules="required"
+                            v-slot="{ errors }"
+                            :v-model="cylinder"
+                            :bails="false"
+                          >
+                            <v-text-field
+                              color="#3d5afe"
+                              v-model="cylinder"
+                              item-text="cylinder"
+                              item-value="register_id"
+                              required
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.cylinder') }}</span>
+                                <span class="red--text pl-2">*</span>
+                              </template>
+                            </v-text-field>
+
+                            <span style="color:red" class="overline text-left">
+                              <span v-for="(error, cylinder) in errors" :key="cylinder">
+                                <span class="li">{{$t("Register.validate")}}</span>
+                              </span>
+                            </span>
+                          </ValidationProvider>
                         </v-col>
                       </v-row>
                     </v-col>
 
                     <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span>{{ $t("Register.p") }}</span>
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <ValidationProvider
+                            rules="required"
+                            v-slot="{ errors }"
+                            :v-model="price"
+                            :bails="false"
+                          >
+                            <v-autocomplete
+                              color="#3d5afe"
+                              :items="prices"
+                              item-text="price"
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                              v-model="gender"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.p') }}</span>
+                                <span class="red--text pl-2">*</span>
+                              </template>
+                            </v-autocomplete>
 
-                          <v-autocomplete :items="prices" item-text="price" dense v-model="price"></v-autocomplete>
+                            <span style="color:red" class="overline text-left">
+                              <span v-for="(error, price) in errors" :key="price">
+                                <span class="li">{{$t("Register.validate")}}</span>
+                              </span>
+                            </span>
+                          </ValidationProvider>
                         </v-col>
                       </v-row>
                     </v-col>
                     <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
                           <ValidationProvider
                             rules="required"
                             v-slot="{ errors }"
                             :v-model="engine_no"
                             :bails="false"
                           >
-                            <span class="pt-2">{{ $t("Register.engine_no") }}</span>
                             <v-text-field
+                              color="#3d5afe"
                               v-model="engine_no"
                               type="text"
                               autocomplete="off"
                               small
                               dense
-                            />
-                            <ul style="color:red" class="overline text-left">
-                              <li v-for="(error, engine_no) in errors" :key="engine_no">
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.engine_no') }}</span>
+                                <span class="red--text pl-2">*</span>
+                              </template>
+                            </v-text-field>
+
+                            <span style="color:red" class="overline text-left">
+                              <span v-for="(error, engine_no) in errors" :key="engine_no">
                                 <span class="li">{{$t("Register.validate")}}</span>
-                              </li>
-                            </ul>
+                              </span>
+                            </span>
                           </ValidationProvider>
                         </v-col>
                       </v-row>
                     </v-col>
                     <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
                           <ValidationProvider
                             rules="required"
                             v-slot="{ errors }"
                             :v-model="chassis_no"
                             :bails="false"
                           >
-                            <span class="pt-2">{{ $t("Register.chassis_no") }}</span>
                             <v-text-field
+                              color="#3d5afe"
                               v-model="chassis_no"
                               type="text"
                               autocomplete="off"
                               small
                               dense
-                            />
-                            <ul style="color:red" class="overline text-left">
-                              <li v-for="(error, chassis_no) in errors" :key="chassis_no">
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.chassis_no') }}</span>
+                                <span class="red--text pl-2">*</span>
+                              </template>
+                            </v-text-field>
+
+                            <span style="color:red" class="overline text-left">
+                              <span v-for="(error, chassis_no) in errors" :key="chassis_no">
                                 <span class="li">{{$t("Register.validate")}}</span>
-                              </li>
-                            </ul>
+                              </span>
+                            </span>
                           </ValidationProvider>
                         </v-col>
                       </v-row>
                     </v-col>
                     <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Register.width") }}</span> /
-                          <span>{{ $t("Register.mm") }}</span>
-                          <v-text-field
-                            v-model="width"
-                            type="number"
-                            autocomplete="off"
-                            small
-                            dense
-                          />
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Register.length") }}</span> /
-                          <span>{{ $t("Register.mm") }}</span>
-                          <v-text-field
-                            v-model="length"
-                            type="number"
-                            autocomplete="off"
-                            small
-                            dense
-                          />
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Register.height") }}</span> /
-                          <span>{{ $t("Register.mm") }}</span>
-                          <v-text-field
-                            v-model="height"
-                            type="number"
-                            autocomplete="off"
-                            small
-                            dense
-                          />
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">
-                            {{
-                            $t("Register.passenger_scats")
-                            }}
-                          </span>
-                          /
-                          <span>{{ $t("Register.scats") }}</span>
-                          <v-text-field
-                            v-model="passenger_scats"
-                            type="number"
-                            autocomplete="off"
-                            small
-                            dense
-                          />
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <v-btn-toggle>
+                            <v-text-field
+                              color="#3d5afe"
+                              v-model="width"
+                              type="number"
+                              autocomplete="off"
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.width') }}</span>
+                              </template>
+                            </v-text-field>
+                            <v-avatar
+                              style="font-size:14px"
+                              tile
+                              color="white"
+                            >{{ $t("Register.mm") }}</v-avatar>
+                          </v-btn-toggle>
                         </v-col>
                       </v-row>
                     </v-col>
 
                     <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">
-                            {{
-                            $t("Register.vehicle_weight")
-                            }}
-                          </span>
-                          /
-                          <span>{{ $t("Register.kg") }}</span>
-                          <v-text-field
-                            v-model="vehicle_weight"
-                            type="number"
-                            autocomplete="off"
-                            small
-                            dense
-                          />
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <v-btn-toggle>
+                            <v-text-field
+                              color="#3d5afe"
+                              v-model="length"
+                              type="number"
+                              autocomplete="off"
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.length') }}</span>
+                              </template>
+                            </v-text-field>
+                            <v-avatar
+                              style="font-size:14px"
+                              tile
+                              color="white"
+                            >{{ $t("Register.mm") }}</v-avatar>
+                          </v-btn-toggle>
                         </v-col>
                       </v-row>
                     </v-col>
 
                     <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Register.max_loading") }}</span>
-                          /
-                          <span>{{ $t("Register.kg") }}</span>
-                          <v-text-field
-                            v-model="max_loading"
-                            type="number"
-                            autocomplete="off"
-                            small
-                            dense
-                          />
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <v-btn-toggle>
+                            <v-text-field
+                              color="#3d5afe"
+                              v-model="height"
+                              type="number"
+                              autocomplete="off"
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.height') }}</span>
+                              </template>
+                            </v-text-field>
+                            <v-avatar
+                              style="font-size:14px"
+                              tile
+                              color="white"
+                            >{{ $t("Register.mm") }}</v-avatar>
+                          </v-btn-toggle>
                         </v-col>
                       </v-row>
                     </v-col>
                     <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">
-                            {{
-                            $t("Register.total_weight")
-                            }}
-                          </span>
-                          /
-                          <span>{{ $t("Register.kg") }}</span>
-                          <v-text-field
-                            v-model="total_weight"
-                            type="number"
-                            autocomplete="off"
-                            small
-                            dense
-                          />
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <v-btn-toggle>
+                            <v-text-field
+                              color="#3d5afe"
+                              v-model="passenger_scats"
+                              type="number"
+                              autocomplete="off"
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.passenger_scats') }}</span>
+                              </template>
+                            </v-text-field>
+                            <v-avatar
+                              tile
+                              style="font-size:14px"
+                              color="white"
+                            >{{ $t("Register.scats") }}</v-avatar>
+                          </v-btn-toggle>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <v-btn-toggle>
+                            <v-text-field
+                              color="#3d5afe"
+                              :label="$t('Register.vehicle_weight')"
+                              v-model="vehicle_weight"
+                              type="number"
+                              autocomplete="off"
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.vehicle_weight') }}</span>
+                              </template>
+                            </v-text-field>
+                            <v-avatar
+                              tile
+                              style="font-size:14px"
+                              color="white"
+                            >{{ $t("Register.kg") }}</v-avatar>
+                          </v-btn-toggle>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <v-btn-toggle>
+                            <v-text-field
+                              color="#3d5afe"
+                              v-model="max_loading"
+                              type="number"
+                              autocomplete="off"
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.max_loading') }}</span>
+                              </template>
+                            </v-text-field>
+                            <v-avatar
+                              style="font-size:14px"
+                              tile
+                              color="white"
+                            >{{ $t("Register.kg") }}</v-avatar>
+                          </v-btn-toggle>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="12" xl="2" lg="3" md="4" sm="4">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <v-btn-toggle>
+                            <v-text-field
+                              color="#3d5afe"
+                              v-model="total_weight"
+                              type="number"
+                              autocomplete="off"
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.total_weight') }}</span>
+                              </template>
+                            </v-text-field>
+                            <v-avatar
+                              style="font-size:14px"
+                              tile
+                              color="white"
+                            >{{ $t("Register.kg") }}</v-avatar>
+                          </v-btn-toggle>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <ValidationProvider
+                            style="font-size:14px"
+                            rules="required"
+                            v-slot="{ errors }"
+                            :v-model="use_id"
+                            :bails="false"
+                          >
+                            <v-autocomplete
+                              color="#3d5afe"
+                              :label="$t('Register.use')"
+                              :items="uses"
+                              v-model="use_id"
+                              item-text="name"
+                              item-value="use_id"
+                              required
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.use') }}</span>
+                                <span class="red--text pl-2">*</span>
+                              </template>
+                            </v-autocomplete>
+
+                            <span style="color:red" class="overline text-left">
+                              <span v-for="(error, use_id) in errors" :key="use_id">
+                                <span class="li">{{$t("Register.validated")}}</span>
+                              </span>
+                            </span>
+                          </ValidationProvider>
                         </v-col>
                       </v-row>
                     </v-col>
                   </v-row>
-                  <v-row align="start" justify="left">
-                    <v-toolbar-title style class="ml-0 pl-2">
-                      <h5>{{$t('Edit.edit')}}</h5>
-                    </v-toolbar-title>
+                </v-card-text>
+              </v-card>
 
-                    <v-spacer />
-                  </v-row>
-
+              <v-card color="white" flat class="mt-4">
+                <v-card-title>
+                  <span style="font-size:18px">{{$t('Register.Create_Title1')}}</span>
+                </v-card-title>
+                <v-card-text>
                   <v-row align="start" justify="left">
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Register.Gender") }}</span>
-                          <v-autocomplete :items="genders" item-text="PName" dense v-model="gender"></v-autocomplete>
+                    <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <ValidationProvider
+                            rules="required"
+                            v-slot="{ errors }"
+                            :v-model="gender"
+                            :bails="false"
+                          >
+                            <v-autocomplete
+                              color="#3d5afe"
+                              :items="genders"
+                              item-text="PName"
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                              v-model="gender"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.Gender') }}</span>
+                                <span class="red--text pl-2">*</span>
+                              </template>
+                            </v-autocomplete>
+
+                            <span style="color:red" class="overline text-left">
+                              <span v-for="(error, genders) in errors" :key="genders">
+                                <span style="font-size:14px" class="li">{{$t("Register.validated")}}</span>
+                              </span>
+                            </span>
+                          </ValidationProvider>
                         </v-col>
                       </v-row>
                     </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
+                    <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
                           <ValidationProvider
                             rules="required"
                             v-slot="{ errors }"
                             :v-model="owner_name"
                             :bails="false"
                           >
-                            <span class="pt-2">{{ $t("Register.OwnerName") }}</span>
-                            <v-text-field small dense v-model="owner_name" type="text"></v-text-field>
-                            <ul style="color:red" class="overline text-left">
-                              <li v-for="(error, owner_name) in errors" :key="owner_name">
+                            <v-text-field
+                              color="#3d5afe"
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                              v-model="owner_name"
+                              type="text"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.OwnerName') }}</span>
+                                <span class="red--text pl-2">*</span>
+                              </template>
+                            </v-text-field>
+
+                            <span style="color:red" class="overline text-left">
+                              <span v-for="(error, owner_name) in errors" :key="owner_name">
                                 <span class="li">{{$t("Register.validate")}}</span>
-                              </li>
-                            </ul>
+                              </span>
+                            </span>
                           </ValidationProvider>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Province.Name") }}</span>
-                          <v-autocomplete
-                            :items="provinces"
-                            v-model="province_id"
-                            item-text="name"
-                            item-value="province_id"
-                            required
-                            small
-                            dense
-                          ></v-autocomplete>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("District.Name") }}</span>
-                          <v-autocomplete
-                            :items="getalldata"
-                            v-model="district_id"
-                            item-text="name"
-                            item-value="district_id"
-                            required
-                            small
-                            dense
-                          ></v-autocomplete>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Village.Name") }}</span>
-                          <v-autocomplete
-                            :items="getall"
-                            v-model="village_id"
-                            item-text="name"
-                            item-value="village_id"
-                            required
-                            small
-                            dense
-                          ></v-autocomplete>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <ValidationProvider
-                            rules="required"
-                            v-slot="{ errors }"
-                            :v-model="phone"
-                            v-maska="['+856 (#0) #### ####', '+856 (#0) #### ####']"
-                            :bails="false"
-                          >
-                            <span class="pt-2">{{ $t("Register.Phone") }}</span>
-                            <v-text-field small dense v-model="phone" type="text"></v-text-field>
-                            <ul style="color:red" class="overline text-left">
-                              <li v-for="(error, phone) in errors" :key="phone">
-                                <span class="li">{{$t("Register.validate")}}</span>
-                              </li>
-                            </ul>
-                          </ValidationProvider>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-row no-gutters>
-                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-                          <span class="pt-2">{{ $t("Register.use") }}</span>
-                          <v-autocomplete
-                            :items="uses"
-                            v-model="use_id"
-                            item-text="name"
-                            item-value="use_id"
-                            required
-                            small
-                            dense
-                          ></v-autocomplete>
                         </v-col>
                       </v-row>
                     </v-col>
 
-                    <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                      <v-card-actions>
-                        <v-spacer />
-                        <v-tooltip top color="#00E676">
-                          <template v-slot:activator="{ on }">
-                            <v-btn
-                              depressed
-                              color="#00E676"
-                              v-on="on"
-                              class="white--text"
-                              @click="update"
+                    <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <ValidationProvider
+                            rules="required"
+                            v-slot="{ errors }"
+                            :v-model="province_id"
+                            :bails="false"
+                          >
+                            <v-autocomplete
+                              color="#3d5afe"
+                              :items="provinces"
+                              v-model="province_id"
+                              item-text="name"
+                              item-value="province_id"
+                              required
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
                             >
-                              <v-icon>save</v-icon>
-                            </v-btn>
-                          </template>
-                          <span>{{$t("Type.Save")}}</span>
-                        </v-tooltip>
-                      </v-card-actions>
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Province.Name') }}</span>
+                                <span class="red--text pl-2">*</span>
+                              </template>
+                            </v-autocomplete>
+
+                            <span style="color:red" class="overline text-left">
+                              <span v-for="(error, province_id) in errors" :key="province_id">
+                                <span class="li">{{$t("Register.validated")}}</span>
+                              </span>
+                            </span>
+                          </ValidationProvider>
+                        </v-col>
+                      </v-row>
                     </v-col>
-                    <!-- ======================================================= -->
+                    <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <ValidationProvider
+                            rules="required"
+                            v-slot="{ errors }"
+                            :v-model="district_id"
+                            :bails="false"
+                          >
+                            <v-autocomplete
+                              color="#3d5afe"
+                              :items="getalldata"
+                              v-model="district_id"
+                              item-text="name"
+                              item-value="district_id"
+                              required
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('District.Name') }}</span>
+                                <span class="red--text pl-2">*</span>
+                              </template>
+                            </v-autocomplete>
+
+                            <span style="color:red" class="overline text-left">
+                              <span v-for="(error, district_id) in errors" :key="district_id">
+                                <span class="li">{{$t("Register.validated")}}</span>
+                              </span>
+                            </span>
+                          </ValidationProvider>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <ValidationProvider
+                            rules="required"
+                            v-slot="{ errors }"
+                            :v-model="village_id"
+                            :bails="false"
+                          >
+                            <v-autocomplete
+                              color="#3d5afe"
+                              :items="getall"
+                              v-model="village_id"
+                              item-text="name"
+                              item-value="village_id"
+                              required
+                              small
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Village.Name') }}</span>
+                                <span class="red--text pl-2">*</span>
+                              </template>
+                            </v-autocomplete>
+
+                            <span style="color:red" class="overline text-left">
+                              <span v-for="(error, village_id) in errors" :key="village_id">
+                                <span class="li">{{$t("Register.validated")}}</span>
+                              </span>
+                            </span>
+                          </ValidationProvider>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                      <v-row>
+                        <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
+                          <ValidationProvider
+                            rules="required"
+                            v-slot="{ errors }"
+                            :v-model="phone"
+                            :bails="false"
+                          >
+                            <v-text-field
+                              color="#3d5afe"
+                              :items="phones"
+                              v-model="phone"
+                              v-maska="['+856 (#0) #### ####', '+856 (#0) #### ####']"
+                              item-value="inspection_id"
+                              small
+                              required
+                              dense
+                              flat
+                              solo
+                              background-color="#ebedfc"
+                              type="text"
+                            >
+                              <template slot="label">
+                                <span style="font-size:14px">{{ $t('Register.Phone') }}</span>
+                                <span class="red--text pl-2">*</span>
+                              </template>
+                            </v-text-field>
+
+                            <span style="color:red" class="overline text-left">
+                              <span v-for="(error, phone) in errors" :key="phone">
+                                <span class="li">{{$t("Register.validate")}}</span>
+                              </span>
+                            </span>
+                          </ValidationProvider>
+                        </v-col>
+                      </v-row>
+                    </v-col>
                   </v-row>
                 </v-card-text>
+                <v-card-actions>
+                  <v-spacer />
+                  <v-btn
+                    depressed
+                    v-on="on"
+                    color="#00E676"
+                    @click="update"
+                    class="white--text mr-4 text-capitalize"
+                  >
+                    <v-icon class="mr-2">check</v-icon>
+                    {{$t("Register.Update")}}
+                  </v-btn>
+
+                  <v-btn
+                    depressed
+                    color="#B0BEC5"
+                    @click="reset"
+                    class="white--text text-capitalize"
+                  >{{$t("Type.Cancel")}}</v-btn>
+                </v-card-actions>
               </v-card>
+            </v-col>
+            <v-col cols="12">
+              <v-alert v-if="msg === true" color="#00E676" class="white--text">
+                <v-icon color="#00E676">mdi-check</v-icon>
+                {{ $t("User.CreateSuccess") }}
+              </v-alert>
+              <v-alert
+                v-if="msg === false"
+                text
+                prominent
+                color="red"
+              >{{ $t("User.CreateNotSuccess") }}</v-alert>
             </v-col>
           </v-row>
         </ValidationObserver>
@@ -570,14 +978,14 @@ Vue.component("vue-phone-number-input", VuePhoneNumberInput);
 export default {
   components: {
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
   },
   data: () => ({
     villages: [],
     districts: [],
     provinces: [],
     genders: ["ຊາຍ", "ຍິງ"],
-    steeringwheel: ["ຂວາ", "ຊ້າຍ", "None"],
+    steeringwheel: ["ຂວາ", "ຊ້າຍເດີມ", "ຊ້າຍຍ້າຍພວງ"],
     fuels: ["ແອັດຊັງ", "ກາຊວນ", "ກາຣ", "ໄຟຟ້າ"],
     snackbar: false,
     snackbarText: "",
@@ -591,13 +999,13 @@ export default {
     color_id: "",
     platc_no: "",
     rules: [
-      value => value.length <= 4 || "ທ່ານໃສ່ເກີນ 4 ໂຕເລກ",
-      value => (value && value.length >= 4) || "ຕ້ອງເປັນຕົວເລກເທົ່ານັ້ນ",
+      (value) => value.length <= 4 || "ທ່ານໃສ່ເກີນ 4 ໂຕເລກ",
+      (value) => (value && value.length >= 4) || "ຕ້ອງເປັນຕົວເລກເທົ່ານັ້ນ",
 
-      value => {
+      (value) => {
         const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return pattern.test(value) || "4 ໝາຍເລກພໍດີ.";
-      }
+      },
     ],
     steering_wheel: "",
     fuel: "",
@@ -651,10 +1059,10 @@ export default {
       "27",
       "28",
       "29",
-      "30"
+      "30",
     ],
     getall: [],
-    getalldata: []
+    getalldata: [],
   }),
 
   watch: {
@@ -674,12 +1082,12 @@ export default {
     },
     type_id() {
       this.getPrice();
-    }
+    },
   },
 
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.register_update === "1") {
       let res = await axios.get(
         "/api/register/register_id/" + this.$route.query.register_id
@@ -786,7 +1194,7 @@ export default {
           passenger_scats: this.passenger_scats,
           vehicle_weight: this.vehicle_weight,
           max_loading: this.max_loading,
-          total_weight: this.total_weight
+          total_weight: this.total_weight,
         }));
       if (!isValid) {
         // alert("Please Save");
@@ -879,35 +1287,35 @@ export default {
 
     //ບ້ານ
     getVillage() {
-      this.axios.get("/api/village").then(response1 => {
+      this.axios.get("/api/village").then((response1) => {
         this.villages = response1.data.villages;
       });
     },
 
     getTypeRegister() {
-      this.axios.get("/api/type_register").then(response => {
+      this.axios.get("/api/type_register").then((response) => {
         this.trs = response.data.trs;
       });
     },
     getColor() {
-      this.axios.get("/api/color").then(response => {
+      this.axios.get("/api/color").then((response) => {
         this.colors = response.data.colors;
       });
     },
     getUse() {
-      this.axios.get("/api/use").then(response => {
+      this.axios.get("/api/use").then((response) => {
         this.uses = response.data.uses;
       });
     },
     getOwner() {
-      this.axios.get("/api/owner").then(response => {
+      this.axios.get("/api/owner").then((response) => {
         this.owners = response.data.owners;
       });
     },
     //ແຂວງ
 
     async getAllData() {
-      this.axios.get("/api/province").then(response => {
+      this.axios.get("/api/province").then((response) => {
         this.provinces = response.data.provinces;
       });
     },
@@ -915,8 +1323,8 @@ export default {
     async getProvince() {
       let res = await this.axios.get("/api/district/getAll", {
         params: {
-          province_id: this.province_id
-        }
+          province_id: this.province_id,
+        },
       });
       this.getalldata = res.data.getalldata;
     },
@@ -924,25 +1332,25 @@ export default {
     async getDistrict() {
       let res = await this.axios.get("/api/district/all", {
         params: {
-          district_id: this.district_id
-        }
+          district_id: this.district_id,
+        },
       });
       this.getall = res.data.getall;
     },
 
     getModel() {
-      this.axios.get("/api/model").then(response => {
+      this.axios.get("/api/model").then((response) => {
         this.models = response.data.models;
       });
     },
     async getType() {
       let res = await this.axios.get("/api/type/type", {
         params: {
-          model_id: this.model_id
-        }
+          model_id: this.model_id,
+        },
       });
       this.types = res.data.types;
-    }
+    },
     // async getPrice() {
     //     let res = await this.axios.get("/api/register/price", {
     //         params: {
@@ -951,6 +1359,6 @@ export default {
     //     });
     //     this.prices = res.data.prices;
     // }
-  }
+  },
 };
 </script>

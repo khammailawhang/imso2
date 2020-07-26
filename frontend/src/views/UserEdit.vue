@@ -5,13 +5,14 @@
         <v-row align="center" justify="center" no-gutters>
             <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
             <v-card dense flat color="white">
-              <v-card-text>
-                <strong>{{$t("Navbar.Dashboard")}}</strong>
-                <v-icon small>mdi-chevron-right</v-icon>
-                <strong>{{$t("Navbar.UserSetting")}}</strong>
-                <v-icon small>mdi-chevron-right</v-icon>
-                <span>{{$t("User.Edit_Title")}}</span>
-              </v-card-text>
+              <v-card-title>
+                <span style="font-size:14px">{{$t("Navbar.Dashboard")}}</span>
+                  <v-icon small class="ma-2">mdi-chevron-right</v-icon>
+                  <span style="font-size:14px">{{$t("Navbar.User")}}</span>
+                  <v-icon small class="ma-2">mdi-chevron-right</v-icon>
+                  <strong style="font-size:14px">{{$t("User.Edit_Title")}}</strong>
+                  
+              </v-card-title>
             </v-card>
           </v-col>
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" class="pt-6">
@@ -19,22 +20,23 @@
               <v-card-title>
                 {{ $t("User.Edit_Title") }}
                 <v-spacer />
-                <v-tooltip bottom color="#3d5afe">
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      depressed
-                      @click="back(branch_id)"
-                      small
-                      fab
-                      color="#3d5afe"
-                      dark
-                      v-on="on"
-                    >
-                      <v-icon small>mdi-undo-variant</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>{{ $t("Fee.Back") }}</span>
-                </v-tooltip>
+                  <v-tooltip bottom color="#3d5afe">
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        depressed
+                        :to="`/${$i18n.locale}/User`"
+                        small
+                        class="text-capitalize"
+                        color="#3d5afe"
+                        dark
+                        v-on="on"
+                      >
+                        <v-icon small class="mr-2">mdi-keyboard-backspace</v-icon>
+                        {{ $t("Fee.Back") }}
+                      </v-btn>
+                    </template>
+                    <span>{{ $t("Fee.Back") }}</span>
+                  </v-tooltip>
               </v-card-title>
               <v-card-text>
                 <v-row>
@@ -99,12 +101,10 @@
                   <v-col cols="12" xl="2" lg="3" md="3" sm="4">
                         <v-select
                           :items="levels"
-                          v-model="level_id"
-                          item-text="name"
-                          item-value="level_id"
+                          v-model="level"
+                          item-text="level"
+                          item-value="level"
                           required
-                          small
-                          dense
                         >
                         <template slot="label">
                              <span>{{ $t("User.level") }}</span>
@@ -126,7 +126,23 @@
                       <template v-slot:default>
                         <tbody>
                           <tr>
-                            <td>1. {{$t('Navbar.Dashboard')}}</td>
+                            <td><b>{{$t('Navbar.AdminManagement')}}</b></td>
+                            <td colspan="2">
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="admin"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Admin')}}</span>
+                              </v-tooltip>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>{{$t('Navbar.Dashboard')}}</b></td>
                             <td colspan="10">
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -137,7 +153,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>2. {{$t('Navbar.Register')}}</td>
+                            <td><b>{{$t('Navbar.Register')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -226,7 +242,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>3. {{$t('Navbar.Inspection')}}</td>
+                            <td><b>{{$t('Navbar.Inspection')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -359,7 +375,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>4. {{$t('Navbar.Fee')}}</td>
+                            <td><b>{{$t('Navbar.Fee')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -461,7 +477,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>5. {{$t('Navbar.Report')}}</td>
+                            <td><b>{{$t('Navbar.Report')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -524,7 +540,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>6. {{$t('Navbar.Setting')}}</td>
+                            <td><b>{{$t('Navbar.Setting')}}</b></td>
                             <td colspan="10">
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -535,7 +551,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>7. {{$t('Navbar.Model')}}</td>
+                            <td><b>{{$t('Navbar.Model')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -611,7 +627,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>8. {{$t('Navbar.Type')}}</td>
+                            <td><b>{{$t('Navbar.Type')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -687,311 +703,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>9. {{$t('Navbar.Color')}}</td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox value="1" v-model="color" color="#3d5afe" v-on="on"></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Title')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="color_create"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Create')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="color_update"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Update')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="color_delete"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Delete')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="color_report"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Report')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td colspan="5">
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="color_export"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Export')}}</span>
-                              </v-tooltip>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>10. {{$t('Navbar.Village')}}</td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox value="1" v-model="village" color="#3d5afe" v-on="on"></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Title')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="village_create"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Create')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="village_update"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Update')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="village_delete"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Delete')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="village_report"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Report')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td colspan="5">
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="village_export"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Export')}}</span>
-                              </v-tooltip>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>11. {{$t('Navbar.District')}}</td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox value="1" v-model="district" color="#3d5afe" v-on="on"></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Title')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="district_create"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Create')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="district_update"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Update')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="district_delete"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Delete')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="district_report"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Report')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td colspan="5">
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="district_export"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Export')}}</span>
-                              </v-tooltip>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>12. {{$t('Navbar.Province')}}</td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox value="1" v-model="province" color="#3d5afe" v-on="on"></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Title')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="province_create"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Create')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="province_update"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Update')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="province_delete"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Delete')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td>
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="province_report"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Report')}}</span>
-                              </v-tooltip>
-                            </td>
-                            <td colspan="5">
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="province_export"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Export')}}</span>
-                              </v-tooltip>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>13. {{$t('Navbar.Type_Register')}}</td>
+                            <td><b>{{$t('Navbar.Type_Register')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -1072,7 +784,311 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>14. {{$t('Navbar.Branch')}}</td>
+                            <td><b>{{$t('Navbar.Color')}}</b></td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox value="1" v-model="color" color="#3d5afe" v-on="on"></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Title')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="color_create"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Create')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="color_update"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Update')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="color_delete"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Delete')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="color_report"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Report')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td colspan="5">
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="color_export"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Export')}}</span>
+                              </v-tooltip>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>{{$t('Navbar.Village')}}</b></td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox value="1" v-model="village" color="#3d5afe" v-on="on"></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Title')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="village_create"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Create')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="village_update"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Update')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="village_delete"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Delete')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="village_report"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Report')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td colspan="5">
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="village_export"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Export')}}</span>
+                              </v-tooltip>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>{{$t('Navbar.District')}}</b></td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox value="1" v-model="district" color="#3d5afe" v-on="on"></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Title')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="district_create"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Create')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="district_update"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Update')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="district_delete"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Delete')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="district_report"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Report')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td colspan="5">
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="district_export"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Export')}}</span>
+                              </v-tooltip>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>{{$t('Navbar.Province')}}</b></td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox value="1" v-model="province" color="#3d5afe" v-on="on"></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Title')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="province_create"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Create')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="province_update"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Update')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="province_delete"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Delete')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td>
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="province_report"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Report')}}</span>
+                              </v-tooltip>
+                            </td>
+                            <td colspan="5">
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="province_export"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Export')}}</span>
+                              </v-tooltip>
+                            </td>
+                          </tr>
+                          <tr v-if="level === '1'">
+                            <td><b>{{$t('Navbar.Branch')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -1148,7 +1164,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>15. {{$t('Navbar.UserSetting')}}</td>
+                            <td><b>{{$t('Navbar.UserSetting')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -1254,22 +1270,6 @@
                               </v-tooltip>
                             </td>
                           </tr>
-                          <tr>
-                            <td>16. {{$t('Navbar.AdminManagement')}}</td>
-                            <td colspan="2">
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="admin"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Admin')}}</span>
-                              </v-tooltip>
-                            </td>
-                          </tr>
                         </tbody>
                       </template>
                     </v-simple-table>
@@ -1293,9 +1293,9 @@
                       depressed
                       color="#00E676"
                       @click="update"
-                      class="white--text"
+                      class="white--text text-capitalize"
                     >
-                      <v-icon class="mr-2">save</v-icon>
+                      <v-icon class="mr-2">check</v-icon>
                       {{$t("User.Update")}}
                     </v-btn>
                 <v-btn
@@ -1303,7 +1303,7 @@
                   color="#B0BEC5"
                   large
                   depressed
-                  class="white--text"
+                  class="white--text text-capitalize"
                 >{{$t("User.Back")}}</v-btn>
               </v-card-actions>
             </v-card>
@@ -1311,9 +1311,8 @@
           <v-col cols="12">
               <v-alert
                   v-if="msg === true"
-                  text
-                  prominent
                   color="#00E676"
+                  class="white--text"
                 ><v-icon color="#00E676">mdi-check</v-icon> {{ $t("User.UpdateSuccess") }}</v-alert>
                 <v-alert
                   v-if="msg === err"
@@ -1336,14 +1335,14 @@ Vue.use(VueAxios, axios);
 import AuthService from "@/services/AuthService.js";
 export default {
   data: () => ({
-    genders: ["ຊາຍ", "ຍິງ"],
+    genders: ["M", "F"],
     gender: "",
     fixedHeader: true,
     users_id: "",
     name: "",
     phone: "",
     email: "",
-    level_id: "",
+    level: "",
     branch_id: "",
     home: "",
     register: "",
@@ -1455,12 +1454,12 @@ export default {
     status: "",
     admin: "",
     msg: "",
-    levels: [],
+    levels: ["Admin","Member"],
     branchs: []
   }),
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.user_authorization_update === "1") {
       let res = await axios.get(
         "/api/user/users_id/" + this.$route.query.users_id
@@ -1473,7 +1472,7 @@ export default {
       this.username = res.data.users.username || "";
       this.password = res.data.users.password || "";
       this.password_repeat = res.data.users.password || "";
-      this.level_id = res.data.users.level_id || "";
+      this.level = res.data.users.level || "";
       this.branch_id = res.data.users.branch_id || "";
       this.photo = res.data.users.photo || "";
       this.home = res.data.users.home || "";
@@ -1609,6 +1608,7 @@ export default {
       this.getLevel();
 
       this.userId = this.$store.getters.getUser.users_id;
+      this.level = this.$store.getters.getUser.level;
       this.user_authorization_updated = this.$store.getters.getUser.user_authorization_update;
       this.branch_id = this.$store.getters.getUser.branch_id;
       this.secretMessage = await AuthService.getSecretContent();
@@ -1626,7 +1626,7 @@ export default {
           name: this.name,
           phone: this.phone,
           email: this.email,
-          level_id: this.level_id,
+          level: this.level,
           branch_id: this.branch_id,
           home: this.home,
           register: this.register,
@@ -1754,11 +1754,11 @@ export default {
         this.branchs = response.data.branchs;
       });
     },
-    getLevel() {
-      this.axios.get("/api/level").then(response => {
-        this.levels = response.data.levels;
-      });
-    },
+    // getLevel() {
+    //   this.axios.get("/api/level").then(response => {
+    //     this.levels = response.data.levels;
+    //   });
+    // },
     back(branch_id) {
       this.$router.push("User?branch_id=" + branch_id);
     }

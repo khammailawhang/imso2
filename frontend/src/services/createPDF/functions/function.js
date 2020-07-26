@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 import console from 'console';
 
 function getTime(value) {
@@ -11,6 +11,20 @@ function getTimeqr(value) {
     const current_datetime = new Date(value)
     const formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + "-" + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds()
     return (formatted_date)
+}
+
+
+
+function dataall(value) {
+    const result = axios.get('http://localhost:9000/api/inspection/inspection_id/', value)
+        .then(res => {
+            return res.data
+        })
+        .catch(err => {
+            return err
+        })
+    console.log(result.value)
+    return result.value
 }
 
 function getValue(value) {
@@ -51,6 +65,7 @@ async function uploadToSpaces(blob, filename) {
 }
 
 export {
+    dataall,
     getTime,
     getValue,
     getValue1,
@@ -62,3 +77,46 @@ export {
 // export {
 //     getTime
 // }
+// function getTime(value) {
+//     const current_datetime = new Date(value)
+//     const formatted_date = current_datetime.getDate() + " / " + (current_datetime.getMonth() + 1) + " / " + current_datetime.getFullYear() + "   " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds()
+//     return (formatted_date)
+// }
+
+// function getTimeqr(value) {
+//     const current_datetime = new Date(value)
+//     const formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + "-" + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds()
+//     return (formatted_date)
+// }
+
+// function getValue(value) {
+//     return value === 'true' ? 'o' : 'x'
+// }
+
+// function getValue1(value) {
+//     if (value === 'true') {
+//         return 'o'
+//     } else {
+//         return 'x'
+//     }
+
+// }
+
+// function getFilename2(value) {
+//     const current_datetime = new Date(value)
+//     const formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + "-" + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds()
+//     return (formatted_date)
+// }
+
+// module.exports = {
+//     getTime,
+//     getValue,
+//     getValue1,
+//     getTimeqr,
+//     getFilename2
+
+// }
+
+// // export {
+// //     getTime
+// // }

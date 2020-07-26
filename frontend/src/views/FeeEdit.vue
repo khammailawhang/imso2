@@ -3,7 +3,7 @@
     <v-row align="center" justify="center">
       <v-col cols="12" xl="6" lg="6" md="6" sm="12">
         <v-card flat color="white">
-          <v-card-title>{{ $t("Fee.Edit_Title") }}</v-card-title>
+          <v-card-title>{{ $t("Fee.Create_Title") }}</v-card-title>
           <v-card-text>
             <v-row no-gutters>
               <v-col cols="12" xl="12" lg="12" md="12" sm="12" hidden>
@@ -104,12 +104,12 @@
                 <v-btn
                   block
                   large
-                  color="yellow accent-4 mr-2"
+                  color="#00E676"
                   depressed
-                  class="white--text"
+                  class="white--text text-capitalize"
                   @click="update()"
                   v-if="fee_update === '1'"
-                >{{ $t("Fee.Update") }}</v-btn>
+                >{{ $t("Fee.Save") }}</v-btn>
               </v-col>
               <v-col cols="12" xl="6" lg="6" md="6" sm="6">
                 <v-btn
@@ -117,7 +117,7 @@
                   large
                   color="#B0BEC5"
                   depressed
-                  class="white--text ml-2"
+                  class="white--text ml-2 text-capitalize"
                   @click="back(branch_id)"
                 >{{ $t("Fee.Back") }}</v-btn>
               </v-col>
@@ -166,7 +166,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.fee_update === "1") {
       let res = await axios.get("/api/fee/fee_id/" + this.$route.query.fee_id);
       this.fee_id = res.data.fees.fee_id || "";

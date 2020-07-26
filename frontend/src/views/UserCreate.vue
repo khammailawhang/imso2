@@ -4,14 +4,15 @@
       <v-container>
         <v-row align="center" justify="center" no-gutters>
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
-            <v-card dense flat color="white">
-              <v-card-text>
-                <strong>{{$t("Navbar.Dashboard")}}</strong>
-                <v-icon small>mdi-chevron-right</v-icon>
-                <strong>{{$t("Navbar.UserSetting")}}</strong>
-                <v-icon small>mdi-chevron-right</v-icon>
-                <span>{{$t("User.Create_Title")}}</span>
-              </v-card-text>
+            <v-card dense flat color="white"> 
+              <v-card-title>
+                <span style="font-size:14px">{{$t("Navbar.Dashboard")}}</span>
+                  <v-icon small class="ma-2">mdi-chevron-right</v-icon>
+                  <span style="font-size:14px">{{$t("Navbar.User")}}</span>
+                  <v-icon small class="ma-2">mdi-chevron-right</v-icon>
+                  <strong style="font-size:14px">{{$t("User.Create_Title")}}</strong>
+                  
+              </v-card-title>
             </v-card>
           </v-col>
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" class="pt-6">
@@ -19,27 +20,28 @@
               <v-card-title>
                 {{ $t("User.Create_Title") }}
                 <v-spacer />
-                <v-tooltip bottom color="#3d5afe">
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      depressed
-                      @click="back(branch_id)"
-                      small
-                      fab
-                      color="#3d5afe"
-                      dark
-                      v-on="on"
-                    >
-                      <v-icon small>mdi-undo-variant</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>{{ $t("Fee.Back") }}</span>
-                </v-tooltip>
+                  <v-tooltip bottom color="#3d5afe">
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        depressed
+                        :to="`/${$i18n.locale}/User`"
+                        small
+                        class="text-capitalize"
+                        color="#3d5afe"
+                        dark
+                        v-on="on"
+                      >
+                        <v-icon small class="mr-2">mdi-keyboard-backspace</v-icon>
+                        {{ $t("Fee.Back") }}
+                      </v-btn>
+                    </template>
+                    <span>{{ $t("Fee.Back") }}</span>
+                  </v-tooltip>
               </v-card-title>
               <v-card-text>
                 <v-row>
                   <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                    <v-text-field v-model="name" type="text" autocomplete="off">
+                    <v-text-field color="#3d5afe" v-model="name" type="text" autocomplete="off">
                       <template slot="label">
                         <span>{{ $t("User.user") }}</span>
                         <span class="red--text pl-2">*</span>
@@ -47,7 +49,7 @@
                     </v-text-field>
                   </v-col>
                   <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                    <v-select :items="genders" v-model="gender" item-text="name" required>
+                    <v-select color="#3d5afe" :items="genders" v-model="gender" item-text="name" required>
                       <template slot="label">
                         <span>{{ $t('Register.Gender') }}</span>
                         <span class="red--text pl-2">*</span>
@@ -55,7 +57,7 @@
                     </v-select>
                   </v-col>
                   <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                    <v-text-field v-maska="['+856 (#0) #### ####', '+856 (#0) #### ####']" v-model="phone" type="text" autocomplete="off">
+                    <v-text-field color="#3d5afe" v-maska="['+856 (#0) #### ####', '+856 (#0) #### ####']" v-model="phone" type="text" autocomplete="off">
                       <template slot="label">
                         <span>{{ $t("User.phone") }}</span>
                         <span class="red--text pl-2">*</span>
@@ -63,7 +65,7 @@
                     </v-text-field>
                   </v-col>
                   <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                    <v-text-field v-model="email" type="text" :rules="rules" autocomplete="off">
+                    <v-text-field color="#3d5afe" v-model="email" type="text" :rules="rules" autocomplete="off">
                       <template slot="label">
                         <span>{{ $t("User.email") }}</span>
                         <span class="red--text pl-2">*</span>
@@ -75,6 +77,7 @@
                       :items="branchs"
                       v-model="branch_id"
                       item-text="name"
+                      color="#3d5afe"
                       item-value="branch_id"
                       required
                     >
@@ -85,7 +88,7 @@
                     </v-select>
                   </v-col>
                   <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                    <v-text-field v-model="username" type="text" autocomplete="off">
+                    <v-text-field color="#3d5afe" v-model="username" type="text" autocomplete="off">
                       <template slot="label">
                         <span>{{ $t("User.username") }}</span>
                         <span class="red--text pl-2">*</span>
@@ -94,6 +97,7 @@
                   </v-col>
                   <v-col cols="12" xl="2" lg="3" md="3" sm="4">
                     <v-text-field
+                    color="#3d5afe"
                       v-model="password"
                       type="password"
                       :rules="ruless"
@@ -108,9 +112,10 @@
                   </v-col>
                   <v-col cols="12" xl="2" lg="3" md="3" sm="4">
                     <v-text-field
+                    color="#3d5afe"
                       v-model="password_repeat"
                       type="password"
-                      :rules="ruless"
+                      :rules="ruless" 
                       autocomplete="off"
                     >
                       <template slot="label">
@@ -121,18 +126,19 @@
                     <password-meter :password="password_repeat" />
                   </v-col>
                   <v-col cols="12" xl="2" lg="3" md="3" sm="4">
-                    <v-select
+                    <v-autocomplete
                       :items="levels"
-                      v-model="level_id"
-                      item-text="name"
-                      item-value="level_id"
+                      v-model="level"
+                      color="#3d5afe"
+                      item-text="level"
+                      item-value="level"
                       required
                     >
                       <template slot="label">
                         <span>{{ $t("User.level") }}</span>
                         <span class="red--text pl-2">*</span>
                       </template>
-                    </v-select>
+                    </v-autocomplete>
                   </v-col>
 
                   <v-card-text align="left">
@@ -142,11 +148,27 @@
                   </v-card-text>
 
                   <v-col cols="12" xl="12" lg="12" md="12" sm="12">
-                    <v-simple-table dense class="black--text table table-borderless">
+                    <v-simple-table dense>
                       <template v-slot:default>
                         <tbody>
                           <tr>
-                            <td>1. {{$t('Navbar.Dashboard')}}</td>
+                            <td><b>{{$t('Navbar.AdminManagement')}}</b></td>
+                            <td colspan="10">
+                              <v-tooltip left color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                  <v-checkbox
+                                    value="1"
+                                    v-model="admin"
+                                    color="#3d5afe"
+                                    v-on="on"
+                                  ></v-checkbox>
+                                </template>
+                                <span>{{$t('User.Title')}}</span>
+                              </v-tooltip>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>{{$t('Navbar.Dashboard')}}</b></td>
                             <td colspan="10">
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -157,7 +179,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>2. {{$t('Navbar.Register')}}</td>
+                            <td><b>{{$t('Navbar.Register')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -251,7 +273,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>3. {{$t('Navbar.Inspection')}}</td>
+                            <td><b>{{$t('Navbar.Inspection')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -384,7 +406,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>4. {{$t('Navbar.Fee')}}</td>
+                            <td><b>{{$t('Navbar.Fee')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -486,7 +508,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>5. {{$t('Navbar.Report')}}</td>
+                            <td><b>{{$t('Navbar.Report')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -549,7 +571,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>6. {{$t('Navbar.Setting')}}</td>
+                            <td><b>{{$t('Navbar.Setting')}}</b></td>
                             <td colspan="10">
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -560,7 +582,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>7. {{$t('Navbar.Model')}}</td>
+                            <td><b>{{$t('Navbar.Model')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -636,7 +658,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>8. {{$t('Navbar.Type')}}</td>
+                            <td><b>{{$t('Navbar.Type')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -712,7 +734,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>9. {{$t('Navbar.Color')}}</td>
+                            <td><b>{{$t('Navbar.Color')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -788,7 +810,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>10. {{$t('Navbar.Village')}}</td>
+                            <td><b>{{$t('Navbar.Village')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -864,7 +886,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>11. {{$t('Navbar.District')}}</td>
+                            <td><b>{{$t('Navbar.District')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -945,7 +967,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>12. {{$t('Navbar.Province')}}</td>
+                            <td><b>{{$t('Navbar.Province')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -1026,7 +1048,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>13. {{$t('Navbar.Type_Register')}}</td>
+                            <td><b>{{$t('Navbar.Type_Register')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -1106,8 +1128,8 @@
                               </v-tooltip>
                             </td>
                           </tr>
-                          <tr>
-                            <td>14. {{$t('Navbar.Branch')}}</td>
+                          <tr v-if="branch ==='1'">
+                            <td><b>{{$t('Navbar.Branch')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -1183,7 +1205,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>15. {{$t('Navbar.UserSetting')}}</td>
+                            <td><b>{{$t('Navbar.UserSetting')}}</b></td>
                             <td>
                               <v-tooltip left color="#3d5afe">
                                 <template v-slot:activator="{ on }">
@@ -1289,22 +1311,6 @@
                               </v-tooltip>
                             </td>
                           </tr>
-                          <tr>
-                            <td>16. {{$t('Navbar.AdminManagement')}}</td>
-                            <td colspan="2">
-                              <v-tooltip left color="#3d5afe">
-                                <template v-slot:activator="{ on }">
-                                  <v-checkbox
-                                    value="1"
-                                    v-model="admin"
-                                    color="#3d5afe"
-                                    v-on="on"
-                                  ></v-checkbox>
-                                </template>
-                                <span>{{$t('User.Admin')}}</span>
-                              </v-tooltip>
-                            </td>
-                          </tr>
                         </tbody>
                       </template>
                     </v-simple-table>
@@ -1323,10 +1329,9 @@
                   large
                   depressed
                   @click="save"
-                  class="white--text"
-                  v-if="user_authorization_create ==='1'"
+                  class="white--text text-capitalize"
                 >
-                  <v-icon class="mr-2">save</v-icon>
+                  <v-icon class="mr-2">check</v-icon>
                   {{$t("User.Save")}}
                 </v-btn>
                 <v-btn
@@ -1334,7 +1339,7 @@
                   color="#B0BEC5"
                   large
                   depressed
-                  class="white--text"
+                  class="white--text text-capitalize"
                 >{{$t("User.Back")}}</v-btn>
               </v-card-actions>
             </v-card>
@@ -1342,12 +1347,11 @@
            <v-col cols="12">
               <v-alert
                   v-if="msg === true"
-                  text
-                  prominent
                   color="#00E676"
+                  class="white--text"
                 ><v-icon color="#00E676">mdi-check</v-icon> {{ $t("User.CreateSuccess") }}</v-alert>
                 <v-alert
-                  v-if="msg === err"
+                  v-if="msg === false"
                   text
                   prominent
                   color="red"
@@ -1369,7 +1373,7 @@ import passwordMeter from "vue-simple-password-meter";
 export default {
   components: { passwordMeter },
   data: () => ({
-    genders: ["ຊາຍ", "ຍິງ"],
+    genders: ["M", "F"],
     gender: "",
     rules: [
       value => {
@@ -1387,7 +1391,7 @@ export default {
     username: "",
     password: "",
     password_repeat: "",
-    level_id: "",
+    level: "",
     branch_id: "",
     home: "",
     register: "",
@@ -1499,22 +1503,24 @@ export default {
     admin: "",
     status: true,
     msg: "",
-    levels: [],
+    levels: ["Admin","Member"],
     branchs: []
   }),
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.user_authorization_create === "1") {
       //   this.initialize();
       this.getBranch();
       this.getLevel();
+      this.branch = this.$store.getters.getUser.branch;
+      this.level = this.$store.getters.getUser.level;
       this.user_authorization_create = this.$store.getters.getUser.user_authorization_create;
       this.branch_id = this.$store.getters.getUser.branch_id;
       this.secretMessage = await AuthService.getSecretContent();
     } else {
       this.$store.dispatch("logout");
-      this.$router.push("login");
+      this.$router.push("/");
     }
   },
   methods: {
@@ -1528,7 +1534,7 @@ export default {
           username: this.username,
           password: this.password,
           password_repeat: this.password_repeat,
-          level_id: this.level_id,
+          level: this.level,
           branch_id: this.branch_id,
           home: this.home,
           register: this.register,
@@ -1655,11 +1661,11 @@ export default {
         this.branchs = response.data.branchs;
       });
     },
-    getLevel() {
-      this.axios.get("/api/level").then(response => {
-        this.levels = response.data.levels;
-      });
-    },
+    // getLevel() {
+    //   this.axios.get("/api/level").then(response => {
+    //     this.levels = response.data.levels;
+    //   });
+    // },
     back(branch_id) {
       this.$router.push("User?branch_id=" + branch_id);
     }

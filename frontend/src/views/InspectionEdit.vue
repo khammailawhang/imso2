@@ -19,11 +19,11 @@
               <v-card flat color="white">
                 <v-card-title>
                   <span class="pr-6">{{ $t("Inspection.Edit_Title") }}</span>
-                   <v-btn depressed outlined class="grey--text" color="#90A4AE">
-                        <Strong v-text="owner_name"></Strong> -
-                        <Strong v-text="TRName"></Strong> 
-                        <Strong v-text="platc_no"></Strong> 
-                    </v-btn>
+                  <v-btn depressed outlined class="grey--text" color="#90A4AE">
+                    <Strong v-text="owner_name"></Strong>-
+                    <Strong v-text="TRName"></Strong>
+                    <Strong v-text="platc_no"></Strong>
+                  </v-btn>
                   <v-spacer />
                   <v-tooltip bottom color="#3d5afe">
                     <template v-slot:activator="{ on }">
@@ -320,7 +320,7 @@
                         </v-col>
 
                         <v-card-actions class="mr-12">
-                            <h3 class="indigo--text mr-2 pt-4">ລະບົບເບກຕີນ</h3>
+                          <h3 class="indigo--text mr-2 pt-4">ລະບົບເບກຕີນ</h3>
                           <v-col>
                             <v-checkbox
                               value="true"
@@ -420,7 +420,7 @@
                         </v-expand-transition>
 
                         <v-card-actions class="mr-12">
-                            <h3 class="indigo--text mr-4 pt-4">ລະບົບເບກມື</h3>
+                          <h3 class="indigo--text mr-4 pt-4">ລະບົບເບກມື</h3>
                           <v-col>
                             <v-checkbox
                               value="true"
@@ -463,7 +463,7 @@
                         </v-expand-transition>
 
                         <v-card-actions class="mr-12">
-                            <h3 class="indigo--text mr-2 pt-4">ເບຣກສຸກເສີນ</h3>
+                          <h3 class="indigo--text mr-2 pt-4">ເບຣກສຸກເສີນ</h3>
                           <v-col>
                             <v-checkbox
                               value="true"
@@ -506,7 +506,7 @@
                         </v-expand-transition>
 
                         <v-card-actions class="mr-12">
-                            <h3 class="indigo--text mr-2 pt-4">ວັດຄວາມແຮງ</h3>
+                          <h3 class="indigo--text mr-2 pt-4">ວັດຄວາມແຮງ</h3>
                           <v-col>
                             <v-checkbox
                               value="true"
@@ -549,7 +549,7 @@
                         </v-expand-transition>
 
                         <v-card-actions class="mr-12">
-                            <h3 class="indigo--text mr-1 pt-4">ເຄື່ອງຜ່ອນຄາຍ</h3>
+                          <h3 class="indigo--text mr-1 pt-4">ເຄື່ອງຜ່ອນຄາຍ</h3>
                           <v-col>
                             <v-checkbox
                               value="true"
@@ -599,7 +599,7 @@
                         </v-expand-transition>
 
                         <v-card-actions class="mr-12">
-                            <h3 class="indigo--text mr-3 pt-4">ນໍ້າໜັກລົງເພົາ</h3>
+                          <h3 class="indigo--text mr-3 pt-4">ນໍ້າໜັກລົງເພົາ</h3>
                           <v-col>
                             <v-checkbox
                               value="true"
@@ -659,7 +659,7 @@
                         </v-expand-transition>
 
                         <v-card-actions class="mr-12">
-                            <h3 class="indigo--text mr-12 pt-4">ຄວັນດໍາ.</h3>
+                          <h3 class="indigo--text mr-12 pt-4">ຄວັນດໍາ.</h3>
                           <v-col>
                             <v-checkbox
                               value="true"
@@ -703,7 +703,7 @@
                         </v-expand-transition>
 
                         <v-card-actions class="mr-12">
-                            <h3 class="indigo--text mr-12 pt-4">CO.....</h3>
+                          <h3 class="indigo--text mr-12 pt-4">CO.....</h3>
                           <v-col>
                             <v-checkbox
                               value="true"
@@ -746,7 +746,7 @@
                         </v-expand-transition>
 
                         <v-card-actions class="mr-12">
-                            <h3 class="indigo--text mr-12 pt-4">HC.....</h3>
+                          <h3 class="indigo--text mr-12 pt-4">HC.....</h3>
                           <v-col>
                             <v-checkbox
                               value="true"
@@ -789,7 +789,7 @@
                         </v-expand-transition>
 
                         <v-card-actions class="mr-12">
-                            <h3 class="indigo--text mr-12 pt-4">ສຽງ.....</h3>
+                          <h3 class="indigo--text mr-12 pt-4">ສຽງ.....</h3>
                           <v-col>
                             <v-checkbox
                               value="true"
@@ -833,7 +833,7 @@
                         </v-expand-transition>
 
                         <v-card-actions class="mr-12">
-                            <h3 class="indigo--text mr-12 pt-4">ສູນລໍ້ໜ້າ</h3>
+                          <h3 class="indigo--text mr-12 pt-4">ສູນລໍ້ໜ້າ</h3>
                           <v-col>
                             <v-checkbox
                               value="true"
@@ -885,7 +885,7 @@
                           ></v-text-field>
                         </v-col>
                         <v-row>
-                          <v-col cols="12" xl="12" lg="2" md="3" sm="4">
+                          <v-col cols="12" xl="12" lg="4" md="4" sm="4">
                             <ValidationProvider rules="required" v-slot="{ errors }" :bails="false">
                               <v-menu
                                 v-model="menu2"
@@ -902,14 +902,22 @@
                                     color="#3d5afe"
                                     loading
                                     hide-details="auto"
-                                    class="li my-2 pt-2"
+                                    class="li my-2"
                                     label="ເລືອກວັນທີໝົດອາຍຸກວດກາເຕັກນິກ"
-                                    prepend-icon="event"
+                                    prepend-inner-icon="event"
+                                    dense
                                     readonly
+                                    flat
+                                    solo
+                                    background-color="#ebedfc"
                                     v-on="on"
                                   ></v-text-field>
                                 </template>
-                                <v-date-picker color="#3d5afe" v-model="expired_date" @input="menu2 = false"></v-date-picker>
+                                <v-date-picker
+                                  color="#3d5afe"
+                                  v-model="expired_date"
+                                  @input="menu2 = false"
+                                ></v-date-picker>
                               </v-menu>
                               <ul style="color:red" class="overline text-left">
                                 <li v-for="(error, expired_date) in errors" :key="expired_date">
@@ -918,42 +926,53 @@
                               </ul>
                             </ValidationProvider>
                           </v-col>
-                          <v-col cols="12" xl="12" lg="2" md="12" sm="4">
-                            <v-select
-                              color="#3d5afe"
-                              class="my-2 pt-4"
-                              loading
-                              hide-details="auto"
-                              value="idAcceptNo"
-                              :items="toaccess"
-                              v-model="idAcceptNo"
-                              label="ເລືອກລະຫັດດື່ງຄ່າວັດຈາກເຄື່ອງ"
-                              item-text="idAcceptNo"
-                              dense
-                            ></v-select>
+                          <v-col cols="12" xl="12" lg="4" md="4" sm="4">
+                            <v-tooltip top color="#3D5AFE" class="mr-4">
+                              <template v-slot:activator="{ on }">
+                                <v-select
+                                  v-on="on"
+                                  color="#3d5afe"
+                                  class="my-2"
+                                  loading
+                                  hide-details="auto"
+                                  value="idAcceptNo"
+                                  :items="toaccess"
+                                  v-model="idAcceptNo"
+                                  label="ເລືອກລະຫັດດື່ງຄ່າວັດຈາກເຄື່ອງ"
+                                  item-text="idAcceptNo"
+                                  dense
+                                  flat
+                                  solo
+                                  background-color="#ebedfc"
+                                ></v-select>
+                              </template>
+                              <span>ລະຫັດໝາຍເຖິງລົດຄັນເຂົ້າກວດເຕັກນິກປະຈຸບັນ</span>
+                            </v-tooltip>
                           </v-col>
-                          <v-col cols="12" xl="12" lg="2" md="12" sm="4">
-                            <v-select
-                              color="#3d5afe"
-                              class="my-2 pt-4"
-                              loading
-                              hide-details="auto"
-                              value="carcohc"
-                              :items="idcarcohcc"
-                              v-model="carcohc"
-                              label="ເລືອກລະຫັດດຶ່ງຄ່າວັດຈາກເຄື່ອງ"
-                              item-text="idcarcohc"
-                              dense
-                            ></v-select>
+                          <v-col cols="12" xl="12" lg="4" md="4" sm="4">
+                            <v-tooltip top color="#3D5AFE" class="mr-4">
+                              <template v-slot:activator="{ on }">
+                                <v-select
+                                  v-on="on"
+                                  color="#3d5afe"
+                                  class="my-2"
+                                  loading
+                                  hide-details="auto"
+                                  value="carcohc"
+                                  :items="idcarcohcc"
+                                  v-model="carcohc"
+                                  label="ເລືອກລະຫັດດຶ່ງຄ່າວັດຈາກເຄື່ອງ"
+                                  item-text="idcarcohc"
+                                  dense
+                                  flat
+                                  solo
+                                  background-color="#ebedfc"
+                                ></v-select>
+                              </template>
+                              <span>ລະຫັດໝາຍເຖິງລົດຄັນເຂົ້າກວດເຕັກນິກປະຈຸບັນ</span>
+                            </v-tooltip>
                           </v-col>
-                          <v-col
-                            cols="12"
-                            xl="12"
-                            lg="6"
-                            md="12"
-                            sm
-                            class="pt-11"
-                          >ລະຫັດໝາຍເຖິງລົດຄັນເຂົ້າກວດເຕັກນິກປະຈຸບັນ</v-col>
+
                           <v-col align="right" cols="12" xl="12" lg="12" md="12" sm="12">
                             <v-tooltip left color="#00E676" v-if="inspection_update ==='1'">
                               <template v-slot:activator="{ on }">
@@ -1000,17 +1019,17 @@ Vue.use(VueAxios, axios);
 export default {
   components: {
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
   },
   data: () => ({
     expired_at: new Date().toISOString().substr(0, 10),
     // menu2: false,
     //ຂະໝາດຮູບ
     rules: [
-      value =>
+      (value) =>
         !value ||
         value.size < 2000000 ||
-        "Avatar size should be less than 2 MB!"
+        "Avatar size should be less than 2 MB!",
     ],
     show: false,
     show1: false,
@@ -1087,14 +1106,14 @@ export default {
         align: "left",
         sortable: true,
         value: "Brk_L_FF",
-        width: "100px"
+        width: "100px",
       },
       {
         text: "ຈັດການ",
         value: "Brk_L_FF",
         width: "60px",
-        align: "right"
-      }
+        align: "right",
+      },
     ],
     expired_att: [],
 
@@ -1105,7 +1124,7 @@ export default {
     idcarcohcc: "",
     carcohc: "",
     users_id: "",
-    branch_id: ""
+    branch_id: "",
     // inspections: [],
   }),
 
@@ -1114,7 +1133,7 @@ export default {
       if (val.includes("filter")) {
         this.value = true;
       }
-    }
+    },
   },
 
   async created() {
@@ -1262,7 +1281,7 @@ export default {
     this.initialize();
     this.idcarcohc();
 
-    if (this.$store.getters.getUser.inspection_update === '1') {
+    if (this.$store.getters.getUser.inspection_update === "1") {
       this.users_id = this.$store.getters.getUser.users_id;
       this.username = this.$store.getters.getUser.username;
       this.inspection_update = this.$store.getters.getUser.inspection_update;
@@ -1339,7 +1358,7 @@ export default {
             qr: this.qr,
             status: this.status,
             created_at: this.created_at,
-            expired_date: this.expired_date
+            expired_date: this.expired_date,
           })
       );
       if (!isValid) {
@@ -1364,12 +1383,12 @@ export default {
     // },
 
     initialize() {
-      this.axios.get("/api/inspection/toaccess").then(response => {
+      this.axios.get("/api/inspection/toaccess").then((response) => {
         this.toaccess = response.data.toaccess;
       });
     },
     idcarcohc() {
-      this.axios.get("/api/inspection/idcarcohcc").then(response => {
+      this.axios.get("/api/inspection/idcarcohcc").then((response) => {
         this.idcarcohcc = response.data.idcarcohcc;
       });
     },
@@ -1383,7 +1402,7 @@ export default {
       if (files && files[0]) {
         const reader = new FileReader();
 
-        reader.onload = e => {
+        reader.onload = (e) => {
           let img = new Image();
           img.onload = () => {
             this.photo = reader.result;
@@ -1412,14 +1431,14 @@ export default {
 
         fee_id: this.fee_id,
         users_id: this.users_id,
-        branch_id: this.branch_id
+        branch_id: this.branch_id,
       });
 
       if (res) {
         this.$router.push("inspectionList?branch_id=" + branch_id);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

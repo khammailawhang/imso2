@@ -23,15 +23,15 @@
                     <v-card flat>
                         <v-card-title></v-card-title>
                         <v-tabs color="#304FFE" center-active icons-and-text centered height="80px" width="80px">
-                            <v-tab>
+                            <v-tab class="text-capitalize">
                                 <p>{{$t("Report.All")}}</p>
                                 <v-icon large>mdi-chart-arc</v-icon>
                             </v-tab>
-                            <v-tab>
+                            <v-tab class="text-capitalize">
                                 <p>{{$t("Report.InExpired")}}</p>
                                 <v-icon large>mdi-car</v-icon>
                             </v-tab>
-                            <v-tab>
+                            <v-tab class="text-capitalize">
                                 <p>{{$t("Report.Fee")}}</p>
                                 <v-icon large>mdi-currency-usd</v-icon>
                             </v-tab>
@@ -124,7 +124,7 @@ export default {
     },
     async created() {
         if (!this.$store.getters.isLoggedIn) {
-            this.$router.push("login");
+            this.$router.push("/");
         } else if (this.$store.getters.getUser.report === "1") {
             this.initialize();
             this.report = this.$store.getters.getUser.report;
@@ -134,7 +134,7 @@ export default {
             this.secretMessage = await AuthService.getSecretContent();
         } else {
             this.$store.dispatch("logout");
-            this.$router.push("login");
+            this.$router.push("/");
         }
     }
 };

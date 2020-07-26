@@ -1,7 +1,7 @@
 export default {
 
     carContent(data) {
-
+        const func = require('../functions/function');
         return [{
 
                 margin: [0, 10],
@@ -15,7 +15,7 @@ export default {
                         stack: [
 
                             { text: 'ຊື່ເຈົ້າຂອງລົດ', fontSize: 9, lineHeight: 0.7, relativePosition: { x: 0, y: 0 } },
-                            { text: data.owner_name, fontSize: 9, lineHeight: 0.7, relativePosition: { x: 0, y: 0 }, margin: [50, 0, 0, 0] },
+                            { text: func.data1(data.owner_name), fontSize: 9, lineHeight: 0.7, relativePosition: { x: 0, y: 0 }, margin: [50, 0, 0, 0] },
                             { text: '(Name)', fontSize: 8, margin: [0, 10] }
 
 

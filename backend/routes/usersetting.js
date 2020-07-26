@@ -8,12 +8,12 @@ const userMiddleware = require("../middleware/users.js");
 // ແກ້ໄຂຜູ້ໃຊ້ງານ
 router.put("/update", (req, res, next) => {
     db.query(
-        `UPDATE users SET
+      `UPDATE users SET
     gender = ${db.escape(req.body.gender)},
     name = ${db.escape(req.body.name)},
     phone = ${db.escape(req.body.phone)},
     email = ${db.escape(req.body.email)},
-    level_id = ${db.escape(req.body.level_id)},
+    level = ${db.escape(req.body.level)},
     branch_id = ${db.escape(req.body.branch_id)},
     home = ${db.escape(req.body.home)},
     register = ${db.escape(req.body.register)},
@@ -84,12 +84,24 @@ router.put("/update", (req, res, next) => {
     province_report = ${db.escape(req.body.province_report)},
     province_export = ${db.escape(req.body.province_export)},
     company_information = ${db.escape(req.body.company_information)},
-    company_information_create = ${db.escape(req.body.company_information_create)},
-    company_information_update = ${db.escape(req.body.company_information_update)},
-    company_information_delete = ${db.escape(req.body.company_information_delete)},
-    company_information_upload = ${db.escape(req.body.company_information_upload)},
-    company_information_report = ${db.escape(req.body.company_information_report)},
-    company_information_export = ${db.escape(req.body.company_information_export)},
+    company_information_create = ${db.escape(
+      req.body.company_information_create
+    )},
+    company_information_update = ${db.escape(
+      req.body.company_information_update
+    )},
+    company_information_delete = ${db.escape(
+      req.body.company_information_delete
+    )},
+    company_information_upload = ${db.escape(
+      req.body.company_information_upload
+    )},
+    company_information_report = ${db.escape(
+      req.body.company_information_report
+    )},
+    company_information_export = ${db.escape(
+      req.body.company_information_export
+    )},
     fee_setting = ${db.escape(req.body.fee_setting)},
     fee_setting_create = ${db.escape(req.body.fee_setting_create)},
     fee_setting_update = ${db.escape(req.body.fee_setting_update)},
@@ -115,27 +127,41 @@ router.put("/update", (req, res, next) => {
     branch_report = ${db.escape(req.body.branch_report)},
     branch_export = ${db.escape(req.body.branch_export)},
     user_authorization = ${db.escape(req.body.user_authorization)},
-    user_authorization_create = ${db.escape(req.body.user_authorization_create)},
-    user_authorization_update = ${db.escape(req.body.user_authorization_update)},
-    user_authorization_delete = ${db.escape(req.body.user_authorization_delete)},
-    user_authorization_detail = ${db.escape(req.body.user_authorization_detail)},
-    user_authorization_upload = ${db.escape(req.body.user_authorization_upload)},
-    user_authorization_report = ${db.escape(req.body.user_authorization_report)},
-    user_authorization_export = ${db.escape(req.body.user_authorization_export)},
+    user_authorization_create = ${db.escape(
+      req.body.user_authorization_create
+    )},
+    user_authorization_update = ${db.escape(
+      req.body.user_authorization_update
+    )},
+    user_authorization_delete = ${db.escape(
+      req.body.user_authorization_delete
+    )},
+    user_authorization_detail = ${db.escape(
+      req.body.user_authorization_detail
+    )},
+    user_authorization_upload = ${db.escape(
+      req.body.user_authorization_upload
+    )},
+    user_authorization_report = ${db.escape(
+      req.body.user_authorization_report
+    )},
+    user_authorization_export = ${db.escape(
+      req.body.user_authorization_export
+    )},
     admin = ${db.escape(req.body.admin)},
     status = ${db.escape(req.body.status)} 
     WHERE users_id = ${db.escape(req.body.users_id)}`,
-        (err, result) => {
-            if (err) {
-                throw err;
-                return res.status(400).send({
-                    msg: err,
-                });
-            }
-            return res.status(201).send({
-                msg: true,
-            });
+      (err, result) => {
+        if (err) {
+          throw err;
+          return res.status(400).send({
+            msg: err,
+          });
         }
+        return res.status(201).send({
+          msg: true,
+        });
+      }
     );
 });
 

@@ -15,13 +15,13 @@
               height="100px"
               dark
             >
-              <v-tab class="indigo accent-4 ma-2 white--text text-capitalize">
+              <!-- <v-tab class="indigo accent-4 ma-2 white--text text-capitalize">
                 {{$t("Report.AllInspection")}}
                 <span
                   v-for="item in inspectionsall"
                   :key="item.inspection_id"
                 >{{item.inspection_id}}.00</span>
-              </v-tab>
+              </v-tab> -->
               <v-tab class="green accent-3 ma-2 white--text text-capitalize">
                 {{$t("Report.InspectionActive")}}
                 <span
@@ -39,7 +39,7 @@
                 >{{item.inspection_id}}.00</span>
               </v-tab>
               <!-- ລາຍງານຂໍ້ມູນກວດກາເຕັນກນິກ -->
-              <v-tab-item>
+              <!-- <v-tab-item>
                 <v-card flat tile>
                   <v-card-text>
                     <v-row>
@@ -192,7 +192,7 @@
                     </v-row>
                   </v-card-text>
                 </v-card>
-              </v-tab-item>
+              </v-tab-item> -->
               <!-- ລາຍງານຂໍ້ມູນກວດກາເກັບຄ່າທໍານຽມ -->
               <v-tab-item>
                 <v-card flat tile>
@@ -311,7 +311,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.report === "1") {
       this.initialize();
       // ລາຍງານຈໍານວນລົດ ທັງໝົດ
@@ -345,7 +345,7 @@ export default {
       this.secretMessage = await AuthService.getSecretContent();
     } else {
       this.$store.dispatch("logout");
-      this.$router.push("login");
+      this.$router.push("/");
     }
   },
   methods: {

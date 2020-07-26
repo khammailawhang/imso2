@@ -137,13 +137,13 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="12" xl="12" lg="12" md="12" sm="12">
+          <!-- <v-col cols="12" xl="12" lg="12" md="12" sm="12">
             <v-card flat color="white">
               <v-card-text>
                 <FeePerYear/>
               </v-card-text>
             </v-card>
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-container>
     </v-content>
@@ -152,12 +152,12 @@
 
 <script>
 import AuthService from "@/services/AuthService.js";
-import FeePerYear from "@/views/FeePerYear";
+// import FeePerYear from "@/views/FeePerYear";
 import ModelPopular from "@/views/ModelPopular";
 import TypePopular from "@/views/TypePopular";
 export default {
   components:{
-    FeePerYear,
+    // FeePerYear,
     ModelPopular,
     TypePopular
   },
@@ -227,7 +227,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
-      this.$router.push("login");
+      this.$router.push("/");
     },
     click() {
       window.open("http://localhost/filter_vue/index", "_blank");

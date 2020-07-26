@@ -343,7 +343,6 @@
                     </v-chip>
                   </template>
                   <template v-slot:item.action="{ index, item }">
-                    <v-btn-toggle>
                          <!-- <v-tooltip left color="indigo">
               <template v-slot:activator="{ on }">
                 <v-btn icon color="indigo" dark v-on="on">
@@ -356,7 +355,7 @@
                     </v-tooltip>-->
                       <v-tooltip left color="#3d5afe" v-if="user_authorization_update === '1'">
                         <template v-slot:activator="{ on }">
-                          <v-btn small color="#3d5afe" @click="editItem(item.users_id)" dark v-on="on">
+                          <v-btn depressed small color="#3d5afe" @click="editItem(item.users_id)" dark v-on="on">
                             <v-icon color="white" small >mdi-pencil</v-icon>
                           </v-btn>
                         </template>
@@ -364,7 +363,7 @@
                       </v-tooltip>
                       <v-tooltip right color="red" v-if="user_authorization_delete ==='1'">
                         <template v-slot:activator="{ on }">
-                          <v-btn small color="red"  @click="deleteItem(item.users_id)" dark v-on="on">
+                          <v-btn depressed class="ml-2" small color="red"  @click="deleteItem(item.users_id)" dark v-on="on">
                             <v-icon
                               color="white"
                               small
@@ -373,7 +372,6 @@
                         </template>
                         <span>{{ $t("User.Delete") }}</span>
                       </v-tooltip>
-                    </v-btn-toggle>
                   </template>
                   <template v-slot:item.registered="{ item }">
                     <v-text>{{ item.registered | formatDate }}</v-text>
@@ -460,9 +458,9 @@ export default {
         width: "0px"
       },
       {
-        text: "ແກ້ໄຂ / ລົບ",
+        text: "ຈັດການ",
         value: "action",
-        width: "120",
+        width: "150",
         align: "right"
       }
     ],
@@ -494,7 +492,7 @@ export default {
 
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.user_authorization === "1") {
       this.initialize();
       this.userId = this.$store.getters.getUser.users_id;
@@ -509,7 +507,7 @@ export default {
       this.secretMessage = await AuthService.getSecretContent();
     } else {
       this.$store.dispatch("logout");
-      this.$router.push("login");
+      this.$router.push("/");
     }
   },
 
@@ -541,7 +539,6 @@ export default {
         let res = this.axios.delete("/api/user/delete/" + users_id).then();
         if (res) {
           this.users.splice(index, 1);
-          this.$router.replace("User");
         }
       }
     },

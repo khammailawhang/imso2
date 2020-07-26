@@ -273,7 +273,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.home === "1") {
       this.username = this.$store.getters.getUser.username;
       this.userId = this.$store.getters.getUser.id;
@@ -302,7 +302,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
-      this.$router.push("login");
+      this.$router.push("/");
     },
     feeRequestTo(branch_id) {
       this.$router.push("./Fee?branch_id=" + branch_id);

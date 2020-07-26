@@ -71,6 +71,82 @@ router.get("/list/branch_id/:branch_id", async function (req, res) {
   });
 });
 
+
+// History
+router.get("/history/branch_id/:branch_id", async function (req, res) {
+  let row = await db("tb_inspection")
+    .innerJoin("tb_branch", "tb_inspection.branch_id", "tb_branch.branch_id")
+    .innerJoin("tb_fee", "tb_inspection.fee_id", "tb_fee.fee_id")
+    .innerJoin("tb_register", "tb_fee.register_id", "tb_register.register_id")
+    .innerJoin("tb_model", "tb_register.model_id", "tb_model.model_id")
+    .innerJoin("tb_type", "tb_register.type_id", "tb_type.type_id")
+    .innerJoin(
+      "tb_type_register",
+      "tb_register.tr_id",
+      "tb_type_register.tr_id"
+    )
+    .innerJoin("tb_color", "tb_register.color_id", "tb_color.color_id")
+    .innerJoin(
+      "tb_province",
+      "tb_register.province_id",
+      "tb_province.province_id"
+    )
+    .innerJoin("tb_use", "tb_register.use_id", "tb_use.use_id")
+    .innerJoin("users", "tb_inspection.users_id", "users.users_id")
+    .innerJoin(
+      "tb_district",
+      "tb_register.district_id",
+      "tb_district.district_id"
+    )
+    .innerJoin("tb_village", "tb_register.village_id", "tb_village.village_id")
+
+    .select(
+      "tb_fee.fee_id as fee_id",
+      "tb_branch.branch_id as branch_id",
+      "tb_fee.price as price",
+      "tb_fee.status as status",
+      "tb_fee.printed as printed",
+      "tb_fee.created_at as created_at",
+      "tb_fee.users_id as users_id",
+      "tb_register.register_id as register_id",
+      "tb_register.owner_name as owner_name",
+      "tb_register.gender as gender",
+      "tb_register.phone as phone",
+      "tb_register.platc_no as platc_no",
+      "tb_register.steering_wheel",
+      "tb_register.fuel as fuel",
+      "tb_register.cylinder as cylinder",
+      "tb_register.cylinder_size_cc as cylinder_size_cc",
+      "tb_register.engine_no as engine_no",
+      "tb_register.chassis_no as chassis_no",
+      "tb_register.width as width",
+      "tb_register.length as length",
+      "tb_register.height as height",
+      "tb_register.passenger_scats as passenger_scats",
+      "tb_register.vehicle_weight as vehicle_weight",
+      "tb_register.max_loading as max_loading",
+      "tb_register.total_weight as total_weight",
+      "tb_register.owner_name as owner_name",
+      "tb_model.name as MName",
+      "tb_type.name as TName",
+      "tb_type.price as PiName",
+      "tb_color.name as CName",
+      "tb_province.name as PName",
+      "tb_type_register.name as TRName"
+    )
+    .where("tb_inspection.expired_at", "<", db.fn.now())
+    .where("tb_inspection.branch_id", "=", req.params.branch_id)
+    .orderBy("tb_inspection.created_at", "desc");
+  if (row.length === 0) {
+    res.send({ status: false });
+  }
+  res.send({
+    status: true,
+    fees: row,
+  });
+});
+
+
 //ດຶ່ງຂໍ້ມູນສະແດງທີ່ໜ້າເກັບຄ່າທໍານຽມ
 // router.get('/', async function(req, res, next) {
 //     let row = await db('tb_inspection')

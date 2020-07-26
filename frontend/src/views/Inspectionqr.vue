@@ -1143,7 +1143,7 @@ export default {
         this.PName = res.data.inspections.PName || "";
 
         // if (!this.$store.getters.isLoggedIn) {
-        //     this.$router.push("login");
+        //     this.$router.push("/");
         // }
         this.username = this.$store.getters.getUser.username;
         this.branch_name = this.$store.getters.getUser.branch_name;

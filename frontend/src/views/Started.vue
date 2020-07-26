@@ -25,7 +25,7 @@
               color="#3d5afe"
               large
               block
-              class="white--text ma-2"
+              class="white--text ma-2 text-capitalize"
               depressed
               @click="toHome(branch_id)"
             >{{$t("Start.continue")}}</v-btn>
@@ -33,7 +33,7 @@
               color="#FF1744"
               large
               block
-              class="white--text ma-2"
+              class="white--text ma-2 text-capitalize"
               depressed
               @click="logout"
             >{{$t("Start.signout")}}</v-btn>
@@ -51,7 +51,7 @@ export default {
   data: () => ({}),
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.home === "1") {
       this.username = this.$store.getters.getUser.username;
       this.userId = this.$store.getters.getUser.id;
@@ -66,7 +66,7 @@ export default {
       this.secretMessage = await AuthService.getSecretContent();
     } else {
       this.$store.dispatch("logout");
-      this.$router.push("Login");
+      this.$router.push("/");
     }
   },
   methods: {
@@ -75,7 +75,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
-      this.$router.push("Login");
+      this.$router.push("/");
     },
   }
 };

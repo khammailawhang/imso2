@@ -29,7 +29,7 @@ router.post('/', userMiddleware.validateRegister, (req, res, next) => {
 
                         // ເພີມຜູ້ໃຊ້ງານ ບັນທຶກ
                         db.query(
-                            `INSERT INTO users (
+                          `INSERT INTO users (
                   id,
                   gender,
                   name,
@@ -37,7 +37,7 @@ router.post('/', userMiddleware.validateRegister, (req, res, next) => {
                   email,
                   username,
                   password,
-                  level_id,
+                  level,
                   branch_id,
                   home,
                   register,
@@ -150,15 +150,15 @@ router.post('/', userMiddleware.validateRegister, (req, res, next) => {
                   status,
                   registered) VALUES ('
                   ${uuid.v4()}', 
-                  ${db.escape(req.body.gender,)}, 
-                  ${db.escape(req.body.name,)}, 
-                  ${db.escape(req.body.phone,)}, 
-                  ${db.escape(req.body.email,)}, 
-                  ${db.escape(req.body.username,)}, 
+                  ${db.escape(req.body.gender)}, 
+                  ${db.escape(req.body.name)}, 
+                  ${db.escape(req.body.phone)}, 
+                  ${db.escape(req.body.email)}, 
+                  ${db.escape(req.body.username)}, 
                   ${db.escape(hash)},
-                  ${db.escape(req.body.level_id,)},
-                  ${db.escape(req.body.branch_id,)},
-                  ${db.escape(req.body.home,)},
+                  ${db.escape(req.body.level)},
+                  ${db.escape(req.body.branch_id)},
+                  ${db.escape(req.body.home)},
                   ${db.escape(req.body.register)},
                   ${db.escape(req.body.register_create)},
                   ${db.escape(req.body.register_update)},
@@ -268,18 +268,17 @@ router.post('/', userMiddleware.validateRegister, (req, res, next) => {
                   ${db.escape(req.body.admin)},
                   ${db.escape(req.body.status)},
                   now())`,
-                            (err, result) => {
-                                if (err) {
-                                    throw err;
-                                    return res.status(400).send({
-                                        msg: err
-                                    });
-                                }
-                                return res.status(201).send({
-                                  msg: true,
-                                });
-                                
+                          (err, result) => {
+                            if (err) {
+                              throw err;
+                              return res.status(400).send({
+                                msg: err,
+                              });
                             }
+                            return res.status(201).send({
+                              msg: true,
+                            });
+                          }
                         );
                     }
                 });

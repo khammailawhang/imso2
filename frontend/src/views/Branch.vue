@@ -161,7 +161,7 @@ export default {
 
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     }
     if (this.$store.getters.getUser.branch === "1") {
       this.initialize();
@@ -176,7 +176,7 @@ export default {
       this.secretMessage = await AuthService.getSecretContent();
     } else {
       this.$store.dispatch("logout");
-      this.$router.push("login");
+      this.$router.push("/");
     }
   },
 

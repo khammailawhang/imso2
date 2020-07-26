@@ -5,10 +5,21 @@ var db = require('../lib/db')
 
 
 router.get('/', async function(req, res, next) {
-        let row = await db('users')
-            .innerJoin('tb_branch', 'users.branch_id', 'tb_branch.branch_id')
-            .select('users.users_id as users_id', 'users.name as UName', 'users.gender as gender', 'users.registered as registered', 'users.phone as phone', 'users.username as username', 'users.status as status', 'tb_branch.branch_id as branch_id', 'tb_branch.name as BName')
-            .orderBy('registered', 'desc')
+        let row = await db("users")
+          .innerJoin("tb_branch", "users.branch_id", "tb_branch.branch_id")
+          .select(
+            "users.users_id as users_id",
+            "users.name as UName",
+            "users.gender as gender",
+            "users.registered as registered",
+            "users.phone as phone",
+            "users.username as username",
+            "users.status as status",
+            "tb_branch.branch_id as branch_id",
+            "tb_branch.name as BName",
+            "users.level as level"
+          )
+          .orderBy("registered", "desc");
         res.json({
             status: true,
             users: row

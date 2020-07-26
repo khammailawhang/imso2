@@ -703,7 +703,7 @@ export default {
         this.PKSUM = res.data.inspections.PKSUM || "";
 
         if (!this.$store.getters.isLoggedIn) {
-            this.$router.push("login");
+            this.$router.push("/");
         }
         this.username = this.$store.getters.getUser.username;
         this.branch_name = this.$store.getters.getUser.branch_name;

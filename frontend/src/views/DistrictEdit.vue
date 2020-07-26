@@ -122,7 +122,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.district_update === "1") {
       let res = await axios.get(
         "/api/district/district_id/" + this.$route.query.district_id

@@ -149,7 +149,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.district_create === "1") {
       this.getProvince();
       this.district_create = this.$store.getters.getUser.district_create;

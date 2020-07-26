@@ -105,7 +105,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.type_register_update === "1") {
       let res = await axios.get(
         "/api/type_register/tr_id/" + this.$route.query.tr_id

@@ -108,7 +108,7 @@ export default {
   },
   // async created() {
   //     if (!this.$store.getters.isLoggedIn) {
-  //         this.$router.push("login");
+  //         this.$router.push("/");
   //     } else if (this.$store.getters.getUser.province_update === "1") {
   //         let res = await axios.get(
   //             "/api/province/province_id/" + this.$route.query.province_id

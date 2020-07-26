@@ -17,27 +17,40 @@
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" class="pt-4">
             <v-card flat color="white">
               <v-card-title>
-                {{$t('Inspection.History')}}
+               <span style="font-size:18px"> {{$t('Inspection.History')}}</span>
                 <v-spacer />
+                <v-btn
+                    class="text-capitalize white--text"
+                    color="#3D5AFE"
+                    depressed
+                    small
+                    @click="show = !show"
+                  >
+                    <v-icon small color="white">{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                    {{$t("Inspection.Search")}}
+                  </v-btn>
                 <v-tooltip bottom color="#00E676">
                   <template v-slot:activator="{ on }">
                     <v-btn
                       small
                       @click="inspectionTo(branch_id)"
-                      fab
                       depressed
                       color="#00E676"
+                      class="ml-2 text-capitalize"
                       dark
                       v-on="on"
                     >
-                      <v-icon small>mdi-plus</v-icon>
+                      <v-icon small>mdi-plus</v-icon>{{ $t("Inspection.Create") }}
                     </v-btn>
                   </template>
                   <span>{{ $t("Inspection.Create") }}</span>
                 </v-tooltip>
               </v-card-title>
               <v-card-subtitle>
-                <v-row>
+                <v-expand-transition>
+                    <div v-show="show">
+                      <v-card-text>
+                        <v-row>
                   <v-col cols="12" xl="4" lg="4" md="4" sm="4">
                     <v-autocomplete
                       :items="inspections"
@@ -69,11 +82,15 @@
                     ></v-text-field>
                   </v-col>
                 </v-row>
+                      </v-card-text>
+                    </div>
+                  </v-expand-transition>
+                
               </v-card-subtitle>
               <v-card-text>
                 <v-data-table :headers="headers" :items="inspections" :search="search">
                   <template v-slot:item.brk_m="{ item }">
-                      <v-tooltip bottom color="black">
+                      <v-tooltip bottom color="#00E676">
                       <template v-slot:activator="{ on }">
                         <v-btn
                           depressed
@@ -194,49 +211,43 @@
                   </template>
 
                   <template v-slot:item.pint="{ item }">
-                    <v-btn-toggle borderless >
-                        <v-tooltip bottom color="black">
+                    <v-tooltip bottom color="#3d5afe">
                       <template v-slot:activator="{ on }">
                         <v-btn small depressed v-on="on" :color="getColorpint(item.pint)" @click="createPDF(item)" v-if="inspection_print_grid ==='1'">
-                          <v-icon color="#fff"  small>mdi-printer</v-icon>
-                        </v-btn>
-                        <v-btn small depressed v-on="on" @click="createPDF(item)" v-else disabled>
                           <v-icon color="#fff"  small>mdi-printer</v-icon>
                         </v-btn>
                       </template>
                       <span>{{ $t("Inspection.bill1") }}</span>
                     </v-tooltip>
-                    <v-tooltip bottom color="black">
+                    <v-tooltip bottom color="#3d5afe">
                       <template v-slot:activator="{ on }">
-                        <v-btn depressed small @click="createPDF2(item)" v-on="on" :color="getColorpint(item.pint2)" v-if="inspection_print_table ==='1'">
-                          <v-icon color="#fff"  small >mdi-printer</v-icon>
-                        </v-btn>
-                        <v-btn depressed small v-on="on" :color="getColorpint(item.pint2)" v-else disabled>
+                        <v-btn depressed class="ml-1" small @click="createPDF2(item)" v-on="on" :color="getColorpint(item.pint2)" v-if="inspection_print_table ==='1'">
                           <v-icon color="#fff"  small >mdi-printer</v-icon>
                         </v-btn>
                       </template>
                       <span>{{ $t("Inspection.bill2") }}</span>
                     </v-tooltip>
-                    <v-tooltip bottom color="black">
+                    <v-tooltip bottom color="#F9A825">
                       <template v-slot:activator="{ on }">
-                        <v-btn small  @click="editItem(item.inspection_id)" depressed color="#3d5afe" dark v-on="on" v-if="inspection_update === '1'">
-                          <v-icon small color="white">mdi-pencil</v-icon>
-                        </v-btn>
-                        <v-btn small disabled depressed color="#3d5afe" light  v-on="on" v-else>
+                        <v-btn small class="ml-1"  @click="editItem(item.inspection_id)" depressed color="#F9A825" dark v-on="on" v-if="inspection_update === '1'">
                           <v-icon small color="white">mdi-pencil</v-icon>
                         </v-btn>
                       </template>
                       <span>{{ $t("Inspection.Update") }}</span>
                     </v-tooltip>
-                    </v-btn-toggle>
                   </template>
                   <template v-slot:item.platc_no="{ item }">
-                    <v-btn small class="black--text" width="80px" depressed :color="getColorplatc_no(item.platc_no)">
+                    <v-btn small class="black--text ml-1" width="80px" depressed :color="getColorplatc_no(item.platc_no)">
                       {{ item.TRName }} {{ item.platc_no }}
                     </v-btn>
                   </template>
                   <template v-slot:item.created_at="{ item }">
                     <v-text>{{ item.created_at | formatDate }}</v-text>
+                  </template>
+                  <template v-slot:item.photo="{ item }">
+                     <v-avatar color="indigo" size="45">
+                       <v-img :src="item.photo" aspect-ratio="1.7" width="50px" height="50px"></v-img>
+                      </v-avatar>
                   </template>
                 </v-data-table>
               </v-card-text>
@@ -265,6 +276,7 @@ Vue.use(VueAxios, axios);
 Vue.component("downloadCsv", JsonCSV);
 export default {
   data: () => ({
+    show: false,
     provinceFilterValue: "",
     typeplactnoFilterValue: "",
     platcnoFilterValue: "",
@@ -313,6 +325,7 @@ export default {
     mirror: "",
     wiper: "",
     printed:"printed",
+    inspected: "",
     photo: [],
     inspections: [],
     editedIndex: -1,
@@ -322,12 +335,17 @@ export default {
     size: 150,
     base64: "",
     file: "",
-    qrUrl: "http://localhost:8084/la/InspectionPrint?inspection_id="
+    // qrUrl: "http://localhost:8084/la/InspectionPrint?inspection_id="
   }),
 
   computed: {
     headers() {
       return [
+          {
+          text: "ຮູບພາບ",
+          value: "photo",
+          width: "0px"
+        },
           {
           text: "ເຈົ້າຂອງລົດ",
           value: "owner_name",
@@ -372,7 +390,7 @@ export default {
         {
           text: "ຈັດການ",
           value: "pint",
-          width: "0px",
+          width: "200px",
           align: "right"
         },
       ];
@@ -391,13 +409,13 @@ export default {
 
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.home === "1") {
       let res = await axios.get(
         "/api/inspection/branch_id/" + this.$route.query.branch_id
       );
       // let res = await axios.get("/api/inspection/inspection_id/" + this.$route.query.inspection_id);
-      this.createPDF();
+      // this.createPDF();
       this.createPDF2();
       // this.status();
 
@@ -483,12 +501,14 @@ export default {
       this.inspection_update = this.$store.getters.getUser.inspection_update;
       this.inspection_print_grid = this.$store.getters.getUser.inspection_print_grid;
       this.	inspection_print_table = this.$store.getters.getUser.	inspection_print_table;
+      this.home = this.$store.getters.getUser.home;
+      this.username = this.$store.getters.getUser.username;
       this.branch_name = this.$store.getters.getUser.branch_name;
       this.branch_id = this.$store.getters.getUser.branch_id;
       this.secretMessage = await AuthService.getSecretContent();
     } else {
       this.$store.dispatch("logout");
-      this.$router.push("login");
+      this.$router.push("/");
     }
   },
 
@@ -577,19 +597,17 @@ export default {
     },
     //ໃບບິນທີ 1
 
-    createPDF(inspection_data) {
-      this.axios
-        .get("/api/inspection/branch_id/" + this.$route.query.branch_id)
-        .then(response => {
-          this.inspections = response.data.inspections;
-        });
-      createPDF.createPDF(inspection_data);
-      
-      
-      
+     createPDF(inspection_data) {
+            window.open(inspection_data.qr)
+            // this.axios
+            //     .get("/api/inspection/branch_id/" + this.$route.query.branch_id)
+            //     .then(response => {
+            //         this.inspections = response.qr.inspections;
+            //     });
+            // createPDF.createPDF(inspection_data);
 
-      // this.$router.push('file:///D:/Vuefrontend/imso/frontend/src/views/InspectionPrint.html?inspection_id=' + inspection_id )
-    },
+            // this.$router.push('file:///D:/Vuefrontend/imso/frontend/src/views/InspectionPrint.html?inspection_id=' + inspection_id )
+        },
     //ໃບບິນທີສອງ
     // PrintTwoItem(inspection_id) {
     //     this.$router.push('InspectionPrint2?inspection_id=' + inspection_id)

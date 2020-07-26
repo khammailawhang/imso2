@@ -5,11 +5,13 @@
         <v-row align="center" justify="center" no-gutters>
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" align="left">
             <v-card height="60px" flat color="white">
-              <v-card-text >
-                <strong>{{$t("Navbar.Dashboard")}}</strong>
+              <v-card-title>
+                <span style="font-size:12px">{{$t("Navbar.Dashboard")}}</span>
                 <v-icon small class="ma-2">mdi-chevron-right</v-icon>
-                <strong>{{$t("Navbar.Fee")}}</strong>
-              </v-card-text>
+                <span style="font-size:12px">{{$t("Navbar.Fee")}}</span>
+                <v-icon small class="ma-2">mdi-chevron-right</v-icon>
+                <strong style="font-size:12px">{{$t("Fee.Fee")}}</strong>
+              </v-card-title>
             </v-card>
           </v-col>
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" class="pt-4">
@@ -17,73 +19,107 @@
               <v-card-title>
                 {{$t('Fee.Fee')}}
                 <v-spacer />
+                <v-btn
+                  class="text-capitalize white--text"
+                  color="#3D5AFE"
+                  depressed
+                  small
+                  @click="show = !show"
+                >
+                  <v-icon small color="white">{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                  {{$t("Inspection.Search")}}
+                </v-btn>
+                <!-- <v-tooltip bottom color="#3d5afe">
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      depressed
+                      @click="feehistoryTo(branch_id)"
+                      small
+                      fab
+                      color="#3d5afe"
+                      class="mr-2"
+                      dark
+                      v-on="on"
+                    >
+                      <v-icon>mdi-history</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>{{ $t("Fee.history") }}</span>
+                </v-tooltip>-->
                 <v-tooltip bottom color="#00E676">
                   <template v-slot:activator="{ on }">
                     <v-btn
                       depressed
                       @click="feeRequestTo(branch_id)"
                       small
-                      fab
                       color="#00E676"
+                      class="ml-2 text-capitalize"
                       dark
                       v-on="on"
                     >
-                      <v-icon small>mdi-plus</v-icon>
+                      <v-icon small class="mr-1" color="white">mdi-plus</v-icon>
+                      {{ $t("Fee.Create") }}
                     </v-btn>
                   </template>
                   <span>{{ $t("Fee.Create") }}</span>
                 </v-tooltip>
               </v-card-title>
               <v-card-subtitle>
-                <v-row>
-                  <v-col cols="12" xl="4" lg="4" md="4" sm="4">
-                    <v-autocomplete
-                      :items="fees"
-                      item-text="PName"
-                      :label="$t('Province.Name')"
-                      dense
-                      color="#3d5afe"
-                      v-model="provinceFilterValue"
-                    ></v-autocomplete>
-                  </v-col>
-                  <v-col cols="12" xl="4" lg="4" md="4" sm="4">
-                    <v-autocomplete
-                      :items="fees"
-                      item-text="TRName"
-                      :label="$t('Inspection.inspectonseach')"
-                      dense
-                      color="#3d5afe"
-                      v-model="typeplactnoFilterValue"
-                    ></v-autocomplete>
-                  </v-col>
-                  <v-col cols="12" xl="4" lg="4" md="4" sm="4">
-                    <v-text-field
-                      dense
-                      color="#3d5afe"
-                      v-model="platcnoFilterValue"
-                      :label="$t('Register.Platcno')"
-                      type="text"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
+                <v-expand-transition>
+                  <div v-show="show">
+                    <v-card-text>
+                      <v-row>
+                        <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                          <v-autocomplete
+                            :items="fees"
+                            item-text="PName"
+                            :label="$t('Province.Name')"
+                            dense
+                            color="#3d5afe"
+                            v-model="provinceFilterValue"
+                          ></v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                          <v-autocomplete
+                            :items="fees"
+                            item-text="TRName"
+                            :label="$t('Inspection.inspectonseach')"
+                            dense
+                            color="#3d5afe"
+                            v-model="typeplactnoFilterValue"
+                          ></v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                          <v-text-field
+                            dense
+                            color="#3d5afe"
+                            v-model="platcnoFilterValue"
+                            :label="$t('Register.Platcno')"
+                            type="text"
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                  </div>
+                </v-expand-transition>
               </v-card-subtitle>
               <v-card-text>
                 <v-data-table :headers="headers" :items="fees" :search="search">
                   <template v-slot:item.status="{ item }">
                     <v-btn-toggle borderless dense>
                       <v-btn
-                      width="80px"
+                        width="100px"
                         small
-                        class="white--text"
+                        class="white--text text-capitalize"
                         depressed
                         :color="getStatus(item.status)"
                         v-if="item.status ==='PaySuccess'"
                       >{{$t('Fee.StatusTrue')}}</v-btn>
                       <v-btn
-                       width="80px"
+                        width="100px"
                         small
                         depressed
-                        class="white--text"
+                        class="white--text text-capitalize"
                         :color="getStatus(item.status)"
                         v-else
                         dark
@@ -91,25 +127,24 @@
                       >{{$t('Fee.Notpay')}}</v-btn>
 
                       <v-btn
-                        width="50px"
+                        width="80px"
                         small
                         depressed
-                        class="white--text"
+                        class="white--text text-capitalize"
                         :color="getprinted(item.printed)"
                         v-if="item.printed"
                       >{{$t("Fee.Printed")}}</v-btn>
                       <v-btn
-                        width="50px"
+                        width="80px"
                         small
                         depressed
-                        class="white--text"
+                        class="white--text text-capitalize"
                         :color="getprinted(item.printed)"
                         v-else
                       >{{$t("Fee.NotPrinted")}}</v-btn>
                     </v-btn-toggle>
                   </template>
                   <template v-slot:item.action="{ index, item }">
-                    <v-btn-toggle borderless dense>
                       <v-tooltip left color="#3d5afe">
                         <template v-slot:activator="{ on }">
                           <v-btn
@@ -118,6 +153,7 @@
                             @click="PrintItem(item.fee_id)"
                             color="#3d5afe"
                             v-on="on"
+                            v-if="fee_create === '1'"
                           >
                             <v-icon small color="#fff">mdi-printer</v-icon>
                           </v-btn>
@@ -141,6 +177,8 @@
                             color="amber darken-1"
                             dark
                             v-on="on"
+                            class="ml-2"
+                            v-if="fee_update === '1'"
                           >
                             <v-icon small color="#fff">mdi-pencil</v-icon>
                           </v-btn>
@@ -154,30 +192,29 @@
                             depressed
                             @click="deleteItem(item.fee_id)"
                             color="red"
+                            class="ml-2"
                             dark
                             v-on="on"
+                            v-if="fee_delete === '1'"
                           >
                             <v-icon small color="#fff">mdi-delete</v-icon>
                           </v-btn>
                         </template>
                         <span>{{$t("Type.Delete")}}</span>
                       </v-tooltip>
-                    </v-btn-toggle>
                   </template>
                   <template v-slot:item.platc_no="{ item }">
                     <v-btn
-                      width="80px"
+                      width="60px"
                       class="black--text"
                       depressed
                       small
                       :color="getColorplatc_no(item.platc_no)"
-                    >
-                      {{ item.TRName }} {{ item.platc_no }}
-                    </v-btn>
+                    >{{ item.platc_no }}</v-btn>
                   </template>
-                  <template v-slot:item.owner_name="{ item }">
-                    {{ item.gender }} - {{ item.owner_name }}
-                  </template>
+                  <template
+                    v-slot:item.owner_name="{ item }"
+                  >{{ item.gender }} - {{ item.owner_name }}</template>
                   <template v-slot:item.PiName="{item}">
                     <div v-format="'0,000 KIP'">{{item.PiName}}</div>
                   </template>
@@ -213,6 +250,7 @@ Vue.use(VueAxios, axios);
 Vue.component("downloadCsv", JsonCSV);
 export default {
   data: () => ({
+    show: false,
     provinceFilterValue: "",
     typeplactnoFilterValue: "",
     platcnoFilterValue: "",
@@ -247,6 +285,12 @@ export default {
           filter: this.provinceFilter
         },
         {
+          text: "ລະຫັດ",
+          value: "TRName",
+          width: "0px",
+          filter: this.typeplatcnoFilter
+        },
+        {
           text: "ເລກທະບຽນ",
           value: "platc_no",
           width: "0px",
@@ -276,7 +320,7 @@ export default {
           text: "ຈັດການ",
           value: "action",
           width: "200px",
-          align: "center"
+          align: "right"
         }
       ];
     },
@@ -291,7 +335,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.fee === "1") {
       this.initialize();
       this.fee = this.$store.getters.getUser.fee;
@@ -307,7 +351,7 @@ export default {
       this.secretMessage = await AuthService.getSecretContent();
     } else {
       this.$store.dispatch("logout");
-      this.$router.push("login");
+      this.$router.push("/");
     }
   },
   methods: {
@@ -339,10 +383,10 @@ export default {
     getStatus(status) {
       if (status == "PaySuccess") return "#00E676";
       else return "red";
-    }, 
+    },
     getprinted(printed) {
       if (printed === "printed") return "#3D5AFE";
-      else return "#B0BEC5";
+      else return "#C5CAE9";
     },
     initialize() {
       this.axios
@@ -368,6 +412,9 @@ export default {
     },
     feeRequestTo(branch_id) {
       this.$router.push("./Fee?branch_id=" + branch_id);
+    },
+    feehistoryTo(branch_id) {
+      this.$router.push("./FeeHistory?branch_id=" + branch_id);
     }
   }
 };

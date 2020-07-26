@@ -10,84 +10,72 @@
                 <v-icon small class="ma-2">mdi-chevron-right</v-icon>
                 <strong>{{$t("Navbar.Fee")}}</strong>
                 <v-icon small class="ma-2">mdi-chevron-right</v-icon>
-                <span>{{$t("Fee.Register")}}</span>
+                <span>{{$t("Fee.history")}}</span>
               </v-card-text>
             </v-card>
           </v-col>
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" class="pt-4">
             <v-card flat color="white">
               <v-card-title>
-                <span style="font-size:18px">{{$t("Fee.Register")}}</span>
+                {{$t("Fee.history")}}
                 <v-spacer />
-                 <v-btn
-                    class="text-capitalize white--text"
-                    color="#3D5AFE"
-                    depressed 
-                    small
-                    @click="show = !show"
-                  >
-                    <v-icon small color="white">{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-                    {{$t("Inspection.Search")}}
-                  </v-btn>
                 <v-tooltip bottom color="#3d5afe">
                   <template v-slot:activator="{ on }">
                     <v-btn
                       depressed
                       @click="feeListTo(branch_id)"
                       small
-                      class="ml-2 text-capitalize"
+                      fab
+                      class="ml-3"
                       color="#3d5afe"
                       dark
                       v-on="on"
                     >
-                      <v-icon small class="mr-1">mdi-buffer</v-icon> {{ $t("Fee.Fee") }}
+                      <v-icon>mdi-buffer</v-icon>
                     </v-btn>
                   </template>
                   <span>{{ $t("Fee.Fee") }}</span>
                 </v-tooltip>
               </v-card-title>
               <v-card-subtitle>
-                <v-expand-transition>
-                    <div v-show="show">
-                      <v-card-text>
-                        <v-row>
-                          <v-col cols="12" xl="4" lg="4" md="4" sm="4">
-                            <v-autocomplete
-                              :items="registers"
-                              item-text="PName"
-                              :label="$t('Province.Name')"
-                              color="#3D5AFE"
-                              v-model="provinceFilterValue"
-                            ></v-autocomplete>
-                          </v-col>
-                          <v-col cols="12" xl="4" lg="4" md="4" sm="4">
-                            <v-autocomplete
-                              :items="registers"
-                              item-text="TRName"
-                              :label="$t('Inspection.inspectonseach')"
-                              color="#3D5AFE"
-                              v-model="typeplactnoFilterValue"
-                            ></v-autocomplete>
-                          </v-col>
-                          <v-col cols="12" xl="4" lg="4" md="4" sm="4">
-                            <v-text-field
-                              class="mr-4"
-                              color="#3D5AFE"
-                              v-model="platcnoFilterValue"
-                              :label="$t('Register.Platcno')"
-                              type="text"
-                            ></v-text-field>
-                          </v-col>
-                        </v-row>
-                      </v-card-text>
-                    </div>
-                  </v-expand-transition>
+                <v-row>
+                  <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                    <v-autocomplete
+                      :items="registers"
+                      item-text="PName"
+                      :label="$t('Province.Name')"
+                      dense
+                      color="#3D5AFE"
+                      v-model="provinceFilterValue"
+                    ></v-autocomplete>
+                  </v-col>
+                  <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                    <v-autocomplete
+                      :items="registers"
+                      item-text="TRName"
+                      :label="$t('Inspection.inspectonseach')"
+                      dense
+                      color="#3D5AFE"
+                      v-model="typeplactnoFilterValue"
+                    ></v-autocomplete>
+                  </v-col>
+                  <v-col cols="12" xl="4" lg="4" md="4" sm="4">
+                    <v-text-field
+                      class="mr-4"
+                      dense
+                      color="#3D5AFE"
+                      v-model="platcnoFilterValue"
+                      :label="$t('Register.Platcno')"
+                      type="text"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
               </v-card-subtitle>
               <v-card-text>
-                <v-data-table :headers="headers" :items="registers">
+                <v-data-table :headers="headers" :items="fees">
                   <template v-slot:item.platc_no="{ item }">
-                    <v-btn small depressed width="60px" :color="getColorplatc_no(item.platc_no)">
-                      <span>{{item.platc_no}}</span>
+                    <v-btn small depressed width="80px" :color="getColorplatc_no(item.platc_no)">
+                      {{item.TRName}} {{item.platc_no}}
                     </v-btn>
                   </template>
                   <template v-slot:item.dowload="{ index, item }">
@@ -101,10 +89,13 @@
                           dark
                           v-on="on"
                           @click="PayItem(item.register_id)"
-                        >₭ {{$t("Fee.Pay")}}</v-btn>
+                        >{{$t("Fee.Pay")}}</v-btn>
                       </template>
                       <span>{{ $t("Inspection.inspectionstart") }}</span>
                     </v-tooltip>
+                  </template>
+                  <template v-slot:item.owner_name="{ item }">
+                    {{item.gender}} {{item.owner_name}}
                   </template>
                 </v-data-table>
               </v-card-text>
@@ -129,8 +120,8 @@ Vue.component("downloadCsv", JsonCSV);
 export default {
   data() {
     return {
-      show: false,
       registers: [],
+      fees:[],
       provinceFilterValue: "",
       typeplactnoFilterValue: "",
       platcnoFilterValue: ""
@@ -149,12 +140,6 @@ export default {
           value: "PName",
           width: "0px",
           filter: this.provinceFilter
-        },
-        {
-          text: "ລະຫັດ",
-          value: "TRName",
-          width: "0px",
-          filter: this.typeplatcnoFilter
         },
         {
           text: "ເລກທະບຽນ",
@@ -222,9 +207,11 @@ export default {
       else return "amber";
     },
     initialize() {
-      this.axios.get("/api/register").then(response => {
-        this.registers = response.data.registers;
-      });
+      this.axios
+        .get("/api/fee/history/branch_id/" + this.$route.query.branch_id)
+        .then(response => {
+          this.fees = response.data.fees;
+        });
     },
 
     inspectionListTo(branch_id) {

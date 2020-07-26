@@ -16,7 +16,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     }
     this.username = this.$store.getters.getUser.username;
     this.secretMessage = await AuthService.getSecretContent();
@@ -28,7 +28,8 @@ export default {
 #keep{
   font-family: 'Arial','Roboto','Vision','boonhome','Noto Sans Lao','Phetsarath OT','Saysettha OT',Roboto, Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
-  background-color: #fafafa;
+  background-color: #f9faff;
+  /* background-color: #f9faff; */
 }
 
 .li{

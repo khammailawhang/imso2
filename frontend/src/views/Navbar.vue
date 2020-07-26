@@ -17,31 +17,31 @@
       <v-spacer />
       <v-tabs show-arrows color="#3D5AFE" background-color="#3D5AFE">
         <v-tab v-if="home === '1'">
-          <v-btn link @click="toHome(branch_id)" text class="white--text">
+          <v-btn  link @click="toHome(branch_id)" text class="white--text text-capitalize">
             <v-icon small class="ma-2">mdi-view-dashboard</v-icon>
             {{ $t("Navbar.Dashboard") }}
           </v-btn>
         </v-tab>
         <v-tab v-if="register === '1'">
-          <v-btn link :to="`/${$i18n.locale}/Register`" text class="white--text">
+          <v-btn link :to="`/${$i18n.locale}/Register`" text class="white--text text-capitalize">
             <v-icon small class="ma-2">mdi-account</v-icon>
             {{ $t("Navbar.Register") }}
           </v-btn>
         </v-tab>
         <v-tab v-if="inspection === '1'">
-          <v-btn link @click="inspectionTo(branch_id)" text class="white--text">
+          <v-btn link @click="inspectionTo(branch_id)" text class="white--text text-capitalize">
             <v-icon small class="ma-2">mdi-car</v-icon>
             {{ $t("Navbar.Inspection") }}
           </v-btn>
         </v-tab>
         <v-tab v-if="fee === '1'">
-          <v-btn @click="feeRequestTo(branch_id)" text class="white--text">
+          <v-btn @click="feeRequestTo(branch_id)" text class="white--text text-capitalize">
             <v-icon small class="ma-2">mdi-currency-usd</v-icon>
             {{ $t("Navbar.Fee") }}
           </v-btn>
         </v-tab>
         <v-tab v-if="report === '1'">
-          <v-btn link @click="reportTo(branch_id)" text class="white--text">
+          <v-btn link @click="reportTo(branch_id)" text class="white--text text-capitalize">
             <v-icon small class="ma-2">mdi-chart-bar</v-icon>
             {{ $t("Navbar.Report") }}
           </v-btn>
@@ -267,7 +267,7 @@ export default {
   // },
    async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("Login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.home === "1") {
       this.username = this.$store.getters.getUser.username;
     this.home = this.$store.getters.getUser.home;
@@ -298,7 +298,7 @@ export default {
       this.secretMessage = await AuthService.getSecretContent();
     } else {
       this.$store.dispatch("logout");
-      this.$router.push("Login");
+      this.$router.push("/");
     }
   },
   methods: {
@@ -320,7 +320,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
-      this.$router.push("login");
+      this.$router.push("/");
     },
     changePasswordTo(users_id) {
       this.$router.push("ChangePassword?users_id=" + users_id);

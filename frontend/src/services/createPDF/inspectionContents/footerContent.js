@@ -28,6 +28,7 @@ export default {
                         margin: [0, 20],
                         stack: [
                             { text: 'ວັນທີ:', relativePosition: { x: -80, y: 0 } },
+                            // { text: func.getTime(data.created_at) },
                             { text: func.getTime(data.created_at) }
                         ],
 

@@ -96,7 +96,7 @@ export default {
 
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.model_create === "1") {
       this.getModel();
       this.model = this.$store.getters.getUser.model;

@@ -20,15 +20,10 @@
                             {{$t('Register.Table_Title')}}
                             <v-spacer />
                             <v-text-field flat dense solo-inverted v-model="search" append-icon="mdi-magnify" :label="$t('Register.Search')" hide-details single-line color="#3d5afe"></v-text-field>
-                            <v-btn-toggle class="ml-3" borderless dense>
+                           
                                 <v-tooltip bottom color="#3d5afe">
                                     <template v-slot:activator="{ on }">
-                                        <v-btn depressed small color="#3d5afe" v-if="register_export === '1'" v-on="on">
-                                            <download-csv :data="registers" name="Register.csv">
-                                                <v-icon small color="white">mdi-download</v-icon>
-                                            </download-csv>
-                                        </v-btn>
-                                        <v-btn depressed disabled small color="#3d5afe" v-else v-on="on">
+                                        <v-btn depressed class="ml-2" color="#3d5afe" v-if="register_export === '1'" v-on="on">
                                             <download-csv :data="registers" name="Register.csv">
                                                 <v-icon small color="white">mdi-download</v-icon>
                                             </download-csv>
@@ -39,16 +34,12 @@
 
                                 <v-tooltip bottom color="#00E676">
                                     <template v-slot:activator="{ on }">
-                                        <v-btn small depressed :to="`/${$i18n.locale}/RegisterCreate`" v-if="register_create === '1'" color="#00E676" dark v-on="on">
-                                            <v-icon small color="white">mdi-plus-thick</v-icon>
-                                        </v-btn>
-                                        <v-btn small depressed  color="#00E676" v-else v-on="on">
+                                        <v-btn class="ml-2" depressed :to="`/${$i18n.locale}/RegisterCreate`" v-if="register_create === '1'" color="#00E676" dark v-on="on">
                                             <v-icon small color="white">mdi-plus-thick</v-icon>
                                         </v-btn>
                                     </template>
                                     <span>{{ $t("Register.Create") }}</span>
                                 </v-tooltip>
-                            </v-btn-toggle>
                         </v-card-title>
                         <v-card-text>
                             <v-data-table  :headers="headers" :items="registers" :search="search">
@@ -60,24 +51,17 @@
                                     <v-chip :color="getColor(item.status)" v-else dark small>Inactive</v-chip>
                                 </template>
                                 <template v-slot:item.action="{ index, item }">
-                                    <v-btn-toggle borderless dense>
                                         <v-tooltip left color="#3d5afe">
                                             <template v-slot:activator="{ on }">
-                                                <v-btn small @click="detailItem(item.register_id)" color="#3d5afe" dark v-on="on" v-if="register_detail === '1'">
+                                                <v-btn small depressed @click="detailItem(item.register_id)" color="#3d5afe" dark v-on="on" v-if="register_detail === '1'">
                                                     <v-icon color="white" small>mdi-eye</v-icon>
-                                                </v-btn>
-                                                <v-btn small disabled color="#3d5afe" v-on="on" v-else>
-                                                    <v-icon color="black" small>mdi-eye</v-icon>
                                                 </v-btn>
                                             </template>
                                             <span>{{$t("Type.description")}}</span>
                                         </v-tooltip>
                                         <v-tooltip left color="amber">
                                             <template v-slot:activator="{ on }">
-                                                <v-btn small @click="editItem(item.register_id)" v-if="register_update === '1'" color="amber" dark v-on="on">
-                                                    <v-icon color="white" small>mdi-pencil</v-icon>
-                                                </v-btn>
-                                                <v-btn small disabled @click="editItem(item.register_id)" v-else  color="amber" v-on="on">
+                                                <v-btn small class="ml-2" depressed @click="editItem(item.register_id)" v-if="register_update === '1'" color="amber" dark v-on="on">
                                                     <v-icon color="white" small>mdi-pencil</v-icon>
                                                 </v-btn>
                                             </template>
@@ -85,22 +69,18 @@
                                         </v-tooltip>
                                         <v-tooltip right color="red">
                                             <template v-slot:activator="{ on }">
-                                                <v-btn small @click="deleteItem(item.register_id)" v-if="register_delete === '1'" color="red" dark v-on="on">
-                                                    <v-icon color="white" small>mdi-delete</v-icon>
-                                                </v-btn>
-                                                <v-btn small disabled @click="deleteItem(item.register_id)" v-else color="red"  v-on="on">
+                                                <v-btn class="ml-2" small depressed @click="deleteItem(item.register_id)" v-if="register_delete === '1'" color="red" dark v-on="on">
                                                     <v-icon color="white" small>mdi-delete</v-icon>
                                                 </v-btn>
                                             </template>
                                             <span>{{$t("Type.Delete")}}</span>
                                         </v-tooltip>
-                                    </v-btn-toggle>
                                 </template>
 
                                 <template v-slot:item.platc_no="{ item }">
                                     <v-tooltip left color="amber">
                                         <template v-slot:activator="{ on }">
-                                            <v-btn small @click="detailItem(item.register_id)" depressed :color="getColorplatc_no(item.platc_no)" v-on="on">{{ item.TRName }} {{ item.platc_no }}</v-btn>
+                                            <v-btn width="80px" small @click="detailItem(item.register_id)" depressed :color="getColorplatc_no(item.platc_no)" v-on="on">{{ item.TRName }} {{ item.platc_no }}</v-btn>
                                         </template>
                                         <span>{{$t("Type.description")}}</span>
                                     </v-tooltip>
@@ -206,7 +186,7 @@ export default {
 
     async created() {
         if (!this.$store.getters.isLoggedIn) {
-            this.$router.push("login");
+            this.$router.push("/");
         } else if (this.$store.getters.getUser.register === "1") {
             this.initialize();
             this.userId = this.$store.getters.getUser.users_id;
@@ -221,7 +201,7 @@ export default {
             this.secretMessage = await AuthService.getSecretContent();
         } else {
             this.$store.dispatch("logout");
-            this.$router.push("login");
+            this.$router.push("/");
         }
     },
 
@@ -252,7 +232,6 @@ export default {
                     .then();
                 if (res) {
                     this.registers.splice(index, 1);
-                    this.$router.replace("Register");
                 }
             }
         }

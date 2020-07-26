@@ -1,13 +1,13 @@
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from './fonts/vfs_fonts';
-import console from 'console';
-import axios from "axios";
+// import console from 'console';
+// import axios from "axios";
 import getTitle from './inspectionContents/titleContent';
 import getCar from './inspectionContents/carContent.js';
 import getInspection from './inspectionContents/inspectionContent';
 import getFooter from './inspectionContents/footerContent';
 
-
+// import indexpdfs from '../../../../backend/routes/indexpdf'
 // Import test json data;
 // import data from './mocData.json';
 // import data from '../../../../backend/data/inspectiondpdf.json';
@@ -60,34 +60,14 @@ pdfMake.fonts = {
     }
 }
 
-// Upload to Spaces in DigitalOcean
-async function uploadToSpaces(blob) {
-
-    // Add file as blob
-    const pdfFile = new File([blob], await getFilename2(), { type: 'pdf' })
-        // Create new formData
-    const formData = new FormData()
-        // Add pdf data to array of formData
-    formData.append('file', pdfFile)
-    axios.post('/pdf', formData, {
-            baseURL: 'https://photoims.sgp1.digitaloceanspaces.com'
-        })
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-}
-
 // function getFilename(value) {
 //     const current_datetime = new Date(value)
 //     const formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + "-" + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds()
 //     return (formatted_date)
 // }
 
-async function getFilename2(value) {
-    const time = new Date(value)
+async function getFilename() {
+    const time = new Date()
     const currentTime = await time.toLocaleString()
     const arrTime = await currentTime.split(' ')
     const date = await arrTime[0].split('/')
@@ -96,6 +76,7 @@ async function getFilename2(value) {
 
 export default {
     async createPDF(data) {
+        const filename = await getFilename()
         const docDefinition = {
             pageMargins: [30, 20, 30, 20], // margin: [Left, Top, Right, bottom]
             pageSize: 'A4',
@@ -103,21 +84,24 @@ export default {
                 await getTitle.titleContent(),
                 await getCar.carContent(data),
                 await getInspection.inspectionContent(data),
-                await getFooter.footerContent(data),
-
+                await getFooter.footerContent(data, filename)
             ],
             defaultStyle: {
                 font: 'Phetsarath'
             }
         }
+        const func = require('./functions/function')
         const pdfDocGenerator = await pdfMake.createPdf(docDefinition)
-            // pdfDocGenerator.download('pdfReport.pdf')
-
-        await pdfDocGenerator.open(data)
-            // Get PDF as blob for upload to server files store
-        await pdfDocGenerator.getBlob(blob => {
-            console.log(blob)
-            uploadToSpaces(blob)
+        const promise = new Promise((resolve, reject) => {
+            pdfDocGenerator.getBlob(async(blob) => {
+                const result = await func.uploadToSpaces(blob, filename)
+                if (result.response) {
+                    reject(result)
+                } else {
+                    resolve(result)
+                }
+            })
         })
+        return promise
     }
 }

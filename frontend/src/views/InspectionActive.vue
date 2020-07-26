@@ -10,15 +10,28 @@
                   <h5>{{$t("Report.InspectionActive")}}</h5>
                   <v-spacer />
                   <v-btn-toggle dense rounded>
-                    <v-btn v-if="report_report === '1'" depressed color="#3d5AFE" class="white--text text-capitalize" width="80px" @click="fetchRecords()">{{$t('Report.Search')}}</v-btn>
-                    <v-btn v-if="report_export === '1'" depressed color="#3d5AFE" dark v-on="on" width="80px" class="white--text text-capitalize">
+                    <v-btn
+                    class="text-capitalize white--text"
+                    color="#3D5AFE"
+                    depressed
+                    small
+                    @click="show = !show"
+                  >
+                    <v-icon small color="white">{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                    {{$t("Inspection.Search")}}
+                  </v-btn>
+                    <v-btn small v-if="report_report === '1'" depressed color="#3d5AFE" class="white--text text-capitalize" width="80px" @click="fetchRecords()">{{$t('Report.Search')}}</v-btn>
+                    <v-btn small v-if="report_export === '1'" depressed color="#3d5AFE" dark v-on="on" width="80px" class="white--text text-capitalize">
                       <download-csv :data="inspections" name="Inspection_Active.csv">{{$t("Report.Download")}}</download-csv>
                     </v-btn>
                   </v-btn-toggle>
                 </v-card-title>
                 <v-card-subtitle>
-                  <v-row>
-                  <v-col cols="12" xl="2" lg="3" md="4" sm="4">
+                  <v-expand-transition>
+                    <div v-show="show">
+                      <v-card-text>
+                        <v-row>
+                  <v-col cols="12" xl="2" lg="3" md="6" sm="6">
                     <v-menu
                       ref="show_start_date"
                       :close-on-content-click="false"
@@ -47,7 +60,7 @@
                       <v-date-picker color="#3d5AFE" v-model="start_date" @input="filterStartDate" scrollable></v-date-picker>
                     </v-menu>
                   </v-col>
-                  <v-col cols="12" xl="2" lg="3" md="4" sm="4">
+                  <v-col cols="12" xl="2" lg="3" md="6" sm="6">
                     <v-menu
                       ref="show_end_date"
                       :items="inspections"
@@ -76,7 +89,7 @@
                       <v-date-picker color="#3d5AFE" v-model="end_date" @input="filterEndDate"></v-date-picker>
                     </v-menu>
                   </v-col>
-                  <v-col cols="12" xl="2" lg="2" md="4" sm="4">
+                  <!-- <v-col cols="12" xl="2" lg="2" md="4" sm="4">
                     <v-select
                         :items="inspections"
                         item-text="PName"
@@ -104,13 +117,23 @@
                         :label="$t('Register.Platcno')"
                         type="text"
                       ></v-text-field>
-                  </v-col>
+                  </v-col> -->
                 </v-row>
+                      </v-card-text>
+                    </div>
+                  </v-expand-transition>
+                  
                 </v-card-subtitle>
                 <v-card-text>
                   <v-data-table class="elevation-0" :headers="headers" :items="inspections" :search="search">
                     <template v-slot:item.ວັນທີ="{ item }">
                       <v-text>{{ item.ວັນທີ | formatDate }}</v-text>
+                    </template>
+                    <template v-slot:item.ເຈົ້າຂອງລົດ="{ item }">
+                      {{item.ເພດ}} {{item.ເຈົ້າຂອງລົດ}}
+                    </template>
+                    <template v-slot:item.ເລກທະບຽນ="{ item }">
+                      <strong class="black--text">{{item.ປະເພດທະບຽນ}} {{item.ເລກທະບຽນ}}</strong>
                     </template>
                   </v-data-table>
                 </v-card-text>
@@ -135,6 +158,7 @@ Vue.use(VueAxios, axios);
 Vue.component("downloadCsv", JsonCSV);
 export default {
   data: () => ({
+    show: false,
     show_start_date: "",
     start_date: "",
     show_end_date: "",
@@ -154,10 +178,6 @@ export default {
           value: "ເຈົ້າຂອງລົດ"
         },
         {
-          text: "ເພດ",
-          value: "ເພດ"
-        },
-        {
             text: "ແຂວງ",
             value: "ແຂວງ",
             filter: this.provinceFilter
@@ -165,11 +185,6 @@ export default {
         {
             text: "ສາຂາ",
             value: "ສາຂາ"
-        },
-        {
-          text: "ປະເພດທະບຽນ",
-          value: "ປະເພດທະບຽນ",
-          filter: this.typeplatcnoFilter
         },
         {
           text: "ເລກທະບຽນ",
@@ -204,7 +219,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.report === "1") {
       this.initialize();
 
@@ -217,7 +232,7 @@ export default {
       this.secretMessage = await AuthService.getSecretContent();
     } else {
       this.$store.dispatch("logout");
-      this.$router.push("login");
+      this.$router.push("/");
     }
   },
   methods: {

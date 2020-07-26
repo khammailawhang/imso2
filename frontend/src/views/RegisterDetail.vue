@@ -5,37 +5,35 @@
         <v-row align="center" justify="center" no-gutters>
             <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12" align="left">
             <v-card dense flat color="white">
-              <v-card-text>
-                <strong>{{$t("Navbar.Dashboard")}}</strong>
+              <v-card-title>
+                <span style="font-size:12px">{{$t("Navbar.Dashboard")}}</span>
                 <v-icon small class="ma-2">mdi-chevron-right</v-icon>
-                <strong>{{$t("Navbar.Register")}}</strong>
+                <span style="font-size:12px">{{$t("Navbar.Register")}}</span>
                 <v-icon small class="ma-2">mdi-chevron-right</v-icon>
-                <span>{{$t("detail.car")}}</span>
-              </v-card-text>
+                <strong style="font-size:12px">{{$t("detail.car")}}</strong>
+                <v-spacer/>
+                <v-tooltip bottom color="#3d5afe">
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        depressed
+                        :to="`/${$i18n.locale}/Register`"
+                        small
+                        class="text-capitalize"
+                        color="#3d5afe"
+                        dark
+                        v-on="on"
+                      >
+                        <v-icon small class="mr-2">mdi-keyboard-backspace</v-icon>
+                        {{ $t("Fee.Back") }}
+                      </v-btn>
+                    </template>
+                    <span>{{ $t("Fee.Back") }}</span>
+                  </v-tooltip>
+              </v-card-title>
             </v-card>
           </v-col>
           <v-col cols="12" xl="12" lg="12" md="12" sm="12" class="pt-6">
             <v-card flat color="white">
-              <v-card-title>
-                {{ $t("detail.car") }}
-                <v-spacer />
-                <v-tooltip bottom color="#3d5afe">
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      depressed
-                      :to="`/${$i18n.locale}/Register`"
-                      fab
-                      small
-                      color="#3d5afe"
-                      dark
-                      v-on="on"
-                    >
-                      <v-icon small>mdi-undo-variant</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>{{ $t("Fee.Back") }}</span>
-                </v-tooltip>
-              </v-card-title>
               <v-card-text>
                 <v-row align="start" justify="center">
                   <v-col cols="12" xl="4" lg="4" md="4" sm="12">
@@ -344,7 +342,7 @@
                     </v-row>
                   </v-col>
 
-                  <v-col cols="12" xl="12" lg="12" md="12" sm="12">
+                  <!-- <v-col cols="12" xl="12" lg="12" md="12" sm="12">
                     <v-progress-linear color="grey darken-1" rounded value="0"></v-progress-linear>
                     <v-col cols="12">
                       <v-row>
@@ -356,11 +354,11 @@
                         <v-row></v-row>
                       </v-row>
                     </v-col>
-                  </v-col>
+                  </v-col> -->
 
-                  <v-col cols="12" xl="12" lg="12" md="12" sm="12">
-                    <v-row>
-                      <v-col cols="12" xl="3" lg="3" md="3" sm="3" xs="3" align="left">
+                  <!-- <v-col cols="12" xl="12" lg="12" md="12" sm="12">
+                    <v-row> -->
+                      <!-- <v-col cols="12" xl="3" lg="3" md="3" sm="3" xs="3" align="left">
                         {{
                         $t("detail.name")
                         }}
@@ -381,7 +379,7 @@
                       </v-col>
                       <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
                         <v-divider />
-                      </v-col>
+                      </v-col> -->
                       <!-- <v-col cols="12" xl="3" lg="3" md="3" sm="3" xs="3" align="left">{{
                 $t("detail.phone")
               }}</v-col>
@@ -396,8 +394,8 @@
                     <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
                         <v-divider />
                       </v-col>-->
-                    </v-row>
-                  </v-col>
+                    <!-- </v-row>
+                  </v-col> -->
                 </v-row>
               </v-card-text>
             </v-card>
@@ -513,7 +511,7 @@ export default {
     this.created_at = res.data.registers.created_at || "";
 
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     }
     this.username = this.$store.getters.getUser.username;
     this.name = this.$store.getters.getUser.name;

@@ -84,7 +84,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.province_create === "1") {
       this.getModel();
       this.province = this.$store.getters.getUser.province;

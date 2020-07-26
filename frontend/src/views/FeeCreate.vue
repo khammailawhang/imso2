@@ -5,7 +5,7 @@
         <v-row align="center" justify="center" no-gutters>
           <v-col cols="12" xl="6" lg="6" md="6" sm="12">
             <v-card flat color="white">
-              <v-card-title>{{ $t("Fee.savepay") }}</v-card-title>
+              <v-card-title>{{ $t("Fee.Create_Title") }}</v-card-title>
               <v-card-text>
                 <v-row>
                   <v-col cols="12" xl="12" lg="12" md="12" sm="12" hidden>
@@ -98,7 +98,7 @@
                       large
                       color="#00E676"
                       depressed
-                      class="white--text"
+                      class="white--text text-capitalize"
                       @click="save()"
                     >{{ $t("Fee.Save") }}</v-btn>
                   </v-col>
@@ -108,7 +108,7 @@
                       large
                       color="#B0BEC5"
                       depressed
-                      class="white--text"
+                      class="white--text text-capitalize"
                       @click="back(branch_id)"
                     >{{ $t("Fee.Back") }}</v-btn>
                   </v-col>
@@ -159,7 +159,7 @@ export default {
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.fee_create === "1") {
       let res = await axios.get(
         "/api/register/pay/register_id/" + this.$route.query.register_id

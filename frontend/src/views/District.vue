@@ -185,7 +185,7 @@ export default {
 
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push("login");
+      this.$router.push("/");
     } else if (this.$store.getters.getUser.district === "1") {
       this.initialize();
       this.userId = this.$store.getters.getUser.users_id;
@@ -199,7 +199,7 @@ export default {
       this.secretMessage = await AuthService.getSecretContent();
     } else {
       this.$store.dispatch("logout");
-      this.$router.push("login");
+      this.$router.push("/");
     }
   },
 
