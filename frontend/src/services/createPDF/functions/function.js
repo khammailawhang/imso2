@@ -16,7 +16,7 @@ function getTimeqr(value) {
 
 
 function dataall(value) {
-    const result = axios.get('http://localhost:9000/api/inspection/inspection_id/', value)
+    const result = axios.get('http://165.22.106.196:8080/api/inspection/inspection_id/', value)
         .then(res => {
             return res.data
         })
@@ -53,7 +53,7 @@ async function uploadToSpaces(blob, filename) {
     const formData = new FormData()
         // Add pdf data to array of formData
     formData.append('file', pdfFile)
-    const result = await axios.post('http://localhost:9000/api/indexpdf/', formData)
+    const result = await axios.post('http://165.22.106.196:8080/api/indexpdf/', formData)
         .then(res => {
             return res.data
         })
