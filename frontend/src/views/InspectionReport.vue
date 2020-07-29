@@ -39,6 +39,14 @@
                                 </v-card-text>
                             </v-card>
                         </v-tab-item>
+                           <template v-slot:item.platc_no="{ item }">
+                                    <v-tooltip left color="amber">
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn width="80px" small @click="detailItem(item.register_id)" depressed :color="getColorplatc_no(item.platc_no)" v-on="on">{{ item.TRName }} {{ item.platc_no }}</v-btn>
+                                        </template>
+                                        <span>{{$t("Type.description")}}</span>
+                                    </v-tooltip>
+                                </template>
                     </v-tabs>
                 </v-col>
             </v-row>

@@ -335,7 +335,7 @@ export default {
     size: 150,
     base64: "",
     file: "",
-    qrUrl: "http://localhost:8084/la/InspectionPrint?inspection_id="
+    // qrUrl: "http://localhost:8084/la/InspectionPrint?inspection_id="
   }),
 
   computed: {
