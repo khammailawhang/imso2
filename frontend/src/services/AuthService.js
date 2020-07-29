@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = "http://165.22.106.196:8080/api/";
+const url = "http://165.22.106.196:9000/api/";
 export default {
     login(credentials) {
         return axios

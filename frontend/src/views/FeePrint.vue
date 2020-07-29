@@ -1,127 +1,106 @@
 <template>
-  <div>
+<div>
     <v-content>
-      <v-container>
-        <v-row align="center" justify="center" no-gutters>
-          <v-col cols="12" xl="12" lg="12" md="12" sm="12">
-            <v-card flat color="white">
-              <v-card-title>
-                {{$t('Fee.Print')}}
-                <v-spacer />
-                <v-btn
-                  class="indigo--text mr-4"
-                  small
-                  depressed
-                  fab
-                  dark
-                  color="yellow"
-                  bottom
-                  @click="print"
-                >
-                  <v-icon color="#3d5afe">mdi-printer</v-icon>
-                </v-btn>
-                <v-tooltip bottom color="#3d5afe">
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      depressed
-                      @click="feeRequestTo(branch_id)"
-                      small
-                      fab
-                      color="#3d5afe"
-                      dark
-                      v-on="on"
-                    >
-                      <v-icon small>mdi-undo-variant</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>{{ $t("Inspection.Back") }}</span>
-                </v-tooltip>
-              </v-card-title>
-              <v-card-text id="print" style="font-family:Phetsarath OT">
-                <table style="font-family:Vision,Phetsarath OT" width="100%">
-                  <tr>
-                    <br />
-                    <h3
-                      align="center"
-                      style="font-family:Vision,Phetsarath OT"
-                      width="100%"
-                    >{{$t("Fee.Title")}}</h3>
-                  </tr>
-                </table>
-                <table style="font-family:Phetsarath OT" width="100%">
-                  <tbody colspan="12">
-                    <tr class="tr">
-                      <td class="td">
-                        {{
+        <v-container>
+            <v-row align="center" justify="center" no-gutters>
+                <v-col cols="12" xl="12" lg="12" md="12" sm="12">
+                    <v-card flat color="white">
+                        <v-card-title>
+                            {{$t('Fee.Print')}}
+                            <v-spacer />
+                            <v-btn class="indigo--text mr-4" small depressed fab dark color="yellow" bottom @click="print">
+                                <v-icon color="#3d5afe">mdi-printer</v-icon>
+                            </v-btn>
+                            <v-tooltip bottom color="#3d5afe">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn depressed @click="feeRequestTo(branch_id)" small fab color="#3d5afe" dark v-on="on">
+                                        <v-icon small>mdi-undo-variant</v-icon>
+                                    </v-btn>
+                                </template>
+                                <span>{{ $t("Inspection.Back") }}</span>
+                            </v-tooltip>
+                        </v-card-title>
+                        <v-card-text id="print" style="font-family:Phetsarath OT">
+                            <table style="font-family:Vision,Phetsarath OT" width="100%">
+                                <tr>
+                                    <br />
+                                    <h3 align="center" style="font-family:Vision,Phetsarath OT" width="100%">{{$t("Fee.Title")}}</h3>
+                                </tr>
+                            </table>
+                            <table style="font-family:Phetsarath OT" width="100%">
+                                <tbody colspan="12">
+                                    <tr class="tr">
+                                        <td class="td">
+                                            {{
                         $t("TR.OwnerName")
                         }}
-                      </td>
-                      <td class="td">
-                        <Strong class="indigo--text" v-text="owner_name"></Strong>
-                      </td>
-                    </tr>
-                    <tr class="tr">
-                      <td class="td">
-                        {{
+                                        </td>
+                                        <td class="td">
+                                            <Strong class="indigo--text" v-text="owner_name"></Strong>
+                                        </td>
+                                    </tr>
+                                    <tr class="tr">
+                                        <td class="td">
+                                            {{
                         $t("TR.Provice")
                         }}
-                      </td>
-                      <td class="td">
-                        <Strong class="indigo--text" v-text="PName"></Strong>
-                      </td>
-                    </tr>
-                    <tr class="tr">
-                      <td class="td">
-                        {{
+                                        </td>
+                                        <td class="td">
+                                            <Strong class="indigo--text" v-text="PName"></Strong>
+                                        </td>
+                                    </tr>
+                                    <tr class="tr">
+                                        <td class="td">
+                                            {{
                         $t("TR.ID_no")
                         }}
-                      </td>
-                      <td class="td">
-                        <Strong class="indigo--text" v-text="TRName"></Strong>
-                        <Strong class="indigo--text" v-text="platc_no"></Strong>
-                      </td>
-                    </tr>
-                    <tr class="tr">
-                      <td class="td">
-                        {{
+                                        </td>
+                                        <td class="td">
+                                            <Strong class="indigo--text" v-text="TRName"></Strong>
+                                            <Strong class="indigo--text" v-text="platc_no"></Strong>
+                                        </td>
+                                    </tr>
+                                    <tr class="tr">
+                                        <td class="td">
+                                            {{
                         $t("TR.mode")
                         }}
-                      </td>
-                      <td class="td">
-                        <Strong class="indigo--text" v-text="MName"></Strong>
-                      </td>
-                    </tr>
-                    <tr class="tr">
-                      <td class="td">
-                        {{
+                                        </td>
+                                        <td class="td">
+                                            <Strong class="indigo--text" v-text="MName"></Strong>
+                                        </td>
+                                    </tr>
+                                    <tr class="tr">
+                                        <td class="td">
+                                            {{
                         $t("TR.type")
                         }}
-                      </td>
-                      <td class="td">
-                        <Strong class="indigo--text" v-text="TName"></Strong>
-                      </td>
-                    </tr>
-                    <tr class="tr">
-                      <td class="td">
-                        {{
+                                        </td>
+                                        <td class="td">
+                                            <Strong class="indigo--text" v-text="TName"></Strong>
+                                        </td>
+                                    </tr>
+                                    <tr class="tr">
+                                        <td class="td">
+                                            {{
                         $t("FeeSetting.Price")
                         }}
-                      </td>
-                      <td class="td">
-                        <Strong class="indigo--text">
-                          <div v-format="'0,000 Kip'">{{PiName}}</div>
-                        </Strong>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
+                                        </td>
+                                        <td class="td">
+                                            <Strong class="indigo--text">
+                                                <div v-format="'0,000 Kip'">{{PiName}}</div>
+                                            </Strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
     </v-content>
-  </div>
+</div>
 </template>
 
 <script>
@@ -152,7 +131,7 @@ export default {
         chassis_no: "",
         fees: [],
         created_at: "",
-        printed:"printed",
+        printed: "printed",
 
         value: '',
         QRvalue: '',
@@ -171,7 +150,7 @@ export default {
     },
     async created() {
         let res = await axios.get("/api/fee/fee_id/" + this.$route.query.fee_id);
-          this.fee_id = res.data.fees.fee_id || "";
+        this.fee_id = res.data.fees.fee_id || "";
         this.owner_name = res.data.fees.owner_name || "";
         this.PName = res.data.fees.PName || "";
         this.DName = res.data.fees.DName || "";
@@ -210,10 +189,10 @@ export default {
         },
         print() {
             this.$htmlToPaper("print");
-             this.axios.put("/api/fee/printed",{
-            fee_id: this.$route.query.fee_id,
-            printed : this.printed
-      })
+            this.axios.put("/api/fee/printed", {
+                fee_id: this.$route.query.fee_id,
+                printed: this.printed
+            })
         },
         generateFromHTML() {
             const el = this.$refs.print;

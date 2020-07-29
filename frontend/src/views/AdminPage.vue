@@ -62,18 +62,7 @@
                           <FeePerYear />
                         </v-card>
                       </v-col>
-                        <!-- <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
-                        <FeePerDay />
-                      </v-col>
-                      <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
-                        <FeePerMonth />
-                        </v-col>-->
-                        <!-- <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
-                        <FeePerYear />
-                        </v-col>-->
-                        <!-- <v-col cols="12" xl="12" lg="12" md="12" sm="12" xs="12">
-                        <ModelPopular />
-                        </v-col>-->
+                    
                       </v-row>
                     </v-card-text>
                   </v-card>

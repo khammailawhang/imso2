@@ -458,6 +458,8 @@
         "TotalIncome": "Total Income",
         "Inspection": "Total Inspection",
         "Fee": "Fee information",
+        "Expired": "Expired",
+        "statu": "Number of vehicles Checking technical status",
         "Management": "Admin Management",
         "Title": "Bill for Fee",
         "peryear": "Total income",

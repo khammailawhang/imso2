@@ -10,7 +10,7 @@
                             <div class="d-flex flex-no-wrap justify-space-between">
                                 <div>
                                     <p class="ma-3 white--text">{{$t('Fee.Customer')}}</p>
-                                    <v-card-subtitle class="white--text" v-for="income in cars" :key="income.fee_id">ຈໍານວນ: {{income.register_id}} ຄັນ</v-card-subtitle>
+                                    <v-card-subtitle class="white--text" v-for="income in cars" :key="income.fee_id">{{income.register_id}} </v-card-subtitle>
                                 </div>
                                 <v-avatar class="ma-2" size="60" tile>
                                     <v-icon size="50" color="white">mdi-account</v-icon>
@@ -26,7 +26,7 @@
                             <div class="d-flex flex-no-wrap justify-space-between">
                                 <div>
                                     <p class="white--text ma-3">{{$t('Fee.Inspection')}}</p>
-                                    <v-card-subtitle class="white--text" v-for="item in inspections" :key="item.fee_id"> ຈໍານວນ: {{item.inspection_id}} ຄັນ</v-card-subtitle>
+                                    <v-card-subtitle class="white--text" v-for="item in inspections" :key="item.fee_id"> {{item.inspection_id}} </v-card-subtitle>
                                 </div>
                                 <v-avatar class="ma-3" size="40" tile>
                                     <v-icon size="50" color="white">mdi-car</v-icon>
