@@ -67,32 +67,46 @@
                   </template>-->
                   <template v-slot:item.action="{ index,item }">
                     <v-btn-toggle>
-                        <v-tooltip left color="#3d5afe" v-if="district_update === '1'">
-                      <template v-slot:activator="{ on }">
-                        <v-btn small color="#3d5afe"  @click="editItem(item.district_id)" depressed dark v-on="on">
-                          <v-icon small color="white">mdi-pencil</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>{{$t("District.Edit")}}</span>
-                    </v-tooltip>
-                    <v-tooltip right color="red" v-if="tdistrict_delete === '1'">
-                      <template v-slot:activator="{ on }">
-                        <v-btn small color="red" @click="deleteItem(item.district_id)" depressed dark v-on="on">
-                          <v-icon small color="white">mdi-delete</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>{{$t("District.Delete")}}</span>
-                    </v-tooltip>
+                      <v-tooltip left color="#3d5afe" v-if="district_update === '1'">
+                        <template v-slot:activator="{ on }">
+                          <v-btn
+                            small
+                            color="#3d5afe"
+                            @click="editItem(item.district_id)"
+                            depressed
+                            dark
+                            v-on="on"
+                          >
+                            <v-icon small color="white">mdi-pencil</v-icon>
+                          </v-btn>
+                        </template>
+                        <span>{{$t("District.Edit")}}</span>
+                      </v-tooltip>
+                      <v-tooltip right color="red" v-if="tdistrict_delete === '1'">
+                        <template v-slot:activator="{ on }">
+                          <v-btn
+                            small
+                            color="red"
+                            @click="deleteItem(item.district_id)"
+                            depressed
+                            dark
+                            v-on="on"
+                          >
+                            <v-icon small color="white">mdi-delete</v-icon>
+                          </v-btn>
+                        </template>
+                        <span>{{$t("District.Delete")}}</span>
+                      </v-tooltip>
                     </v-btn-toggle>
                   </template>
                   <template v-slot:no-data>
-            <v-btn
-              color="#3d5afe"
-              small
-              text
-              class="white--text"
-              @click="initialize"
-            >{{$t("District.Reload")}}</v-btn>
+                    <v-btn
+                      color="#3d5afe"
+                      small
+                      text
+                      class="white--text"
+                      @click="initialize"
+                    >{{$t("District.Reload")}}</v-btn>
                   </template>
                 </v-data-table>
               </v-card-text>
@@ -115,74 +129,28 @@ Vue.component("downloadCsv", JsonCSV);
 export default {
   data: () => ({
     search: "",
-    items: [
-      // {
-      //   text: "ໜ້າຫຼັກ",
-      //   disabled: false,
-      //   href: "/Dashboard"
-      // },
-      // {
-      //   text: "ຕັ້ງຄ່າ",
-      //   disabled: false,
-      //   href: "/Village"
-      // },
-      // {
-      //   text: "ເມືອງ",
-      //   disabled: true
-      // }
-    ],
     headers: [
       {
         text: "ຊື່ເມືອງ",
         align: "left",
         sortable: true,
         value: "DName",
-        width: "200px"
+        width: "200px",
       },
       {
         text: "ຊື່ແຂວງ",
         value: "PName",
-        width: "200px"
+        width: "200px",
       },
-      // { text: "ສະຖານະ", value: "status", width: "100px" },
       {
         text: "ຈັດການ",
         value: "action",
         width: "80px",
-        align: "right"
-      }
+        align: "right",
+      },
     ],
     districts: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      status: ""
-    },
-    defaultItem: {
-      name: "",
-      status: ""
-    }
-    // district: "",
-    // district_create: "",
-    // district_update: "",
-    // district_delete: "",
-    // district_upload: "",
-    // district_report: "",
-    // district_export: ""
   }),
-
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    }
-  },
-
-  watch: {
-    dialog(val) {
-      val || this.close();
-    }
-  },
-
   async created() {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push("/");
@@ -209,7 +177,7 @@ export default {
       else return "grey";
     },
     initialize() {
-      this.axios.get("/api/district").then(response => {
+      this.axios.get("/api/district").then((response) => {
         this.districts = response.data.districts;
       });
     },
@@ -226,12 +194,11 @@ export default {
           this.districts.splice(index, 1);
           this.$store.dispatch("setSnackbar", {
             showing: true,
-            text: "ຂໍ້ມູນຂອງທ່າຖືກລົບເປັນທີ່ຮຽບຮ້ອຍ"
+            text: "ຂໍ້ມູນຂອງທ່າຖືກລົບເປັນທີ່ຮຽບຮ້ອຍ",
           });
-          this.$router.replace("District");
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>

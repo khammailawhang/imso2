@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var db = require("../lib/db.js");
 
-var conn = require("../lib/dbconn");
+// var conn = require("../lib/dbconn");
 
 //Expired date
 // router.get("/expired/branch_id/:branch_id", async function(req, res) {
@@ -679,6 +679,7 @@ router.get("/branch_id/:branch_id", async function(req, res) {
     let row = await db("tb_inspection")
         .innerJoin("tb_branch", "tb_inspection.branch_id", "tb_branch.branch_id")
         .innerJoin("tb_fee", "tb_inspection.fee_id", "tb_fee.fee_id")
+        // .innerJoin("tb_register", "tb_inspection.fee_id", "tb_fee.register_id")
         .innerJoin("tb_register", "tb_fee.register_id", "tb_register.register_id")
         .innerJoin("tb_model", "tb_register.model_id", "tb_model.model_id")
         .innerJoin("tb_type", "tb_register.type_id", "tb_type.type_id")
@@ -1371,7 +1372,7 @@ router.post("/create", async function(req, res) {
         photo: req.body.photo,
         qr: req.body.qr,
         status: req.body.status,
-        // created_at: req.body.created_at,
+        created_at: req.body.created_at,
         expired_at: req.body.expired_date,
     });
 

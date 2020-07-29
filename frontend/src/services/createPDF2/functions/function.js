@@ -15,7 +15,6 @@ function getTime(value) {
     return (formatted_date)
 }
 
-
 function getValue(value) {
     return value === 'true' ? 'o' : 'x'
 }
@@ -28,7 +27,6 @@ function getValue1(value) {
     }
 
 }
-
 
 module.exports = {
     getTime,

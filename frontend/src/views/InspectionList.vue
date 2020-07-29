@@ -335,7 +335,7 @@ export default {
     size: 150,
     base64: "",
     file: "",
-    // qrUrl: "http://localhost:8084/la/InspectionPrint?inspection_id="
+    qrUrl: "http://localhost:8084/la/InspectionPrint?inspection_id="
   }),
 
   computed: {
@@ -513,34 +513,34 @@ export default {
   },
 
   methods: {
-    generatePDFwithQRcode() {
-      var qr = new VanillaQR({
-        // create QRcode
-        url:
-          this.qrUrl +
-          this.inspection_id +
-          "/no_id/" +
-          this.engine_no +
-          "/Date/" +
-          this.created_at
-      });
-      const imageElement = qr.toImage("jpg"); // convert QRcode to image
-      this.QRvalue = imageElement.src;
-      const doc = new jsPDF("p", "pt", "a4");
-      const width = doc.internal.pageSize.getWidth();
-      const elementHTML = document.getElementById("content");
-      const specialElementHandlers = {
-        "#elementH": function() {
-          return "";
-        }
-      };
-      doc.fromHTML(elementHTML, 5, 5, {
-        width: width,
-        elementHandlers: specialElementHandlers
-      });
-      // doc.addImage(imageElement.src, 'JPEG', (width / 1) - 50, 250, 100, 100) // import รูปเข้าไปใน pdf
-      // doc.save('test.pdf')
-    },
+    // generatePDFwithQRcode() {
+    //   var qr = new VanillaQR({
+    //     // create QRcode
+    //     url:
+    //       this.qrUrl +
+    //       this.inspection_id +
+    //       "/no_id/" +
+    //       this.engine_no +
+    //       "/Date/" +
+    //       this.created_at
+    //   });
+    //   const imageElement = qr.toImage("jpg"); // convert QRcode to image
+    //   this.QRvalue = imageElement.src;
+    //   const doc = new jsPDF("p", "pt", "a4");
+    //   const width = doc.internal.pageSize.getWidth();
+    //   const elementHTML = document.getElementById("content");
+    //   const specialElementHandlers = {
+    //     "#elementH": function() {
+    //       return "";
+    //     }
+    //   };
+    //   doc.fromHTML(elementHTML, 5, 5, {
+    //     width: width,
+    //     elementHandlers: specialElementHandlers
+    //   });
+    //   // doc.addImage(imageElement.src, 'JPEG', (width / 1) - 50, 250, 100, 100) // import รูปเข้าไปใน pdf
+    //   // doc.save('test.pdf')
+    // },
     provinceFilter(value) {
       if (!this.provinceFilterValue) {
         return 1;

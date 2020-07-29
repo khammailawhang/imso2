@@ -55,7 +55,7 @@
                                     <v-col cols="12" xl="12" lg="12" md="12" sm="12" align="left">
                                         <ValidationObserver ref="observer">
                                             <v-col cols="12" xl="12" lg="12" md="12" sm="12" align="left">
-                                                <v-btn  color="#F9A825">
+                                                <v-btn color="#F9A825">
                                                     <Strong v-text="PName"></Strong>-
                                                     <Strong v-text="TRName"></Strong>
                                                     <Strong v-text="platc_no"></Strong>
@@ -765,6 +765,9 @@ export default {
         mirror: "true",
         wiper: "true",
         printed: "",
+
+        owner_name: "",
+        gender: "",
         qr: "",
         photo: [],
 
@@ -827,7 +830,7 @@ export default {
 
         this.initialize();
         this.idcarcohc();
-        // this.inspectionListTo();
+        this.inspectionListTo();
 
         if (this.$store.getters.getUser.inspection_create === "1") {
             this.users_id = this.$store.getters.getUser.users_id;
@@ -845,7 +848,7 @@ export default {
     methods: {
         async inspectionListTo(branch_id) {
             var data = {
-               
+
                 fee_id: this.fee_id,
                 users_id: this.users_id,
                 branch_id: this.branch_id,
@@ -966,7 +969,147 @@ export default {
             this.$router.push("./InspectionStart?branch_id=" + branch_id);
         },
 
+        // onSelect() {
+        //     const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+        //     const photo = this.$refs.photo.files[0];
+        //     this.photo = photo;
+        //     if (!allowedTypes.includes(photo.type)) {
+        //         this.message = "Filetype is wrong!!";
+        //     }
+        //     if (photo.size > 500000) {
+        //         this.message = "Too large, max size allowed is 500kb";
+        //     }
+        // },
+        // inspection_id() {
 
+        // },
+        // async save() {
+        // let res = await this.axios.post("/api/inspection/create", {
+        //     register_id: this.register_id,
+        //     users_id: this.users_id,
+        //     branch_id: this.branch_id,
+        //     inspection_id: this.inspection_id,
+        //     idAcceptNo: this.idAcceptNo,
+        //     idcarcohc: this.idcarcohc,
+
+        //     brk_m: this.brk_m,
+        //     brk_s: this.brk_s,
+        //     cy_c: this.cy_c,
+        //     re_m: this.re_m,
+        //     v_w: this.v_w,
+        //     s_n: this.s_n,
+        //     handier: this.handier,
+        //     am: this.am,
+        //     side_slip: this.side_slip,
+        //     pedal: this.pedal,
+
+        //     hose: this.hose,
+        //     reservoir_tank: this.reservoir_tank,
+        //     tire: this.tire,
+        //     wheel: this.wheel,
+        //     bolt: this.bolt,
+        //     chock_absorber: this.chock_absorber,
+        //     spring: this.spring,
+        //     air_cleaner: this.air_cleaner,
+        //     fan_belt: this.fan_belt,
+        //     radiator: this.radiator,
+
+        //     carburator: this.carburator,
+        //     injection_pump: this.injection_pump,
+        //     co2: this.co2,
+        //     co: this.co,
+        //     hc: this.hc,
+        //     db: this.db,
+        //     clutch: this.clutch,
+        //     gear_lever: this.gear_lever,
+        //     drive_shaft: this.drive_shaft,
+        //     universal_join: this.universal_join,
+
+        //     muffler: this.muffler,
+        //     batterry: this.batterry,
+        //     light: this.light,
+        //     horn: this.horn,
+        //     indictor_light: this.indictor_light,
+        //     brake_light: this.brake_light,
+        //     side_light: this.side_light,
+        //     rear_light: this.rear_light,
+        //     mirror: this.mirror,
+        //     wiper: this.wiper,
+
+        //     photo: this.photo,
+        //     qr: this.qr,
+        //     status: this.status,
+        //     created_at: this.created_at
+        // });
+        // if (res) {
+        //     this.msg = res.data.msg;
+        //     this.$router.replace("InspectionList");
+        // } else {
+        //     this.msg = false
+        // }
+        // },
+        // async save() {
+        //     const formData = new FormData();
+        //     formData.append("register_id", this.register_id);
+        //     formData.append("users_id", this.users_id);
+        //     formData.append("branch_id", this.branch_id);
+        //     formData.append("idAcceptNo", this.idAcceptNo);
+        //     formData.append("idcarcohc", this.idcarcohc);
+        //     formData.append("brk_m", this.brk_m);
+        //     formData.append("brk_s", this.brk_s);
+        //     formData.append("cy_c", this.cy_c);
+        //     formData.append("re_m", this.re_m);
+        //     formData.append("v_w", this.v_w);
+        //     formData.append("s_n", this.s_n);
+        //     formData.append("handier", this.handier);
+        //     formData.append("am", this.am);
+        //     formData.append("side_slip", this.side_slip);
+        //     formData.append("pedal", this.pedal);
+        //     formData.append("hose", this.hose);
+        //     formData.append("reservoir_tank", this.reservoir_tank);
+        //     formData.append("tire", this.tire);
+        //     formData.append("wheel", this.wheel);
+        //     formData.append("bolt", this.bolt);
+        //     formData.append("chock_absorber", this.chock_absorber);
+        //     formData.append("spring", this.spring);
+        //     formData.append("prime_move", this.prime_move);
+        //     formData.append("air_cleaner", this.air_cleaner);
+        //     formData.append("fan_belt", this.fan_belt);
+        //     formData.append("radiator", this.radiator);
+        //     formData.append("carburator", this.carburator);
+        //     formData.append("injection_pump", this.injection_pump);
+        //     formData.append("co2", this.co2);
+        //     formData.append("co", this.co);
+        //     formData.append("hc", this.hc);
+        //     formData.append("gear_lever", this.gear_lever);
+        //     formData.append("clutch", this.clutch);
+        //     formData.append("drive_shaft", this.drive_shaft);
+        //     formData.append("universal_join", this.universal_join);
+        //     formData.append("muffler", this.muffler);
+        //     formData.append("db", this.db);
+        //     formData.append("batterry", this.batterry);
+        //     formData.append("light", this.light);
+        //     formData.append("horn", this.horn);
+        //     formData.append("indictor_light", this.indictor_light);
+        //     formData.append("brake_light", this.brake_light);
+        //     formData.append("side_light", this.side_light);
+        //     formData.append("rear_light", this.rear_light);
+        //     formData.append("mirror", this.mirror);
+        //     formData.append("wiper", this.wiper);
+        //     formData.append("photo", this.photo);
+        //     formData.append("status", this.status);
+
+        //     try {
+        //         await axios.post("/api/inspection1/create", formData, {
+
+        //         });
+        //         this.message = "Uploaded!!";
+        //         this.$router.push("List");
+        //     } catch (err) {
+        //         console.log(err);
+        //         this.message = err.response.data.error;
+        //     }
+        // },
     },
 };
 </script>

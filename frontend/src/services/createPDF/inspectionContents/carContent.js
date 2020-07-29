@@ -1,6 +1,6 @@
 export default {
 
-    carContent(data) {
+    carContent(data, ) {
         // const func = require('../functions/function');
         return [{
 

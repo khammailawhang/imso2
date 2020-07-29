@@ -7,7 +7,6 @@ import getCar from './inspectionContents/carContent.js';
 import getInspection from './inspectionContents/inspectionContent';
 import getFooter from './inspectionContents/footerContent';
 
-// import indexpdfs from '../../../../backend/routes/indexpdf'
 // Import test json data;
 // import data from './mocData.json';
 // import data from '../../../../backend/data/inspectiondpdf.json';

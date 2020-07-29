@@ -14,7 +14,7 @@ export default {
                     },
                     [{
                         image: data.photo,
-                        fit: [200, 250],
+                        fit: [180, 230],
                         alignment: 'center'
                     }]
                 ],
@@ -28,8 +28,8 @@ export default {
                         margin: [0, 20],
                         stack: [
                             { text: 'ວັນທີ:', relativePosition: { x: -80, y: 0 } },
-                            // { text: func.getTime(data.created_at) },
-                            { text: func.getTime(data.created_at) }
+                            // { text: func.getTime(data.created_at) }
+                            { text: func.getTime(data.expired_at) }
                         ],
 
                         fontSize: 10,

@@ -89,55 +89,16 @@ Vue.use(VueAxios, axios);
 export default {
   components: {
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
   },
   data: () => ({
-    items: [
-      // {
-      //     text: "ໜ້າຫຼັກ",
-      //     disabled: false,
-      //     href: "/Dashboard"
-      // },
-      // {
-      //     text: "ຕັ້ງຄ່າ",
-      //     disabled: false,
-      //     href: "/Village"
-      // },
-      // {
-      //     text: "ເມືອງ",
-      //     disabled: false,
-      //     href: "../District"
-      // },
-      // {
-      //     text: "ເພີ່ມເມືອງ",
-      //     disabled: true
-      // }
-    ],
-    headers: [
-      // {
-      //     text: "ຊື່ຍີ່ຫໍ້",
-      //     align: "left",
-      //     sortable: false,
-      //     value: "name"
-      // },
-      // {
-      //     text: "ສະຖານະ",
-      //     value: "status"
-      // },
-      // {
-      //     text: "ຈັດການ",
-      //     value: "action",
-      //     sortable: false
-      // }
-    ],
     snackbar: false,
     snackbarText: "",
     provinces: [],
     form: {
       name: "",
       province_id: "",
-      status: ""
-    }
+    },
   }),
 
   watch: {
@@ -145,7 +106,7 @@ export default {
       if (val.includes("filter")) {
         this.value = true;
       }
-    }
+    },
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
@@ -164,10 +125,12 @@ export default {
       const isValid = await this.$refs.observer.validate(
         this.form.province_id != false &&
           this.form.name != false &&
-          this.axios.post("/api/district/create", this.form).then(response => {
-            this.form.province_id = response.data.form.province_id;
-            this.form.name = response.data.form.name;
-          })
+          this.axios
+            .post("/api/district/create", this.form)
+            .then((response) => {
+              this.form.province_id = response.data.form.province_id;
+              this.form.name = response.data.form.name;
+            })
       );
       if (!isValid) {
         // alert("Please Save");
@@ -182,10 +145,10 @@ export default {
         (this.form.status = false);
     },
     getProvince() {
-      this.axios.get("/api/province").then(response => {
+      this.axios.get("/api/province").then((response) => {
         this.provinces = response.data.provinces;
       });
-    }
-  }
+    },
+  },
 };
 </script>

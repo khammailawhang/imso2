@@ -89,35 +89,13 @@ Vue.use(VueAxios, axios);
 export default {
   components: {
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
   },
   data() {
     return {
-      items: [
-        // {
-        //       text: "ໜ້າຫຼັກ",
-        //       disabled: false,
-        //       href: "/Dashboard"
-        //   },
-        //   {
-        //       text: "ຕັ້ງຄ່າ",
-        //       disabled: false,
-        //       href: "/Village"
-        //   },
-        //   {
-        //       text: "ເມືອງ",
-        //       disabled: false,
-        //       href: "../District"
-        //   },
-        //   {
-        //       text: "ແກ້ໄຂເມືອງ",
-        //       disabled: true
-        //   }
-      ],
       name: "",
       province_id: "",
-      status: "",
-      provinces: []
+      provinces: [],
     };
   },
   async created() {
@@ -148,7 +126,6 @@ export default {
             district_id: this.$route.query.district_id,
             province_id: this.province_id,
             name: this.name,
-            status: this.status
           }))
       );
       if (!isValid) {
@@ -162,13 +139,13 @@ export default {
       this.axios
         .get("/api/province", {
           params: {
-            province_id: 1
-          }
+            province_id: 1,
+          },
         })
-        .then(response => {
+        .then((response) => {
           this.provinces = response.data.provinces;
         });
-    }
-  }
+    },
+  },
 };
 </script>
