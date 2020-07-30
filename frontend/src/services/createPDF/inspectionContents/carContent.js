@@ -57,7 +57,7 @@ export default {
 
                         stack: [
                             { text: 'ເບີໂທລະສັບ:', fontSize: 9, lineHeight: 0.7, relativePosition: { x: 0, y: 0 } },
-                            { text: data.phone, fontSize: 9, lineHeight: 0.7, relativePosition: { x: 0, y: 0 }, margin: [42, 0, 0, 0] },
+                            { text: data.phone, fontSize: 9, lineHeight: 0.7, relativePosition: { x: 0, y: 0 }, margin: [50, 0, 0, 0] },
                             { text: '(Telephone)', fontSize: 8, margin: [0, 10] }
                         ]
                     }
