@@ -776,11 +776,6 @@ export default {
     async created() {
         let res = await axios.get("/api/inspection/inspection_id/" + this.$route.query.inspection_id);
 
-        // this.fee_id = res.data.fees.fee_id || "";
-        // this.users_id = res.data.fees.users_id || "";
-        // this.branch_id = res.data.fees.branch_id || "";
-        // this.nameu = res.data.fees.nameu || "";
-        // this.branchname = res.data.fees.branchname || "";
 
         this.SDtitle = res.data.inspections.SDtitle || "";
         this.SDvalue = res.data.inspections.SDvalue || "";
@@ -922,8 +917,8 @@ export default {
         this.initialize();
         this.idcarcohc();
         this.inspectionListTo();
-        this.chooseImage();
-        this.onSelectFile();
+        // this.chooseImage();
+        // this.onSelectFile();
         // this.updateback();
 
         if (this.$store.getters.getUser.inspection_update === "1") {
@@ -940,91 +935,7 @@ export default {
     },
 
     methods: {
-        // async inspectionListTo(branch_id) {
-        //     var data = {
-        //         inspection_id: this.$route.query.inspection_id,
-        //         fee_id: this.fee_id,
-        //         users_id: this.users_id,
-        //         branch_id: this.branch_id,
-
-        //         idAcceptNo: this.idAcceptNo,
-        //         carcohc: this.carcohc,
-
-        //         brk_m: this.brk_m,
-        //         brk_s: this.brk_s,
-        //         cy_c: this.cy_c,
-        //         re_m: this.re_m,
-        //         v_w: this.v_w,
-        //         s_n: this.s_n,
-        //         handier: this.handier,
-        //         am: this.am,
-        //         side_slip: this.side_slip,
-        //         pedal: this.pedal,
-
-        //         hose: this.hose,
-        //         reservoir_tank: this.reservoir_tank,
-        //         tire: this.tire,
-        //         wheel: this.wheel,
-        //         bolt: this.bolt,
-        //         chock_absorber: this.chock_absorber,
-        //         spring: this.spring,
-        //         air_cleaner: this.air_cleaner,
-        //         fan_belt: this.fan_belt,
-        //         radiator: this.radiator,
-
-        //         carburator: this.carburator,
-        //         injection_pump: this.injection_pump,
-        //         co2: this.co2,
-        //         co: this.co,
-        //         hc: this.hc,
-        //         clutch: this.clutch,
-        //         gear_lever: this.gear_lever,
-        //         drive_shaft: this.drive_shaft,
-        //         universal_join: this.universal_join,
-        //         muffler: this.muffler,
-
-        //         db: this.db,
-        //         batterry: this.batterry,
-        //         light: this.light,
-        //         horn: this.horn,
-        //         indictor_light: this.indictor_light,
-        //         brake_light: this.brake_light,
-        //         side_light: this.side_light,
-        //         rear_light: this.rear_light,
-        //         mirror: this.mirror,
-        //         wiper: this.wiper,
-
-        //         photo: this.photo,
-        //         qr: this.qr,
-        //         status: this.status,
-        //         created_at: this.created_at,
-        //         expired_date: this.expired_date,
-        //     }
-        //     data.qr = await createPDF.createPDF(data)
-        //     const isValid = await this.$refs.observer.validate(
-        //         this.idAcceptNo != false &&
-        //         this.carcohc != false &&
-        //         this.expired_at != false &&
-
-        //         this.axios.put("/api/inspection/update", data)
-        //     );
-        //     if (!isValid) {
-        //         // console.log("is not valid");
-        //         // alert("Please Save");
-        //     } else {
-        //         console.log("is valid");
-        //         // console.log(this.name);
-        //         // reset fields
-        //         // this.name = "";
-        //         this.$router.push("inspectionList?branch_id=" + branch_id);
-
-        //         // reset validation
-        //         // You should call it on the next frame
-        //         // requestAnimationFrame(() => {
-        //         //     this.$refs.observer.reset();
-        //         // });
-        //     }
-        // },
+   
 
         async inspectionListTo(branch_id) {
            
