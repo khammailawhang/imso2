@@ -32,8 +32,8 @@ router.post("/create", upload.single("photo"),
             console.log("file received");
             console.log(req);
             var sql =
-                "INSERT INTO tb_inspection (register_id,users_id,branch_id,idAcceptNo,idcarcohc,brk_m,brk_s,cy_c,re_m,v_w,s_n,handier,am,side_slip,pedal,hose,reservoir_tank,tire,wheel,bolt,chock_absorber,spring,air_cleaner,fan_belt,radiator,carburator,injection_pump,co2,co,hc,clutch,gear_lever,drive_shaft,universal_join,muffler,db,batterry,light,horn,indictor_light,brake_light,side_light,rear_light,mirror,wiper,photo,status,created_at) VALUES ('" +
-                req.body.register_id +
+                "INSERT INTO tb_inspection (fee_id,users_id,branch_id,idAcceptNo,idcarcohc,brk_m,brk_s,cy_c,re_m,v_w,s_n,handier,am,side_slip,pedal,hose,reservoir_tank,tire,wheel,bolt,chock_absorber,spring,air_cleaner,fan_belt,radiator,carburator,injection_pump,co2,co,hc,clutch,gear_lever,drive_shaft,universal_join,muffler,db,batterry,light,horn,indictor_light,brake_light,side_light,rear_light,mirror,wiper,photo,status,created_at) VALUES ('" +
+                req.body.fee_id +
                 "','" +
                 req.body.users_id +
                 "','" +
@@ -203,8 +203,8 @@ router.post("/created", upload.single("photo"), function(req, res) {
         console.log("file received");
         console.log(req);
         var sql =
-            "INSERT INTO tb_inspection (register_id,users_id,branch_id,idAcceptNo,idcarcohc,brk_m,brk_s,cy_c,re_m,v_w,s_n,handier,am,side_slip,pedal,hose,reservoir_tank,tire,wheel,bolt,chock_absorber,spring,air_cleaner,fan_belt,radiator,carburator,injection_pump,co2,co,hc,clutch,gear_lever,drive_shaft,universal_join,muffler,db,batterry,light,horn,indictor_light,brake_light,side_light,rear_light,mirror,wiper,photo,status,created_at) VALUES ('" +
-            req.body.register_id +
+            "INSERT INTO tb_inspection (fee_id,users_id,branch_id,idAcceptNo,idcarcohc,brk_m,brk_s,cy_c,re_m,v_w,s_n,handier,am,side_slip,pedal,hose,reservoir_tank,tire,wheel,bolt,chock_absorber,spring,air_cleaner,fan_belt,radiator,carburator,injection_pump,co2,co,hc,clutch,gear_lever,drive_shaft,universal_join,muffler,db,batterry,light,horn,indictor_light,brake_light,side_light,rear_light,mirror,wiper,qr,photo,status,created_at) VALUES ('" +
+            req.body.fee_id +
             "','" +
             req.body.users_id +
             "','" +
@@ -297,6 +297,8 @@ router.post("/created", upload.single("photo"), function(req, res) {
             req.body.wiper +
             "','" +
             req.file.filename +
+            "','" +
+            req.file.qr +
             "','" +
             req.body.status +
             "',now())";

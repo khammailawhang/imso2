@@ -5,12 +5,12 @@ export default {
                 columns: [{
                         width: 'auto',
                         stack: [
-                            { qr: 'http://178.128.23.172/la/Inspectionqr?inspection_id=data', fit: '70', alignment: 'right', relativePosition: { x: 320, y: 0 }, margin: [0, 10] }
+                            { qr: data.qr, fit: '100', alignment: 'right', relativePosition: { x: 280, y: 0 }, margin: [0, 10] }
                         ]
                     },
                     [{
                         image: data.photo,
-                        fit: [100, 150],
+                        fit: [140, 200],
                         alignment: 'right'
                     }]
                 ],

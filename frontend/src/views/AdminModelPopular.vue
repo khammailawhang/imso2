@@ -1,7 +1,6 @@
 <template>
   <div>
-    <v-content> 
-      <v-container>
+
         <v-row>
           <v-col cols="12" align="left" class="indigo--text"> 
             <h3 class="grey--text">{{$t('Report.ModelPopular')}}</h3>
@@ -17,8 +16,7 @@
             </v-hover>
           </v-col>
         </v-row>
-      </v-container>
-    </v-content>
+
   </div>
 </template>
 <script>

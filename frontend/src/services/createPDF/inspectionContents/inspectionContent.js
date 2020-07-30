@@ -1,7 +1,3 @@
-// const url = 'http://localhost:9000/api/inspection/branch_id';
-
-// import data from './inspectionContents/titleContent';
-
 export default {
 
     inspectionContent(data) {

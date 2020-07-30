@@ -20,6 +20,7 @@ router.use('/admin', require('./admin'));
 router.use("/income", require("./income"));
 router.use("/car", require("./car"));
 router.use("/indexpdf", require("./indexpdf"));
+router.use("/indexpdfedit", require("./indexpdfedit"));
 // router.use("/admin", require("./admin"));
 
 router.use('/report', require('./report'));

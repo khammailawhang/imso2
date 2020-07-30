@@ -415,6 +415,7 @@ export default {
         "/api/inspection/branch_id/" + this.$route.query.branch_id
       );
       // let res = await axios.get("/api/inspection/inspection_id/" + this.$route.query.inspection_id);
+      // this.createPDFshow(),
       // this.createPDF();
       this.createPDF2();
       // this.status();
@@ -612,7 +613,8 @@ export default {
     // PrintTwoItem(inspection_id) {
     //     this.$router.push('InspectionPrint2?inspection_id=' + inspection_id)
     // },
-    createPDF2(inspection_data) {
+
+     createPDF2(inspection_data) {
       this.axios
         .get("/api/inspection/branch_id/" + this.$route.query.branch_id)
         .then(response => {

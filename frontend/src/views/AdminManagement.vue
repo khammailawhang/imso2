@@ -1,7 +1,6 @@
 <template>
 <div class="mangement">
-    <v-content>
-        <v-container>
+  
             <v-row align="start">
                 <!-- ລາຍງານຈໍານວນລົງທະບຽນທັງໝົດ -->
                 <v-col cols="12" xl="3" lg="" md="6" sm="6" align="left">
@@ -52,8 +51,7 @@
                     </v-hover>
                 </v-col>
             </v-row>
-        </v-container>
-    </v-content>
+     
 </div>
 </template>
 

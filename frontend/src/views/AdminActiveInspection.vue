@@ -1,7 +1,6 @@
 <template>
 <div class="model">
-    <v-content>
-        <v-container>
+
             <v-row>
                 <v-col cols="12" xl="12" lg="12" md="12" sm="12">
                     <v-hover v-slot:default="{ hover }" open-delay="200">
@@ -56,8 +55,7 @@
                     </v-hover>
                 </v-col>
             </v-row>
-        </v-container>
-    </v-content>
+
 </div>
 </template>
 

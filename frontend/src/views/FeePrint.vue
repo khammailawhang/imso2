@@ -3,7 +3,7 @@
     <v-content>
         <v-container>
             <v-row align="center" justify="center" no-gutters>
-                <v-col cols="12" xl="12" lg="12" md="12" sm="12">
+                <v-col cols="6" xl="6" lg="6" md="6" sm="6">
                     <v-card flat color="white">
                         <v-card-title>
                             {{$t('Fee.Print')}}
@@ -21,23 +21,24 @@
                             </v-tooltip>
                         </v-card-title>
                         <v-card-text id="print" style="font-family:Phetsarath OT">
-                            <table style="font-family:Vision,Phetsarath OT" width="100%">
+                            <table style="font-family:Vision,Phetsarath OT" width="90%">
                                 <tr>
                                     <br />
-                                    <h3 align="center" style="font-family:Vision,Phetsarath OT" width="100%">{{$t("Fee.Title")}}</h3>
+                                    <h3 align="center" style="font-family:Vision,Phetsarath OT" width="90%">{{$t("Fee.Title")}}</h3>
                                 </tr>
                             </table>
-                            <table style="font-family:Phetsarath OT" width="100%">
-                                <tbody colspan="12">
+                            <table style="font-family:Phetsarath OT" width="80%">
+                                <tbody colspan="10">
+                                
                                     <tr class="tr">
-                                        <td class="td">
+                                         <td class="td">
                                             {{
                         $t("TR.OwnerName")
                         }}
                                         </td>
                                         <td class="td">
                                             <Strong class="indigo--text" v-text="owner_name"></Strong>
-                                        </td>
+                                        </td> 
                                     </tr>
                                     <tr class="tr">
                                         <td class="td">
@@ -92,6 +93,8 @@
                                             </Strong>
                                         </td>
                                     </tr>
+                                 
+
                                 </tbody>
                             </table>
                         </v-card-text>

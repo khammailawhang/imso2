@@ -1,98 +1,63 @@
 <template>
 <div class="model">
-    <v-content>
-        <v-container>
-            <v-row>
-                <v-col cols="12" xl="12" lg="12" md="12" sm="12">
-                    <v-hover v-slot:default="{ hover }" open-delay="200">
-                        <v-card :elevation="hover ? 0 : 0" class="mx-auto">
-                            <v-card-title>
-                                <h5>{{$t("Report.FeeReport")}}</h5>
-                                <v-spacer />
-                                <v-btn-toggle dense rounded>
-                                    <v-btn class="text-capitalize white--text" color="#3D5AFE" depressed small @click="show = !show">
-                                        <v-icon small color="white">{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-                                        {{$t("Inspection.Search")}}
-                                    </v-btn>
-                                    <v-btn small depressed color="#3D5AFE" class="white--text text-capitalize" width="80px" @click="fetchRecords()" v-if="report_report === '1'">{{$t('Report.Search')}}</v-btn>
-                                    <v-btn small v-if="report_export === '1'" depressed color="#3D5AFE" dark v-on="on" width="80px" class="white--text text-capitalize">
-                                        <download-csv :data="fees" name="Fee_Report.csv">{{$t("Report.Download")}}</download-csv>
-                                    </v-btn>
-                                </v-btn-toggle>
-                            </v-card-title>
-                            <v-card-subtitle>
-                                <v-expand-transition>
-                                    <div v-show="show">
-                                        <v-card-text>
-                                            <v-row>
-                                                <v-col cols="12" xl="2" lg="3" md="6" sm="6">
-                                                    <v-menu ref="show_start_date" :close-on-content-click="false" v-model="show_start_date" :nudge-right="40" :return-value.sync="show_start_date" lazy transition="scale-transition" offset-y full-width min-width="200px" class="red">
-                                                        <template v-slot:activator="{ on }">
-                                                            <v-text-field v-model="start_date" dense :label="$t('Report.From')" prepend-icon="mdi-calendar-month-outline" readonly color="#3D5AFE" v-bind="attrs" v-on="on"></v-text-field>
-                                                        </template>
-                                                        <v-date-picker color="#3D5AFE" v-model="start_date" @input="filterStartDate" scrollable></v-date-picker>
-                                                    </v-menu>
-                                                </v-col>
-                                                <v-col cols="12" xl="2" lg="3" md="6" sm="6">
-                                                    <v-menu ref="show_end_date" :items="inspections" :close-on-content-click="false" v-model="show_end_date" :nudge-right="40" :return-value.sync="end_date" lazy transition="scale-transition" offset-y full-width min-width="290px">
-                                                        <template v-slot:activator="{ on }">
-                                                            <v-text-field v-model="end_date" dense :label="$t('Report.End')" prepend-icon="mdi-calendar-month-outline" readonly color="#3D5AFE" v-bind="attrs" v-on="on"></v-text-field>
-                                                        </template>
-                                                        <v-date-picker color="#3D5AFE" v-model="end_date" @input="filterEndDate"></v-date-picker>
-                                                    </v-menu>
-                                                </v-col>
-                                                <!-- <v-col cols="12" xl="2" lg="2" md="4" sm="4">
-                      <v-select
-                        :items="fees"
-                        item-text="PName"
-                        :label="$t('Province.Name')"
-                        dense
-                        color="#3D5AFE"
-                        v-model="provinceFilterValue"
-                      ></v-select>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="2" md="4" sm="4">
-                      <v-select
-                        :items="fees"
-                        item-text="TRName"
-                        :label="$t('Inspection.inspectonseach')"
-                        dense
-                        color="#3D5AFE"
-                        v-model="typeplactnoFilterValue"
-                      ></v-select>
-                    </v-col>
-                    <v-col cols="12" xl="2" lg="2" md="4" sm="4">
-                      <v-text-field
-                        dense
-                        v-model="platcnoFilterValue"
-                        :label="$t('Register.Platcno')"
-                        type="text"
-                        color="#3D5AFE"
-                      ></v-text-field>
-                    </v-col> -->
-                                            </v-row>
-                                        </v-card-text>
-                                    </div>
-                                </v-expand-transition>
 
-                            </v-card-subtitle>
-                            <v-card-text>
+    <v-row>
+        <v-col cols="12" xl="12" lg="12" md="12" sm="12">
+            <v-hover v-slot:default="{ hover }" open-delay="200">
+                <v-card :elevation="hover ? 0 : 0" class="mx-auto">
+                    <v-card-title>
+                        <h5>{{$t("Report.FeeReport")}}</h5>
+                        <v-spacer />
 
-                                <v-data-table class="elevation-0" :headers="headers" :items="fees" :search="search">
-                                    <template v-slot:item.ລາຄາ="{ item }">
-                                        <v-text v-format="'0,000 Kip'">{{ item.ລາຄາ }}</v-text>
-                                    </template>
-                                    <template v-slot:item.ວັນທີ="{ item }">
-                                        <v-text>{{ item.ວັນທີ | formatDate }}</v-text>
-                                    </template>
-                                </v-data-table>
-                            </v-card-text>
-                        </v-card>
-                    </v-hover>
-                </v-col>
-            </v-row>
-        </v-container>
-    </v-content>
+                        <v-expand-transition>
+                            <div>
+                                <v-card-text>
+                                    <v-row>
+                                        <v-col cols="6" xl="6" lg="6" md="6" sm="6">
+                                            <v-menu ref="show_start_date" :close-on-content-click="false" v-model="show_start_date" :nudge-right="40" :return-value.sync="show_start_date" lazy transition="scale-transition" offset-y full-width min-width="200px" class="red">
+                                                <template v-slot:activator="{ on }">
+                                                    <v-text-field v-model="start_date" dense :label="$t('Report.From')" prepend-icon="mdi-calendar-month-outline" readonly color="#3D5AFE" v-bind="attrs" v-on="on"></v-text-field>
+                                                </template>
+                                                <v-date-picker color="#3D5AFE" v-model="start_date" @input="filterStartDate" scrollable></v-date-picker>
+                                            </v-menu>
+                                        </v-col>
+                                        <v-col cols="6" xl="6" lg="6" md="6" sm="6">
+                                            <v-menu ref="show_end_date" :items="inspections" :close-on-content-click="false" v-model="show_end_date" :nudge-right="40" :return-value.sync="end_date" lazy transition="scale-transition" offset-y full-width min-width="290px">
+                                                <template v-slot:activator="{ on }">
+                                                    <v-text-field v-model="end_date" dense :label="$t('Report.End')" prepend-icon="mdi-calendar-month-outline" readonly color="#3D5AFE" v-bind="attrs" v-on="on"></v-text-field>
+                                                </template>
+                                                <v-date-picker color="#3D5AFE" v-model="end_date" @input="filterEndDate"></v-date-picker>
+                                            </v-menu>
+                                        </v-col>
+
+                                    </v-row>
+                                </v-card-text>
+                            </div>
+                        </v-expand-transition>
+                     
+                            <v-btn small depressed color="#3D5AFE" class="white--text text-capitalize" width="80px" @click="fetchRecords()" v-if="report_report === '1'">{{$t('Report.Search')}}</v-btn>
+                            <v-btn small v-if="report_export === '1'" depressed color="#3D5AFE" dark v-on="on" width="80px" class="white--text text-capitalize">
+                                <download-csv :data="fees" name="Fee_Report.csv">{{$t("Report.Download")}}</download-csv>
+                            </v-btn>
+                     
+                    </v-card-title>
+             
+                    <v-card-text>
+
+                        <v-data-table class="elevation-0" :headers="headers" :items="fees" :search="search">
+                            <template v-slot:item.ລາຄາ="{ item }">
+                                <v-text v-format="'0,000 Kip'">{{ item.ລາຄາ }}</v-text>
+                            </template>
+                            <template v-slot:item.ວັນທີ="{ item }">
+                                <v-text>{{ item.ວັນທີ | formatDate }}</v-text>
+                            </template>
+                        </v-data-table>
+                    </v-card-text>
+                </v-card>
+            </v-hover>
+        </v-col>
+    </v-row>
+
 </div>
 </template>
 

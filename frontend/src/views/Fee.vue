@@ -173,6 +173,12 @@ export default {
           filter: this.typeFilter,
           width: "0px"
         },
+        //  {
+        //   text: "ຈໍານວນເງິນ",
+        //   value: "PiName",
+   
+        //   width: "0px"
+        // },
         {
           text: "ຈ່າຍເງິນ",
           value: "dowload",

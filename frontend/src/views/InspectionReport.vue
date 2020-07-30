@@ -5,13 +5,7 @@
             <v-row>
                 <v-col cols="12">
                     <v-tabs background-color="white" color="#3D5AFE" class="elevation-0" grow icons-and-text centered center-active height="100px" dark>
-                        <!-- <v-tab class="indigo accent-4 ma-2 white--text text-capitalize">
-                {{$t("Report.AllInspection")}}
-                <span
-                  v-for="item in inspectionsall"
-                  :key="item.inspection_id"
-                >{{item.inspection_id}}.00</span>
-              </v-tab> -->
+
                         <v-tab class="green accent-3 ma-2 white--text text-capitalize">
 
                             <span class="white--text" v-for="item in inspectionstatu" :key="item.inspection_id">{{item.inspection_id}}</span>
@@ -39,14 +33,14 @@
                                 </v-card-text>
                             </v-card>
                         </v-tab-item>
-                           <template v-slot:item.platc_no="{ item }">
-                                    <v-tooltip left color="amber">
-                                        <template v-slot:activator="{ on }">
-                                            <v-btn width="80px" small @click="detailItem(item.register_id)" depressed :color="getColorplatc_no(item.platc_no)" v-on="on">{{ item.TRName }} {{ item.platc_no }}</v-btn>
-                                        </template>
-                                        <span>{{$t("Type.description")}}</span>
-                                    </v-tooltip>
+                        <template v-slot:item.platc_no="{ item }">
+                            <v-tooltip left color="amber">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn width="80px" small @click="detailItem(item.register_id)" depressed :color="getColorplatc_no(item.platc_no)" v-on="on">{{ item.TRName }} {{ item.platc_no }}</v-btn>
                                 </template>
+                                <span>{{$t("Type.description")}}</span>
+                            </v-tooltip>
+                        </template>
                     </v-tabs>
                 </v-col>
             </v-row>

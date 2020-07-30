@@ -1,7 +1,7 @@
 export default {
 
     footerContent(data, filename) {
-        const func = require('../functions/function');
+        // const func = require('../functions/function');
 
         return [{
                 margin: [0, -10],
@@ -27,9 +27,10 @@ export default {
                     {
                         margin: [0, 20],
                         stack: [
-                            { text: 'ວັນທີ:', relativePosition: { x: -80, y: 0 } },
+                            { text: 'ວັນທີ:', relativePosition: { x: -50, y: 0 } },
                             // { text: func.getTime(data.created_at) }
-                            { text: func.getTime(data.expired_at) }
+                            { text: data.created_at },
+
                         ],
 
                         fontSize: 10,
@@ -43,7 +44,8 @@ export default {
                         width: '*',
                         stack: [
                             { text: 'ຜູ້ກວດກາຕົວຈິງ\n(Inspector)' },
-                            { text: data.nameu }
+                            { text: data.nameu },
+
                         ],
                         // text: 'ຜູ້ກວດກາຕົວຈິງ\n(Inspector)\n\n...xxxx...',
                         fontSize: 10,

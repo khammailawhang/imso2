@@ -595,16 +595,17 @@
                                                     <ValidationProvider rules="required" v-slot="{ errors }" :bails="false">
                                                         <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                                             <template v-slot:activator="{ on }">
-                                                                <v-text-field v-model="expired_date" :items="expired_at" color="#3d5afe" loading flat solo background-color="#ebedfc" dense hide-details="auto" class="li my-2" label="ເລືອກວັນທີໝົດອາຍຸກວດກາເຕັກນິກ" prepend-inner-icon="event" readonly v-on="on"></v-text-field>
+                                                                <v-text-field v-model="expired_at" :items="expired_at" color="#3d5afe" loading flat solo background-color="#ebedfc" dense hide-details="auto" class="li my-2" label="ເລືອກວັນທີໝົດອາຍຸກວດກາເຕັກນິກ" prepend-inner-icon="event" readonly v-on="on"></v-text-field>
                                                             </template>
-                                                            <v-date-picker color="#3d5afe" v-model="expired_date" @input="menu2 = false"></v-date-picker>
+                                                            <v-date-picker color="#3d5afe" v-model="expired_at" @input="menu2 = false"></v-date-picker>
                                                         </v-menu>
                                                         <ul style="color:red" class="overline text-left">
-                                                            <li v-for="(error, expired_date) in errors" :key="expired_date">
+                                                            <li v-for="(error, expired_at) in errors" :key="expired_at">
                                                                 <span class="li">{{$t("Register.date")}}</span>
                                                             </li>
                                                         </ul>
                                                     </ValidationProvider>
+
                                                 </v-col>
                                                 <v-col cols="12" xl="12" lg="4" md="4" sm="4">
                                                     <v-tooltip top color="#3d5afe" v-if="inspection_create === '1'">
@@ -638,6 +639,7 @@
                                                         <span>ລະຫັດໝາຍເຖິງລົດຄັນເຂົ້າກວດເຕັກນິກປະຈຸບັນ</span>
                                                     </v-tooltip>
                                                 </v-col>
+                                              
                                                 <v-col align="right" justify="right" cols="12" xl="12" lg="12" md="12" sm="12">
                                                     <v-tooltip bottom color="#00E676" v-if="inspection_create === '1'">
                                                         <template v-slot:activator="{ on }">
@@ -688,10 +690,10 @@ export default {
         ValidationProvider,
         ValidationObserver,
     },
-    data: () => ({
+    data: vm => ({
+        created_at: vm.formatDate(new Date().toISOString().substr(0, 10)),
+        // menu: false,
         expired_at: new Date().toISOString().substr(0, 10),
-        // menu2: false,
-
         //ຂະໝາດຮູບ
 
         rules: [
@@ -766,11 +768,7 @@ export default {
         wiper: "true",
         printed: "",
 
-        owner_name: "",
-        gender: "",
-        qr: "",
         photo: [],
-
         status: "NotPay",
         inspected: "Inspected",
         message: "",
@@ -793,9 +791,7 @@ export default {
                 align: "right",
             },
         ],
-        expired_att: [],
-        expired_date: "",
-        created_at: [],
+
         toaccess: [],
         AcceptNo: "",
         idcarcohcc: "",
@@ -803,9 +799,17 @@ export default {
         users_id: "",
         branch_id: "",
     }),
+    computed: {
+        computedDateFormatted() {
+            return this.formatDate(this.created_at)
+        },
+    },
 
     watch: {
+    
+    
         variant(val) {
+              this.created_at = this.formatDate(this.created_at)
             if (val.includes("filter")) {
                 this.value = 1;
             }
@@ -814,6 +818,13 @@ export default {
     async created() {
         let res = await axios.get("/api/fee/fee_id/" + this.$route.query.fee_id);
         this.fee_id = res.data.fees.fee_id || "";
+
+        this.users_id = res.data.fees.users_id || "";
+        this.branch_id = res.data.fees.branch_id || "";
+        this.nameu = res.data.fees.nameu || "";
+        this.branchname = res.data.fees.branchname || "";
+        this.expired_at = res.data.fees.expired_at || "";
+
         this.owner_name = res.data.fees.owner_name || "";
         this.phone = res.data.fees.phone || "";
         this.VName = res.data.fees.VName || "";
@@ -827,6 +838,18 @@ export default {
         this.CName = res.data.fees.CName || "";
         this.engine_no = res.data.fees.engine_no || "";
         this.chassis_no = res.data.fees.chassis_no || "";
+        this.steering_wheel = res.data.fees.steering_wheel || "";
+        this.fuel = res.data.fees.fuel || "";
+        this.cylinder_size_cc = res.data.fees.cylinder_size_cc || "";
+        this.cylinder = res.data.fees.cylinder || "";
+        this.width = res.data.fees.width || "";
+        this.length = res.data.fees.length || "";
+        this.height = res.data.fees.height || "";
+        this.passenger_scats = res.data.fees.passenger_scats || "";
+        this.vehicle_weight = res.data.fees.vehicle_weight || "";
+        this.max_loading = res.data.fees.max_loading || "";
+        this.steering_wheel = res.data.fees.steering_wheel || "";
+        this.total_weight = res.data.fees.total_weight || "";
 
         this.initialize();
         this.idcarcohc();
@@ -846,16 +869,55 @@ export default {
     },
 
     methods: {
+        formatDate(created_at) {
+            if (!created_at) return null
+
+            const [year, day, month] = created_at.split('-')
+            return `${month} /${day} /${year}  `
+        },
+        parseDate(created_at) {
+            if (!created_at) return null
+
+            const [day, month, year] = created_at.split('/')
+            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+        },
         async inspectionListTo(branch_id) {
             var data = {
 
                 fee_id: this.fee_id,
                 users_id: this.users_id,
                 branch_id: this.branch_id,
-                inspection_id: this.inspection_id,
 
                 idAcceptNo: this.idAcceptNo,
                 carcohc: this.carcohc,
+
+                nameu: this.nameu,
+                branchname: this.branchname,
+
+                owner_name: this.owner_name,
+                phone: this.phone,
+                VName: this.VName,
+                DName: this.DName,
+                PName: this.PName,
+                UName: this.UName,
+                TRName: this.TRName,
+                platc_no: this.platc_no,
+                MName: this.MName,
+                TName: this.TName,
+                CName: this.CName,
+                engine_no: this.engine_no,
+                chassis_no: this.chassis_no,
+                fuel: this.fuel,
+                cylinder_size_cc: this.cylinder_size_cc,
+                cylinder: this.cylinder,
+                width: this.width,
+                length: this.length,
+                height: this.height,
+                passenger_scat: this.passenger_scats,
+                vehicle_weight: this.vehicle_weight,
+                max_loading: this.max_loading,
+                steering_wheel: this.steering_wheel,
+                total_weight: this.total_weight,
 
                 brk_m: this.brk_m,
                 brk_s: this.brk_s,
@@ -905,14 +967,15 @@ export default {
                 photo: this.photo,
                 qr: this.qr,
                 status: this.status,
-                // created_at: this.created_at,
-                expired_date: this.expired_date
+                created_at: this.created_at,
+                expired_at: this.expired_at
             }
             data.qr = await createPDF.createPDF(data)
             const isValid = await this.$refs.observer.validate(
                 this.idAcceptNo != false &&
                 this.carcohc != false &&
-                this.expired_date != false &&
+                this.expired_at != false &&
+
                 this.axios.post("/api/inspection/create", data)
             );
             if (!isValid) {
@@ -969,147 +1032,7 @@ export default {
             this.$router.push("./InspectionStart?branch_id=" + branch_id);
         },
 
-        // onSelect() {
-        //     const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
-        //     const photo = this.$refs.photo.files[0];
-        //     this.photo = photo;
-        //     if (!allowedTypes.includes(photo.type)) {
-        //         this.message = "Filetype is wrong!!";
-        //     }
-        //     if (photo.size > 500000) {
-        //         this.message = "Too large, max size allowed is 500kb";
-        //     }
-        // },
-        // inspection_id() {
 
-        // },
-        // async save() {
-        // let res = await this.axios.post("/api/inspection/create", {
-        //     register_id: this.register_id,
-        //     users_id: this.users_id,
-        //     branch_id: this.branch_id,
-        //     inspection_id: this.inspection_id,
-        //     idAcceptNo: this.idAcceptNo,
-        //     idcarcohc: this.idcarcohc,
-
-        //     brk_m: this.brk_m,
-        //     brk_s: this.brk_s,
-        //     cy_c: this.cy_c,
-        //     re_m: this.re_m,
-        //     v_w: this.v_w,
-        //     s_n: this.s_n,
-        //     handier: this.handier,
-        //     am: this.am,
-        //     side_slip: this.side_slip,
-        //     pedal: this.pedal,
-
-        //     hose: this.hose,
-        //     reservoir_tank: this.reservoir_tank,
-        //     tire: this.tire,
-        //     wheel: this.wheel,
-        //     bolt: this.bolt,
-        //     chock_absorber: this.chock_absorber,
-        //     spring: this.spring,
-        //     air_cleaner: this.air_cleaner,
-        //     fan_belt: this.fan_belt,
-        //     radiator: this.radiator,
-
-        //     carburator: this.carburator,
-        //     injection_pump: this.injection_pump,
-        //     co2: this.co2,
-        //     co: this.co,
-        //     hc: this.hc,
-        //     db: this.db,
-        //     clutch: this.clutch,
-        //     gear_lever: this.gear_lever,
-        //     drive_shaft: this.drive_shaft,
-        //     universal_join: this.universal_join,
-
-        //     muffler: this.muffler,
-        //     batterry: this.batterry,
-        //     light: this.light,
-        //     horn: this.horn,
-        //     indictor_light: this.indictor_light,
-        //     brake_light: this.brake_light,
-        //     side_light: this.side_light,
-        //     rear_light: this.rear_light,
-        //     mirror: this.mirror,
-        //     wiper: this.wiper,
-
-        //     photo: this.photo,
-        //     qr: this.qr,
-        //     status: this.status,
-        //     created_at: this.created_at
-        // });
-        // if (res) {
-        //     this.msg = res.data.msg;
-        //     this.$router.replace("InspectionList");
-        // } else {
-        //     this.msg = false
-        // }
-        // },
-        // async save() {
-        //     const formData = new FormData();
-        //     formData.append("register_id", this.register_id);
-        //     formData.append("users_id", this.users_id);
-        //     formData.append("branch_id", this.branch_id);
-        //     formData.append("idAcceptNo", this.idAcceptNo);
-        //     formData.append("idcarcohc", this.idcarcohc);
-        //     formData.append("brk_m", this.brk_m);
-        //     formData.append("brk_s", this.brk_s);
-        //     formData.append("cy_c", this.cy_c);
-        //     formData.append("re_m", this.re_m);
-        //     formData.append("v_w", this.v_w);
-        //     formData.append("s_n", this.s_n);
-        //     formData.append("handier", this.handier);
-        //     formData.append("am", this.am);
-        //     formData.append("side_slip", this.side_slip);
-        //     formData.append("pedal", this.pedal);
-        //     formData.append("hose", this.hose);
-        //     formData.append("reservoir_tank", this.reservoir_tank);
-        //     formData.append("tire", this.tire);
-        //     formData.append("wheel", this.wheel);
-        //     formData.append("bolt", this.bolt);
-        //     formData.append("chock_absorber", this.chock_absorber);
-        //     formData.append("spring", this.spring);
-        //     formData.append("prime_move", this.prime_move);
-        //     formData.append("air_cleaner", this.air_cleaner);
-        //     formData.append("fan_belt", this.fan_belt);
-        //     formData.append("radiator", this.radiator);
-        //     formData.append("carburator", this.carburator);
-        //     formData.append("injection_pump", this.injection_pump);
-        //     formData.append("co2", this.co2);
-        //     formData.append("co", this.co);
-        //     formData.append("hc", this.hc);
-        //     formData.append("gear_lever", this.gear_lever);
-        //     formData.append("clutch", this.clutch);
-        //     formData.append("drive_shaft", this.drive_shaft);
-        //     formData.append("universal_join", this.universal_join);
-        //     formData.append("muffler", this.muffler);
-        //     formData.append("db", this.db);
-        //     formData.append("batterry", this.batterry);
-        //     formData.append("light", this.light);
-        //     formData.append("horn", this.horn);
-        //     formData.append("indictor_light", this.indictor_light);
-        //     formData.append("brake_light", this.brake_light);
-        //     formData.append("side_light", this.side_light);
-        //     formData.append("rear_light", this.rear_light);
-        //     formData.append("mirror", this.mirror);
-        //     formData.append("wiper", this.wiper);
-        //     formData.append("photo", this.photo);
-        //     formData.append("status", this.status);
-
-        //     try {
-        //         await axios.post("/api/inspection1/create", formData, {
-
-        //         });
-        //         this.message = "Uploaded!!";
-        //         this.$router.push("List");
-        //     } catch (err) {
-        //         console.log(err);
-        //         this.message = err.response.data.error;
-        //     }
-        // },
     },
 };
 </script>
