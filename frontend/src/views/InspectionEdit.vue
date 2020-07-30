@@ -651,7 +651,7 @@ import {
 } from "vee-validate/dist/vee-validate.full";
 
 import AuthService from "@/services/AuthService.js";
-// import createPDF from '../services/createPDF/indexedit';
+
 Vue.use(VueAxios, axios);
 
 export default {
@@ -916,7 +916,7 @@ export default {
         this.PName = res.data.inspections.PName || "";
         this.initialize();
         this.idcarcohc();
-        this.inspectionListTo();
+        // this.inspectionListTo();
         // this.chooseImage();
         // this.onSelectFile();
         // this.updateback();

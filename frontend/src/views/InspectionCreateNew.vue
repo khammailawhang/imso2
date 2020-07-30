@@ -853,7 +853,7 @@ export default {
 
         this.initialize();
         this.idcarcohc();
-        this.inspectionListTo();
+        // this.inspectionListTo();
 
         if (this.$store.getters.getUser.inspection_create === "1") {
             this.users_id = this.$store.getters.getUser.users_id;
@@ -967,7 +967,7 @@ export default {
                 photo: this.photo,
                 qr: this.qr,
                 status: this.status,
-                created_at: this.created_at,
+                // created_at: this.created_at,
                 expired_at: this.expired_at
             }
             data.qr = await createPDF.createPDF(data)

@@ -7,11 +7,11 @@ function getTime(value) {
     return (formatted_date)
 }
 
-// function getTimeqr(value) {
-//     const created_at = new Date(value)
-//     const formatted_date = created_at.getDate() + "-" + (created_at.getMonth() + 1) + "-" + created_at.getFullYear() + "-" + created_at.getHours() + ":" + created_at.getMinutes() + ":" + created_at.getSeconds()
-//     return (formatted_date)
-// }
+function getTimeqr(value) {
+    const created_at = new Date(value)
+    const formatted_date = created_at.getDate() + "-" + (created_at.getMonth() + 1) + "-" + created_at.getFullYear() + "-" + created_at.getHours() + ":" + created_at.getMinutes() + ":" + created_at.getSeconds()
+    return (formatted_date)
+}
 
 function getValue(value) {
     return value === 'true' ? 'o' : 'x'
@@ -26,11 +26,11 @@ function getValue1(value) {
 
 }
 
-// function getFilename2(value) {
-//     const created_at = new Date(value)
-//     const formatted_date = created_at.getDate() + "-" + (created_at.getMonth() + 1) + "-" + created_at.getFullYear() + "-" + created_at.getHours() + ":" + created_at.getMinutes() + ":" + created_at.getSeconds()
-//     return (formatted_date)
-// }
+function getFilename2(value) {
+    const created_at = new Date(value)
+    const formatted_date = created_at.getDate() + "-" + (created_at.getMonth() + 1) + "-" + created_at.getFullYear() + "-" + created_at.getHours() + ":" + created_at.getMinutes() + ":" + created_at.getSeconds()
+    return (formatted_date)
+}
 
 async function uploadToSpaces(blob, filename) {
     // Add file as blob
@@ -56,8 +56,8 @@ export {
     getTime,
     getValue,
     getValue1,
-    // getTimeqr,
-    // getFilename2,
+    getTimeqr,
+    getFilename2,
     uploadToSpaces
 }
 
