@@ -715,9 +715,9 @@ export default {
         show10: false,
         inspection_id: "",
         // imageData: null,
-        fee_id: "",
-        register_id: "",
-        model_id: "",
+        // fee_id: "",
+        // register_id: "",
+        // model_id: "",
         //true in table
         hidden: "true",
         hidden1: "true",
@@ -967,7 +967,7 @@ export default {
                 photo: this.photo,
                 qr: this.qr,
                 status: this.status,
-                // created_at: this.created_at,
+                created_at: this.created_at,
                 expired_at: this.expired_at
             }
             data.qr = await createPDF.createPDF(data)

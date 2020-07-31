@@ -62,7 +62,7 @@ export default {
                         ]
                     }
                 ],
-                columnGap: 10,
+                columnGap: 5,
                 relativePosition: { x: 0, y: 0 }
             }, {
                 margin: [0, 11],
@@ -120,7 +120,7 @@ export default {
                         ]
                     }
                 ],
-                columnGap: 10,
+                columnGap: 5,
                 relativePosition: { x: 0, y: 0 }
             }, {
                 margin: [0, 11],
@@ -177,7 +177,7 @@ export default {
                         ]
                     }
                 ],
-                columnGap: 10,
+                columnGap: 5,
                 relativePosition: { x: 0, y: 0 }
             }, {
                 margin: [0, 11],
@@ -223,7 +223,7 @@ export default {
                         ]
                     }
                 ],
-                columnGap: 10,
+                columnGap: 5,
                 relativePosition: { x: 0, y: 0 }
             }, {
                 margin: [0, 11],
@@ -260,7 +260,7 @@ export default {
                         ]
                     }
                 ],
-                columnGap: 10,
+                columnGap: 5,
                 relativePosition: { x: 0, y: 0 }
             }
 

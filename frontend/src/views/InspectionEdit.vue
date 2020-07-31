@@ -776,7 +776,6 @@ export default {
     async created() {
         let res = await axios.get("/api/inspection/inspection_id/" + this.$route.query.inspection_id);
 
-
         this.SDtitle = res.data.inspections.SDtitle || "";
         this.SDvalue = res.data.inspections.SDvalue || "";
         this.village_id = res.data.inspections.village_id || "";
@@ -935,7 +934,6 @@ export default {
     },
 
     methods: {
-   
 
         async inspectionListTo(branch_id) {
            
