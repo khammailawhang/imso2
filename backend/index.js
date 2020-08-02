@@ -4,8 +4,8 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
     // set up port
 const PORT = 8080
-app.use(bodyParser.json({ limit: '2000000mb' }));
-app.use(express.urlencoded({ limit: '2000000mb', extended: true }));
+app.use(bodyParser.json({ limit: '10000000mb' }));
+app.use(express.urlencoded({ limit: '10000000mb', extended: true }));
 
 app.use(cors());
 // add routes
