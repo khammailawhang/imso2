@@ -19,7 +19,7 @@
                         <v-card flat color="white">
                             <v-card-title>
                                 <span class="pr-6">{{ $t("Inspection.Edit_Title") }}</span>
-                                <v-btn depressed outlined class="grey--text" color="#90A4AE">
+                                <v-btn color="#F9A825">
                                     <Strong v-text="owner_name"></Strong>-
                                     <Strong v-text="TRName"></Strong>
                                     <Strong v-text="platc_no"></Strong>
@@ -27,8 +27,9 @@
                                 <v-spacer />
                                 <v-tooltip bottom color="#3d5afe">
                                     <template v-slot:activator="{ on }">
-                                        <v-btn depressed @click="updateback(branch_id)" small fab color="#3d5afe" dark v-on="on">
-                                            <v-icon small>mdi-undo-variant</v-icon>
+                                        <v-btn @click="inspectionTo(branch_id)" small depressed color="#3d5afe" dark v-on="on">
+                                            <v-icon small class="mr-2">mdi-keyboard-backspace</v-icon>
+                                            {{ $t("Inspection.Back") }}
                                         </v-btn>
                                     </template>
                                     <span>{{ $t("Inspection.Back") }}</span>
@@ -586,12 +587,12 @@
                                                     <ValidationProvider rules="required" v-slot="{ errors }" :bails="false">
                                                         <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                                             <template v-slot:activator="{ on }">
-                                                                <v-text-field v-model="expired_date" :items="expired_at" color="#3d5afe" loading hide-details="auto" class="li my-2" label="ເລືອກວັນທີໝົດອາຍຸກວດກາເຕັກນິກ" prepend-inner-icon="event" dense readonly flat solo background-color="#ebedfc" v-on="on"></v-text-field>
+                                                                <v-text-field v-model="expired_at" :items="expired_att" color="#3d5afe" loading hide-details="auto" class="li my-2" label="ເລືອກວັນທີໝົດອາຍຸກວດກາເຕັກນິກ" prepend-inner-icon="event" dense readonly flat solo background-color="#ebedfc" v-on="on"></v-text-field>
                                                             </template>
-                                                            <v-date-picker color="#3d5afe" v-model="expired_date" @input="menu2 = false"></v-date-picker>
+                                                            <v-date-picker color="#3d5afe" v-model="expired_at" @input="menu2 = false"></v-date-picker>
                                                         </v-menu>
                                                         <ul style="color:red" class="overline text-left">
-                                                            <li v-for="(error, expired_date) in errors" :key="expired_date">
+                                                            <li v-for="(error, expired_at) in errors" :key="expired_at">
                                                                 <span class="li">{{$t("Register.date")}}</span>
                                                             </li>
                                                         </ul>
@@ -642,7 +643,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
-// import console from "console";
+import console from "console";
 import {
     ValidationProvider
 } from "vee-validate/dist/vee-validate.full";
@@ -651,6 +652,7 @@ import {
 } from "vee-validate/dist/vee-validate.full";
 
 import AuthService from "@/services/AuthService.js";
+import createPDF from '../services/createPDF/indexe';
 
 Vue.use(VueAxios, axios);
 
@@ -659,9 +661,10 @@ export default {
         ValidationProvider,
         ValidationObserver,
     },
-    data: () => ({
+    data: vm => ({
+        created_at: vm.formatDate(new Date().toISOString().substr(0, 10)),
+        // menu: false,
         expired_at: new Date().toISOString().substr(0, 10),
-        // menu2: false,
         //ຂະໝາດຮູບ
         rules: [
             (value) =>
@@ -684,9 +687,10 @@ export default {
         hidden1: true,
         hidden2: true,
         imageData: null,
+        inspection_id: "",
 
         fee_id: "",
-        register_id: "",
+        // register_id: "",
         model_id: "",
 
         // brk_m: true,
@@ -730,7 +734,7 @@ export default {
         // rear_light: true,
         // mirror: true,
         // wiper: true,
-
+        expired_att: "",
         photo: [],
         status: "NotPay",
         message: "",
@@ -752,10 +756,6 @@ export default {
                 align: "right",
             },
         ],
-        expired_att: [],
-
-        expired_date: "",
-        created_at: [],
         toaccess: [],
         AcceptNo: "",
         idcarcohcc: "",
@@ -764,9 +764,14 @@ export default {
         branch_id: "",
         // inspections: [],
     }),
-
+    computed: {
+        computedDateFormatted() {
+            return this.formatDate(this.created_at)
+        },
+    },
     watch: {
         variant(val) {
+            this.created_at = this.formatDate(this.created_at)
             if (val.includes("filter")) {
                 this.value = true;
             }
@@ -775,10 +780,16 @@ export default {
 
     async created() {
         let res = await axios.get("/api/inspection/inspection_id/" + this.$route.query.inspection_id);
+        this.fee_id = res.data.fee_id || "";
+        this.users_id = res.data.users_id || "";
+        this.branch_id = res.data.branch_id || "";
+        this.nameu = res.data.nameu || "";
+        this.branchname = res.data.branchname || "";
 
         this.SDtitle = res.data.inspections.SDtitle || "";
         this.SDvalue = res.data.inspections.SDvalue || "";
         this.village_id = res.data.inspections.village_id || "";
+
         this.owner_name = res.data.inspections.owner_name || "";
         this.gender = res.data.inspections.gender || "";
         this.phone = res.data.inspections.phone || "";
@@ -908,10 +919,10 @@ export default {
         this.shaft_four_lose_weight =
             res.data.inspections.shaft_four_lose_weight || "";
         this.photo = res.data.inspections.photo || "";
-        this.qrcode = res.data.inspections.qrcode || "";
+        this.qr = res.data.inspections.qr || "";
         this.status = res.data.inspections.status || "";
-        this.created_at = res.data.inspections.created_at || "";
-        this.expired_at = res.data.inspections.expired_at || "";
+        // this.created_at = res.data.inspections.created_at || "";
+
         this.PName = res.data.inspections.PName || "";
         this.initialize();
         this.idcarcohc();
@@ -934,98 +945,127 @@ export default {
     },
 
     methods: {
+        formatDate(created_at) {
+            if (!created_at) return null
 
+            const [year, day, month] = created_at.split('-')
+            return `${month} /${day} /${year}  `
+        },
+        parseDate(created_at) {
+            if (!created_at) return null
+
+            const [day, month, year] = created_at.split('/')
+            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+        },
         async inspectionListTo(branch_id) {
-           
+            var data = {
+                inspection_id: this.$route.query.inspection_id,
+
+                fee_id: this.fee_id,
+                users_id: this.users_id,
+                branch_id: this.branch_id,
+
+                idAcceptNo: this.idAcceptNo,
+                carcohc: this.carcohc,
+                nameu: this.nameu,
+                branchname: this.branchname,
+
+                owner_name: this.owner_name,
+                phone: this.phone,
+                VName: this.VName,
+                DName: this.DName,
+                PName: this.PName,
+                UName: this.UName,
+                TRName: this.TRName,
+                platc_no: this.platc_no,
+                MName: this.MName,
+                TName: this.TName,
+                CName: this.CName,
+                engine_no: this.engine_no,
+                chassis_no: this.chassis_no,
+                fuel: this.fuel,
+                cylinder_size_cc: this.cylinder_size_cc,
+                cylinder: this.cylinder,
+                width: this.width,
+                length: this.length,
+                height: this.height,
+                passenger_scat: this.passenger_scats,
+                vehicle_weight: this.vehicle_weight,
+                max_loading: this.max_loading,
+                steering_wheel: this.steering_wheel,
+                total_weight: this.total_weight,
+
+                brk_m: this.brk_m,
+                brk_s: this.brk_s,
+                cy_c: this.cy_c,
+                re_m: this.re_m,
+                v_w: this.v_w,
+                s_n: this.s_n,
+                handier: this.handier,
+                am: this.am,
+                side_slip: this.side_slip,
+                pedal: this.pedal,
+
+                hose: this.hose,
+                reservoir_tank: this.reservoir_tank,
+                tire: this.tire,
+                wheel: this.wheel,
+                bolt: this.bolt,
+                chock_absorber: this.chock_absorber,
+                spring: this.spring,
+                air_cleaner: this.air_cleaner,
+                fan_belt: this.fan_belt,
+                radiator: this.radiator,
+
+                carburator: this.carburator,
+                injection_pump: this.injection_pump,
+                co2: this.co2,
+                co: this.co,
+                hc: this.hc,
+                clutch: this.clutch,
+                gear_lever: this.gear_lever,
+                drive_shaft: this.drive_shaft,
+                universal_join: this.universal_join,
+                muffler: this.muffler,
+
+                db: this.db,
+                batterry: this.batterry,
+                light: this.light,
+                horn: this.horn,
+                indictor_light: this.indictor_light,
+                brake_light: this.brake_light,
+                side_light: this.side_light,
+                rear_light: this.rear_light,
+                mirror: this.mirror,
+                wiper: this.wiper,
+
+                photo: this.photo,
+                qr: this.qr,
+                status: this.status,
+                created_at: this.created_at,
+                expired_at: this.expired_at,
+            }
+            data.qr = await createPDF.createPDF(data)
             const isValid = await this.$refs.observer.validate(
-             
                 this.idAcceptNo != true &&
                 this.carcohc != true &&
-                this.expired_date != false &&
-                
-                this.axios.put("/api/inspection/update", {
-                    inspection_id: this.$route.query.inspection_id,
+                this.expired_at != false &&
 
-                    fee_id: this.fee_id,
-                    users_id: this.users_id,
-                    branch_id: this.branch_id,
-
-                    idAcceptNo: this.idAcceptNo,
-                    carcohc: this.carcohc,
-
-                    brk_m: this.brk_m,
-                    brk_s: this.brk_s,
-                    cy_c: this.cy_c,
-                    re_m: this.re_m,
-                    v_w: this.v_w,
-                    s_n: this.s_n,
-                    handier: this.handier,
-                    am: this.am,
-                    side_slip: this.side_slip,
-                    pedal: this.pedal,
-
-                    hose: this.hose,
-                    reservoir_tank: this.reservoir_tank,
-                    tire: this.tire,
-                    wheel: this.wheel,
-                    bolt: this.bolt,
-                    chock_absorber: this.chock_absorber,
-                    spring: this.spring,
-                    air_cleaner: this.air_cleaner,
-                    fan_belt: this.fan_belt,
-                    radiator: this.radiator,
-
-                    carburator: this.carburator,
-                    injection_pump: this.injection_pump,
-                    co2: this.co2,
-                    co: this.co,
-                    hc: this.hc,
-                    clutch: this.clutch,
-                    gear_lever: this.gear_lever,
-                    drive_shaft: this.drive_shaft,
-                    universal_join: this.universal_join,
-                    muffler: this.muffler,
-
-                    db: this.db,
-                    batterry: this.batterry,
-                    light: this.light,
-                    horn: this.horn,
-                    indictor_light: this.indictor_light,
-                    brake_light: this.brake_light,
-                    side_light: this.side_light,
-                    rear_light: this.rear_light,
-                    mirror: this.mirror,
-                    wiper: this.wiper,
-
-                    photo: this.photo,
-                    qr: this.qr,
-                    status: this.status,
-                    created_at: this.created_at,
-                    expired_date: this.expired_date,
-                })
-                
+                this.axios.put("/api/inspection/update", data)
             );
-           
             if (!isValid) {
+                // console.log("is not valid");
                 // alert("Please Save");
-                // this.$router.push("inspectionList?branch_id=" + branch_id);
             } else {
-                // console.log("is valid");
-
+                console.log("is valid");
+                // console.log(this.name);
+                // reset fields
                 // this.name = "";
                 this.$router.push("inspectionList?branch_id=" + branch_id);
 
-                // reset validation
-
-                // requestAnimationFrame(() => {
-                //     this.$refs.observer.reset();
-                // });
+           
             }
         },
-
-        // inspectionListTo(branch_id) {
-        //     this.$router.push("inspectionList?branch_id=" + branch_id);
-        // },
 
         initialize() {
             this.axios.get("/api/inspection/toaccess").then((response) => {
@@ -1070,10 +1110,9 @@ export default {
         //         this.message = "Too large, max size allowed is 500kb";
         //     }
         // },
-        async updateback(branch_id) {
+        async inspectionTo(branch_id) {
             let res = await this.axios.put("/api/inspection/update", {
                 inspection_id: this.$route.query.inspection_id,
-
                 fee_id: this.fee_id,
                 users_id: this.users_id,
                 branch_id: this.branch_id,
@@ -1083,6 +1122,7 @@ export default {
                 this.$router.push("inspectionList?branch_id=" + branch_id);
             }
         },
+        
     },
 };
 </script>

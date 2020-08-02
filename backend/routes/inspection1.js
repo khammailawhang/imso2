@@ -127,6 +127,8 @@ router.post("/create", upload.single("photo"),
                 "','" +
                 req.file.filename +
                 "','" +
+                req.file.qr +
+                "','" +
                 req.body.status +
                 "',now())";
             var query = db.query(sql, function(err, rs) {
@@ -138,60 +140,60 @@ router.post("/create", upload.single("photo"),
 // ໜ້າແກ້ໄຂກວດເຕັກນິກໃໝ່
 
 
-// router.put('/update', async function(req, res) {
-//     await db('tb_inspection').where({ inspection_id: req.body.inspection_id }).update({
-//         register_id: req.body.register_id,
+router.put('/update', async function(req, res) {
+    await db('tb_inspection').where({ inspection_id: req.body.inspection_id }).update({
+        register_id: req.body.register_id,
 
-//         brk_m: req.body.brk_m,
-//         brk_s: req.body.brk_s,
-//         cy_c: req.body.cy_c,
-//         re_m: req.body.re_m,
-//         v_w: req.body.v_w,
-//         s_n: req.body.s_n,
-//         handier: req.body.handier,
-//         am: req.body.am,
-//         side_slip: req.body.side_slip,
-//         pedal: req.body.pedal,
+        brk_m: req.body.brk_m,
+        brk_s: req.body.brk_s,
+        cy_c: req.body.cy_c,
+        re_m: req.body.re_m,
+        v_w: req.body.v_w,
+        s_n: req.body.s_n,
+        handier: req.body.handier,
+        am: req.body.am,
+        side_slip: req.body.side_slip,
+        pedal: req.body.pedal,
 
-//         hose: req.body.hose,
-//         reservoir_tank: req.body.reservoir_tank,
-//         tire: req.body.tire,
-//         wheel: req.body.wheel,
-//         bolt: req.body.bolt,
-//         chock_absorber: req.body.chock_absorber,
-//         spring: req.body.spring,
-//         air_cleaner: req.body.air_cleaner,
-//         fan_belt: req.body.fan_belt,
-//         radiator: req.body.radiator,
+        hose: req.body.hose,
+        reservoir_tank: req.body.reservoir_tank,
+        tire: req.body.tire,
+        wheel: req.body.wheel,
+        bolt: req.body.bolt,
+        chock_absorber: req.body.chock_absorber,
+        spring: req.body.spring,
+        air_cleaner: req.body.air_cleaner,
+        fan_belt: req.body.fan_belt,
+        radiator: req.body.radiator,
 
-//         carburator: req.body.carburator,
-//         injection_pump: req.body.injection_pump,
-//         co: req.body.co,
-//         hc: req.body.hc,
-//         opacity: req.body.opacity,
-//         clutch: req.body.clutch,
-//         gear_lever: req.body.gear_lever,
-//         drive_shaft: req.body.drive_shaft,
-//         universal_join: req.body.universal_join,
-//         muffler: req.body.muffler,
+        carburator: req.body.carburator,
+        injection_pump: req.body.injection_pump,
+        co: req.body.co,
+        hc: req.body.hc,
+        opacity: req.body.opacity,
+        clutch: req.body.clutch,
+        gear_lever: req.body.gear_lever,
+        drive_shaft: req.body.drive_shaft,
+        universal_join: req.body.universal_join,
+        muffler: req.body.muffler,
 
-//         db: req.body.db,
-//         batterry: req.body.batterry,
-//         light: req.body.light,
-//         horn: req.body.horn,
-//         indictor_light: req.body.indictor_light,
-//         brake_light: req.body.brake_light,
-//         side_light: req.body.side_light,
-//         rear_light: req.body.rear_light,
-//         mirror: req.body.mirror,
-//         wiper: req.body.wiper,
+        db: req.body.db,
+        batterry: req.body.batterry,
+        light: req.body.light,
+        horn: req.body.horn,
+        indictor_light: req.body.indictor_light,
+        brake_light: req.body.brake_light,
+        side_light: req.body.side_light,
+        rear_light: req.body.rear_light,
+        mirror: req.body.mirror,
+        wiper: req.body.wiper,
 
-//         photo: req.body.photo,
-//         status: req.body.status,
+        photo: req.body.photo,
+        status: req.body.status,
 
-//     })
-//     res.send({ ok: true })
-// })
+    })
+    res.send({ ok: true })
+})
 
 router.post("/created", upload.single("photo"), function(req, res) {
     message: "Error! in image upload.";

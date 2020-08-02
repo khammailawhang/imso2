@@ -162,7 +162,7 @@ export default {
 
                         stack: [
                             { text: 'ເລກຈັກ:', fontSize: 9, lineHeight: 0.7, relativePosition: { x: 0, y: 0 } },
-                            { text: data.engine_no, fontSize: 9, lineHeight: 0.7, relativePosition: { x: 0, y: 0 }, margin: [30, 0, 0, 0] },
+                            { text: data.engine_no, fontSize: 6.5, lineHeight: 0.7, relativePosition: { x: 0, y: 0 }, margin: [30, 2, 0, 0] },
                             { text: '(Engine No)', fontSize: 8, margin: [0, 10] }
                         ]
                     },
@@ -172,7 +172,7 @@ export default {
 
                         stack: [
                             { text: 'ເລກຖັງ:', fontSize: 9, lineHeight: 0.7, relativePosition: { x: 0, y: 0 } },
-                            { text: data.chassis_no, fontSize: 9, lineHeight: 0.7, relativePosition: { x: 0, y: 0 }, margin: [30, 0, 0, 0] },
+                            { text: data.chassis_no, fontSize: 6.5, lineHeight: 0.7, relativePosition: { x: 0, y: 0 }, margin: [30, 2, 0, 0] },
                             { text: '(Chassic No)', fontSize: 8, margin: [0, 10] }
                         ]
                     }

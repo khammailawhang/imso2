@@ -67,7 +67,7 @@
             :items="organizations"
             :search="search"
           >
-          <template v-slot:item.logo="{item}">
+          <template v-slot:item.logo="{}">
               <v-img
                 src="logo" width="80px" height="80px"
               ></v-img>

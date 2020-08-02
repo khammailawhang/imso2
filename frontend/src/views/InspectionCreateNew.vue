@@ -815,6 +815,7 @@ export default {
             }
         },
     },
+   
     async created() {
         let res = await axios.get("/api/fee/fee_id/" + this.$route.query.fee_id);
         this.fee_id = res.data.fees.fee_id || "";

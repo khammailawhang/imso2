@@ -51,6 +51,7 @@ export default {
                         fontSize: 10,
                         alignment: 'center'
                     },
+
                     {
                         width: '*',
                         stack: [

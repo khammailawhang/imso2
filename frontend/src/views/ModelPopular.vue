@@ -25,16 +25,28 @@
 import Vue from "vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
-// import numeral from "numeral";
+import { Doughnut } from 'vue-chartjs';
+
 import randomColor from 'randomcolor';
 Vue.use(VueAxios, axios);
 
-import numeral from "numeral";
+// import numeral from "numeral";
 import LineChart from "@/components/ModelPopular.vue";
-Vue.filter("formatNumber", function(value) {
-  return numeral(value).format("0,0.00");
-});
+// Vue.filter("formatNumber", function(value) {
+//   return numeral(value).format("0,0.00");
+// });
 export default {
+  extends: Doughnut,
+  props: {
+    chartdata: {
+      type: Object,
+      default: null
+    }, 
+    options: {
+      type: Object,
+      default: null
+    }
+  },
   components: { LineChart },
   data: () => ({
     loaded: false,

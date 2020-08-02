@@ -990,67 +990,68 @@ router.post("/create", async function(req, res) {
 });
 
 router.put("/update", async function(req, res) {
-    await db("tb_inspection")
-        .where({ inspection_id: req.body.inspection_id })
-        .update({
-            fee_id: req.body.fee_id,
-            users_id: req.body.users_id,
-            branch_id: req.body.branch_id,
-            idAcceptNo: req.body.idAcceptNo,
-            idcarcohc: req.body.idcarcohc,
 
-            brk_m: req.body.brk_m,
-            brk_s: req.body.brk_s,
-            cy_c: req.body.cy_c,
-            re_m: req.body.re_m,
-            v_w: req.body.v_w,
-            s_n: req.body.s_n,
-            handier: req.body.handier,
-            am: req.body.am,
-            side_slip: req.body.side_slip,
-            pedal: req.body.pedal,
 
-            hose: req.body.hose,
-            reservoir_tank: req.body.reservoir_tank,
-            tire: req.body.tire,
-            wheel: req.body.wheel,
-            bolt: req.body.bolt,
-            chock_absorber: req.body.chock_absorber,
-            spring: req.body.spring,
-            air_cleaner: req.body.air_cleaner,
-            fan_belt: req.body.fan_belt,
-            radiator: req.body.radiator,
+    await db("tb_inspection").where({ inspection_id: req.body.inspection_id }).update({
+        fee_id: req.body.fee_id,
+        users_id: req.body.users_id,
+        branch_id: req.body.branch_id,
+        idAcceptNo: req.body.idAcceptNo,
+        idcarcohc: req.body.idcarcohc,
 
-            carburator: req.body.carburator,
-            injection_pump: req.body.injection_pump,
-            co2: req.body.co2,
-            co: req.body.co,
-            hc: req.body.hc,
-            opacity: req.body.opacity,
-            clutch: req.body.clutch,
-            gear_lever: req.body.gear_lever,
-            drive_shaft: req.body.drive_shaft,
-            universal_join: req.body.universal_join,
+        brk_m: req.body.brk_m,
+        brk_s: req.body.brk_s,
+        cy_c: req.body.cy_c,
+        re_m: req.body.re_m,
+        v_w: req.body.v_w,
+        s_n: req.body.s_n,
+        handier: req.body.handier,
+        am: req.body.am,
+        side_slip: req.body.side_slip,
+        pedal: req.body.pedal,
 
-            muffler: req.body.muffler,
-            db: req.body.db,
-            batterry: req.body.batterry,
-            light: req.body.light,
-            horn: req.body.horn,
-            indictor_light: req.body.indictor_light,
-            brake_light: req.body.brake_light,
-            side_light: req.body.side_light,
-            rear_light: req.body.rear_light,
-            mirror: req.body.mirror,
-            wiper: req.body.wiper,
-            // inspected: req.body.inspected,
-            photo: req.body.photo,
-            qr: req.body.qr,
-            status: req.body.status,
-            printed: req.body.printed,
-            created_at: req.body.created_at,
-            expired_at: req.body.expired_at,
-        });
+        hose: req.body.hose,
+        reservoir_tank: req.body.reservoir_tank,
+        tire: req.body.tire,
+        wheel: req.body.wheel,
+        bolt: req.body.bolt,
+        chock_absorber: req.body.chock_absorber,
+        spring: req.body.spring,
+        air_cleaner: req.body.air_cleaner,
+        fan_belt: req.body.fan_belt,
+        radiator: req.body.radiator,
+
+        carburator: req.body.carburator,
+        injection_pump: req.body.injection_pump,
+        co2: req.body.co2,
+        co: req.body.co,
+        hc: req.body.hc,
+        opacity: req.body.opacity,
+        clutch: req.body.clutch,
+        gear_lever: req.body.gear_lever,
+        drive_shaft: req.body.drive_shaft,
+        universal_join: req.body.universal_join,
+
+        muffler: req.body.muffler,
+        db: req.body.db,
+        batterry: req.body.batterry,
+        light: req.body.light,
+        horn: req.body.horn,
+        indictor_light: req.body.indictor_light,
+        brake_light: req.body.brake_light,
+        side_light: req.body.side_light,
+        rear_light: req.body.rear_light,
+        mirror: req.body.mirror,
+        wiper: req.body.wiper,
+
+        inspected: req.body.inspected,
+        photo: req.body.photo,
+        qr: req.body.qr,
+        status: req.body.status,
+        printed: req.body.printed,
+        // created_at: req.body.created_at,
+        expired_at: req.body.expired_at,
+    });
     return res.send({ ok: true });
 });
 
@@ -1074,39 +1075,15 @@ router.get("/inspection_id/:inspection_id", async function(req, res) {
         .innerJoin("tb_register", "tb_fee.register_id", "tb_register.register_id")
         .innerJoin("tb_model", "tb_register.model_id", "tb_model.model_id")
         .innerJoin("tb_type", "tb_register.type_id", "tb_type.type_id")
-        .innerJoin(
-            "tb_type_register",
-            "tb_register.tr_id",
-            "tb_type_register.tr_id"
-        )
+        .innerJoin("tb_type_register", "tb_register.tr_id", "tb_type_register.tr_id")
         .innerJoin("tb_color", "tb_register.color_id", "tb_color.color_id")
-        .innerJoin(
-            "tb_province",
-            "tb_register.province_id",
-            "tb_province.province_id"
-        )
+        .innerJoin("tb_province", "tb_register.province_id", "tb_province.province_id")
         .innerJoin("tb_use", "tb_register.use_id", "tb_use.use_id")
         .innerJoin("users", "tb_inspection.users_id", "users.users_id")
-        .innerJoin(
-            "tb_district",
-            "tb_register.district_id",
-            "tb_district.district_id"
-        )
-        .innerJoin(
-            "tb_village",
-            "tb_register.village_id",
-            "tb_village.village_id"
-        )
-        .innerJoin(
-            "tablecarcohc",
-            "tb_inspection.idcarcohc",
-            "tablecarcohc.idcarcohc"
-        )
-        .innerJoin(
-            "tablecardata",
-            "tb_inspection.idAcceptNo",
-            "tablecardata.idAcceptNo"
-        )
+        .innerJoin("tb_district", "tb_register.district_id", "tb_district.district_id")
+        .innerJoin("tb_village", "tb_register.village_id", "tb_village.village_id")
+        .innerJoin("tablecarcohc", "tb_inspection.idcarcohc", "tablecarcohc.idcarcohc")
+        .innerJoin("tablecardata", "tb_inspection.idAcceptNo", "tablecardata.idAcceptNo")
         .select(
             "tb_register.register_id as register_id",
             "tb_register.owner_name as owner_name",
