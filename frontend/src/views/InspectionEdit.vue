@@ -44,7 +44,7 @@
                                                     <v-icon style="font-size:90px">mdi-camera</v-icon>
                                                 </span>
 
-                                                <input accept="image/png, image/jpeg, image/bmp" class="file-input" ref="photo" type="file" @input="onSelectFile" />
+                                                <input accept="image/png, image/jpeg, image/bmp, image/jpg" class="file-input" ref="photo" type="file" @input="onSelectFile" />
 
                                                 <input type="text" v-model="photo" hidden />
                                             </div>
