@@ -669,7 +669,7 @@ export default {
         rules: [
             (value) =>
             !value ||
-            value.size < 20000000 ||
+            value.size < 200000000 ||
             "Avatar size should be less than 200 MB!",
         ],
         show: false,
