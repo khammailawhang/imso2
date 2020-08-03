@@ -34,7 +34,7 @@
                                 <ValidationProvider rules="required" v-slot="{ errors }" :v-model="tr_id" :bails="false">
                                     <v-col cols="12" align="center">
                                         <v-card ref="form" flat outlined width="240px" height="160px">
-                                            <div class="base-image-input pt-1" :style="{ 'background-image': `url(${imageData})` }" @click="chooseImage">
+                                            <div class="" :style="{ 'background-image': `url(${imageData})` }" @click="chooseImage">
                                                 <span v-if="!imageData" prepend-icon="mdi-camera" class="placeholder">
                                                     <v-icon color="#3d5afe" style="font-size:130px">mdi-camera</v-icon>
                                                 </span>
