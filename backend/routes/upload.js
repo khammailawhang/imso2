@@ -7,7 +7,7 @@ const mysql = require("mysql");
 
 app.use(cors())
 app.use(express.static('./1'))
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.json({ limit: '100mb' }));
 
 app.post('/upload', (req, res) => {
     const { image } = req.body;
